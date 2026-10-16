@@ -42,10 +42,24 @@ The project is **methods-focused**: the core contribution is a rigorous comparis
 | Source | Tool | Target size | Metadata kept |
 |---|---|---|---|
 | Google Play reviews (Spotify, `com.spotify.music`) | `google-play-scraper` | 10–20k | text, star rating, thumbs-up count, date, app version |
-| Reddit r/spotify (posts + top-level comments) | PRAW (official API) | 5–10k | text, score (upvotes), date, post flair, type (post/comment) |
+| Reddit r/spotify (posts + top-level comments) | [Arctic Shift](https://github.com/ArthurHeitmann/arctic_shift) archive API (no key needed) | 5–10k | text, score (upvotes), date, post flair, type (post/comment) |
 | *(optional)* Apple App Store reviews | iTunes RSS feed | ≤ 500 per country | text, rating, date |
 
 Time window: roughly the last 12–18 months, so trends are meaningful.
+
+> **Why not the official Reddit API?** Since Reddit's *Responsible Builder Policy*, new API apps require manual approval, which is slow and often denied for personal/academic use. Arctic Shift mirrors Reddit content and exposes a public search API. r/spotify contains heavy playlist-promotion spam, which must be filtered during cleaning (and is itself a social-text noise point for the report).
+
+### 3.1b LLM providers
+
+All free tiers, accessed through OpenAI-compatible endpoints by a single client (`src/frminer/llm/`):
+
+| Profile | Provider | Model | Free limit (observed) |
+|---|---|---|---|
+| `primary` | Google AI Studio | `gemini-3.5-flash-lite` | generous; ~5–15 s latency |
+| `secondary` | Groq | `openai/gpt-oss-20b` | 1,000 req/day, 8k tokens/min |
+| `tertiary` | OpenRouter | `nvidia/nemotron-3-super-120b-a12b:free` | 50 req/day |
+
+Models are pinned (no auto-routers) and there is no silent fallback between profiles, so every reported result comes from exactly the model it names. Multiple items are batched per request to stay within quotas.
 
 ### 3.2 Preprocessing
 
@@ -227,12 +241,12 @@ There's also a **labelling app** (`apps/labeller.py`), a small Streamlit tool fo
 | Python | 3.12 (managed by `uv`) |
 | Env / deps | `uv` + `pyproject.toml` |
 | Data | pandas, pyarrow (Parquet) |
-| Scraping | `google-play-scraper`, `praw` |
+| Scraping | `google-play-scraper`, Arctic Shift API (`httpx`) |
 | NLP | spaCy (`en_core_web_sm`), `lingua`/`langdetect` |
 | Classical ML | scikit-learn |
 | Transformers | `sentence-transformers`, `setfit` (CPU) |
 | Clustering | `umap-learn`, `hdbscan`, `bertopic` |
-| LLM | OpenRouter (OpenAI-compatible API via `openai` SDK), model configurable |
+| LLM | Gemini, Groq, OpenRouter free tiers (OpenAI-compatible API via `openai` SDK), SQLite response cache |
 | Dashboard | Streamlit, Plotly |
 | Quality | ruff, pytest, GitHub Actions CI (lint + unit tests) |
 | Report | Markdown/LaTeX; figures exported to `reports/figures/` |
@@ -247,7 +261,7 @@ social-text-project/
 ├── README.md
 ├── pyproject.toml
 ├── Makefile                    # make setup | scrape | pipeline | dashboard | test
-├── .env.example                # OPENROUTER_API_KEY, REDDIT_CLIENT_ID, ...
+├── .env.example                # OPENROUTER_API_KEY, GEMINI_KEY, GROQ_KEY
 ├── configs/
 │   └── config.yaml             # models, thresholds, weights, paths
 ├── annotations/
@@ -284,14 +298,14 @@ social-text-project/
 Each phase = one PR merged into `main`. Days are approximate.
 
 ### Phase 0: Setup *(Day 1)*
-- [ ] `uv` project, `pyproject.toml`, Makefile, config, `.env.example`
-- [ ] OpenRouter client with disk cache, retries, rate limiting, cost tracking
-- [ ] ruff + pytest + GitHub Actions CI
+- [x] `uv` project, `pyproject.toml`, Makefile, config, `.env.example`
+- [x] Multi-provider LLM client (Gemini / Groq / OpenRouter) with SQLite cache, retries, throttling, daily quota tracking, token + latency logging
+- [x] ruff + pytest + GitHub Actions CI
 - **Done when:** `make setup && make test` passes; a test LLM call is cached.
 
 ### Phase 1: Data collection & EDA *(Day 1–2)*
 - [ ] Play Store scraper
-- [ ] Reddit scraper (with fallback if API access fails, see Risks)
+- [ ] Reddit scraper (Arctic Shift) + promo/spam filtering
 - [ ] Cleaning, language filter, dedup, anonymisation → `corpus.parquet`
 - [ ] EDA notebook: volumes over time, length distributions, rating distribution, platform comparison
 - **Done when:** ≥ 10k clean Play items + ≥ 3k Reddit items; EDA figures saved.
@@ -362,9 +376,9 @@ Polish, optional extensions (App Store data, second LLM, learning curve, intra-a
 
 | Risk | Likelihood | Mitigation |
 |---|---|---|
-| Reddit API access restricted / approval delays | Medium | Fallbacks: Arctic Shift Reddit archive API, public `.json` endpoints at low rate, or replace with App Store reviews |
+| Reddit API access restricted | **Occurred** | Using Arctic Shift archive API instead; App Store reviews as further fallback |
+| Free-tier LLM quotas (OpenRouter 50/day, Groq 8k TPM) | High | Gemini as primary workhorse, batching many items per request, disk cache, local quota tracking; distillation (RQ2) reduces LLM dependence |
 | Single annotator = no inter-annotator agreement | Certain | Clear guidelines; optional intra-annotator κ; LLM–human κ; acknowledge in limitations |
-| LLM rate limits / cost on 20–30k calls | Medium | Cheap model, batching multiple items per prompt, concurrency limits, disk cache, cost tracking |
 | LLM non-determinism | Medium | temperature 0, cached responses, pinned model IDs logged with results |
 | Class imbalance (few `question`/`other`) | High | Stratified gold sampling, macro-F1, report per-class |
 | Python 3.14 package incompatibility | Medium | Pin Python 3.12 via `uv` |
@@ -376,8 +390,7 @@ Polish, optional extensions (App Store data, second LLM, learning curve, intra-a
 
 | When | What |
 |---|---|
-| Phase 0 | OpenRouter API key → `.env` as `OPENROUTER_API_KEY` (budget ~$5–10 is plenty) |
-| Phase 1 | Reddit API app (reddit.com/prefs/apps → "script") → `REDDIT_CLIENT_ID`, `REDDIT_CLIENT_SECRET`, `REDDIT_USER_AGENT` |
+| Phase 0 | ✅ API keys in `.env`: `OPENROUTER_API_KEY`, `GEMINI_KEY`, `GROQ_KEY` (all free tier) |
 | Phase 2 | ~2–3 hrs of gold labelling |
 | Phase 4–5 | ~1 hr of manual judgement (extraction + clusters) |
 | Phase 6 | Feedback on dashboard UX |
