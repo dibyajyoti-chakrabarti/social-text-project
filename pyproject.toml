@@ -5,11 +5,16 @@ description = "Extracting customer feature requests from unstructured product fe
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
 dependencies = [
+    "google-play-scraper>=1.2.7",
+    "httpx>=0.28.1",
+    "lingua-language-detector>=2.2.0",
+    "matplotlib>=3.11.2",
     "openai>=3.0",
     "pandas>=2.2",
     "pyarrow>=16",
     "python-dotenv>=1.0",
     "pyyaml>=6.0",
+    "tabulate>=0.10.0",
     "tqdm>=4.66",
 ]
 

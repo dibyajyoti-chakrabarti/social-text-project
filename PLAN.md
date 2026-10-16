@@ -18,7 +18,7 @@ This project builds an end-to-end pipeline and dashboard that:
 4. **Ranks** themes by volume, engagement, user dissatisfaction and growth.
 5. **Presents** everything in an interactive dashboard, including the evaluation of the methods themselves.
 
-**Case study:** Spotify, using Google Play reviews and Reddit (r/spotify).
+**Case study:** Spotify, using Google Play reviews and Reddit (r/truespotify).
 
 The project is **methods-focused**: the core contribution is a rigorous comparison of detection approaches (rules → classical ML → few-shot transformer → LLM) on noisy social text, plus an investigation of LLM-as-annotator distillation.
 
@@ -41,12 +41,16 @@ The project is **methods-focused**: the core contribution is a rigorous comparis
 
 | Source | Tool | Target size | Metadata kept |
 |---|---|---|---|
-| Google Play reviews (Spotify, `com.spotify.music`) | `google-play-scraper` | 10–20k | text, star rating, thumbs-up count, date, app version |
-| Reddit r/spotify (posts + top-level comments) | [Arctic Shift](https://github.com/ArthurHeitmann/arctic_shift) archive API (no key needed) | 5–10k | text, score (upvotes), date, post flair, type (post/comment) |
+| Google Play reviews (Spotify, `com.spotify.music`) | `google-play-scraper` | full year (~240k raw) | text, star rating, thumbs-up count, date, app version |
+| Reddit r/truespotify (posts + top-level comments) | [Arctic Shift](https://github.com/ArthurHeitmann/arctic_shift) archive API (no key needed) | 5–10k | text, score (upvotes), date, post flair, type (post/comment) |
 | *(optional)* Apple App Store reviews | iTunes RSS feed | ≤ 500 per country | text, rating, date |
 
-Time window: roughly the last 12–18 months, so trends are meaningful.
+Time window: 2025-10-16 → 2026-10-16 (12 months).
 
+**Volume vs. LLM budget.** The Play Store alone produces ~650 English reviews/day (~240k/year), far beyond what free LLM tiers can label. Hence the two-tier design: the LLM labels a time-stratified sample (~15k), and the distilled local classifier (RQ2) labels the full corpus, which is what the trend analysis runs on.
+
+> **Why r/truespotify, not r/spotify?** r/spotify has become a playlist-sharing subreddit (its flairs are music genres). App discussion moved to r/truespotify (~50 posts/day), whose flairs (`Feature Request`, `Rant`, `Question`, `News`…) also provide free weak labels to compare against our classifiers.
+>
 > **Why not the official Reddit API?** Since Reddit's *Responsible Builder Policy*, new API apps require manual approval, which is slow and often denied for personal/academic use. Arctic Shift mirrors Reddit content and exposes a public search API. r/spotify contains heavy playlist-promotion spam, which must be filtered during cleaning (and is itself a social-text noise point for the report).
 
 ### 3.1b LLM providers
@@ -63,7 +67,7 @@ Models are pinned (no auto-routers) and there is no silent fallback between prof
 
 ### 3.2 Preprocessing
 
-- Drop empty, non-English (`langdetect`/`lingua`) and very short (< 3 tokens) items.
+- Drop empty, non-English (`lingua`) and very short (< 4 words) items. Code-mixed text (e.g. romanised Hindi) is excluded; ~1% of informal English is falsely rejected (documented limitation).
 - Deduplicate exact and near-duplicates.
 - Keep emojis and casing in the raw text (they carry signal); create a normalised copy for classical models.
 - Reddit: split long posts into sentences only for extraction, not for classification.
@@ -72,7 +76,8 @@ Models are pinned (no auto-routers) and there is no silent fallback between prof
 ### 3.3 Storage
 
 - `data/raw/`: scraped JSONL (gitignored, regenerable).
-- `data/processed/`: cleaned Parquet + all pipeline outputs consumed by the dashboard (committed if small).
+- `data/interim/corpus.parquet`: full cleaned corpus (gitignored, regenerable with `make data`).
+- `data/processed/`: pipeline outputs consumed by the dashboard (committed if small).
 - `data/cache/`: LLM response cache, keyed by hash of (model, prompt, input) (gitignored, backed up).
 - `annotations/`: gold labels + guidelines (committed; this is irreplaceable human work).
 
@@ -304,11 +309,12 @@ Each phase = one PR merged into `main`. Days are approximate.
 - **Done when:** `make setup && make test` passes; a test LLM call is cached.
 
 ### Phase 1: Data collection & EDA *(Day 1–2)*
-- [ ] Play Store scraper
-- [ ] Reddit scraper (Arctic Shift) + promo/spam filtering
-- [ ] Cleaning, language filter, dedup, anonymisation → `corpus.parquet`
-- [ ] EDA notebook: volumes over time, length distributions, rating distribution, platform comparison
-- **Done when:** ≥ 10k clean Play items + ≥ 3k Reddit items; EDA figures saved.
+- [x] Play Store scraper (one resumable stream per star rating)
+- [x] Reddit scraper (Arctic Shift, r/truespotify) + removed-post filtering
+- [x] Cleaning, language filter, dedup, anonymisation → `corpus.parquet`
+- [x] EDA script (`scripts/eda.py`, reproducible, no notebook): volumes over time, length distributions, ratings, flairs, request-cue rates
+- **Done when:** full-year clean Play corpus + ≥ 10k Reddit items; EDA figures saved.
+- **Result:** 114k clean items: 94k Play reviews, 17.4k Reddit posts, Reddit comments (collection ongoing). 5★ Play reviews were only retrievable for the last ~6 weeks (Google Play pagination limit); 1–4★ cover the full year. Since 5★ reviews carry far fewer request cues (1.9% vs 4–7%), year-long trend analysis uses 1–4★ reviews; rating-mix statistics use the window where all ratings exist.
 
 ### Phase 2: Annotation *(Day 2–3)*
 - [ ] `annotations/guidelines.md` (taxonomy, examples, tie-breakers)

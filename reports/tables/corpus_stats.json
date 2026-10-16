@@ -1,0 +1,13 @@
+{
+  "raw": 178496,
+  "after_id_dedup": 149999,
+  "in_window": 149999,
+  "min_words": 121561,
+  "after_text_dedup": 119065,
+  "english": 114260,
+  "by_source": {
+    "play": 93950,
+    "reddit_post": 17423,
+    "reddit_comment": 2887
+  }
+}

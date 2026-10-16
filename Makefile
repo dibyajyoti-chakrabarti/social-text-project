@@ -1,4 +1,4 @@
-.PHONY: setup test lint format smoke
+.PHONY: setup test lint format smoke scrape corpus eda data
 
 setup:
 	uv sync
@@ -16,3 +16,15 @@ format:
 
 smoke:
 	uv run python scripts/llm_smoke.py
+
+scrape:
+	uv run python scripts/scrape_playstore.py
+	uv run python scripts/scrape_reddit.py
+
+corpus:
+	uv run python scripts/build_corpus.py
+
+eda:
+	uv run python scripts/eda.py
+
+data: scrape corpus eda
