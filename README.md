@@ -16,3 +16,11 @@ make smoke               # one live call per configured LLM profile
 ```
 
 LLM responses are cached in `data/cache/llm.sqlite`, so re-running any stage costs no quota.
+
+## Annotation
+
+```bash
+make label               # opens the labelling app in your browser
+```
+
+Keys: `1`–`6` choose a label · `u` unsure · `b`/`←` back · `n`/`→` next. Labels are saved after every item to `annotations/gold_labels.csv`, so you can stop at any time. See `annotations/guidelines.md`.

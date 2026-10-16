@@ -213,11 +213,12 @@ priority = w1·z(log volume) + w2·z(engagement) + w3·z(share of ≤2-star revi
 
 ## 7. Evaluation Data (Gold Set)
 
-- **Size:** ~400 items, labelled by hand using the custom labelling app.
-- **Composition:** ~250 Play Store + ~150 Reddit.
-- **Sampling:** 50% uniformly random (unbiased estimates) + 50% stratified to over-sample likely requests (via rules + rating) so the minority classes have enough examples.
-- **Split:** **dev = 100** (prompt engineering, rule tuning, few-shot examples, SetFit gold training) / **test = 300** (touched only for final evaluation, never used for tuning).
-- **Label provenance:** human labels from scratch. LLM predictions are hidden from the labeller to avoid anchoring bias.
+- **Size:** 400 items, labelled by hand in the custom labelling app (`make label`).
+- **Composition:** 250 Play reviews + 110 Reddit posts + 40 Reddit comments.
+- **Sampling** (`src/frminer/annotate.py`): within each source, 50% uniformly random (unbiased estimates) + 50% "enriched", which over-samples by **metadata only** (2–4★ ratings ×2, Feature Request/Rant/Discussion flairs ×3, log length). It never uses text content, so no classifier (rules, ML, LLM) is favoured by how the gold set was built. Items over 250 words are excluded (≈2% of Reddit posts).
+- **Split:** **dev = 100** (prompt engineering, rule tuning, few-shot examples, SetFit gold training) / **test = 300** (touched only for final evaluation). Stratified by source × stratum. Dev is labelled first, so method development can start while test is being labelled.
+- **Annotation:** one label per item (`annotations/guidelines.md`) + an "unsure" flag + **the requested feature phrase(s)** for feature requests. These phrases double as the **gold set for extraction** (Phase 4).
+- **Label provenance:** human labels from scratch, from the text alone (no rating/flair shown, matching what the models see), without seeing any model prediction.
 - *(optional)* **Intra-annotator agreement:** re-label 50 random items a few days later and report κ.
 
 ---
@@ -317,9 +318,9 @@ Each phase = one PR merged into `main`. Days are approximate.
 - **Result:** 114k clean items: 94k Play reviews, 17.4k Reddit posts, Reddit comments (collection ongoing). 5★ Play reviews were only retrievable for the last ~6 weeks (Google Play pagination limit); 1–4★ cover the full year. Since 5★ reviews carry far fewer request cues (1.9% vs 4–7%), year-long trend analysis uses 1–4★ reviews; rating-mix statistics use the window where all ratings exist.
 
 ### Phase 2: Annotation *(Day 2–3)*
-- [ ] `annotations/guidelines.md` (taxonomy, examples, tie-breakers)
-- [ ] Gold sampling script (random + stratified, dev/test split)
-- [ ] Labelling app
+- [x] `annotations/guidelines.md` (taxonomy, decision rules, hard cases)
+- [x] Gold sampling script (random + metadata-enriched, stratified dev/test split)
+- [x] Labelling app (keyboard-driven Streamlit, resumable, feature-phrase capture)
 - [ ] **👤 You label ~400 items** (~2–3 hrs, can be split across sessions)
 - **Done when:** `gold.csv` complete with dev/test split; class distribution reported.
 
@@ -336,7 +337,7 @@ Each phase = one PR merged into `main`. Days are approximate.
 - [ ] Rule-based extractor
 - [ ] LLM extractor (JSON, multi-feature, competitor field)
 - [ ] Normalisation
-- [ ] Manual evaluation of ~100 items (**👤 ~30 min**, using the labeller in "judge" mode)
+- [ ] Evaluation against the gold feature phrases captured during annotation (+ manual check of disagreements)
 - **Done when:** `requests.parquet` with features per item; extraction accuracy reported.
 
 ### Phase 5: Clustering, ranking & insights *(Day 6–7)*
