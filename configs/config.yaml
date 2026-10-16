@@ -65,3 +65,15 @@ data:
     comment_min_post_comments: 3
     comment_max_posts: 3000
     comment_min_score: 2
+
+# Intent detection (Phase 3). Choices below were made on the gold dev split only.
+detect:
+  silver:
+    profile: primary      # LLM that produces the silver labels
+    prompt: v2
+    batch_size: 20
+    seed: 42
+    per_source:           # gold items are excluded before sampling
+      play: 8000
+      reddit_post: 3000
+      reddit_comment: 1000
