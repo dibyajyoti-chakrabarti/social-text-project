@@ -219,7 +219,7 @@ priority = w1·z(log volume) + w2·z(engagement) + w3·z(share of ≤2-star revi
 - **Split:** **dev = 100** (prompt engineering, rule tuning, few-shot examples, SetFit gold training) / **test = 300** (touched only for final evaluation). Stratified by source × stratum. Dev is labelled first, so method development can start while test is being labelled.
 - **Annotation:** one label per item (`annotations/guidelines.md`) + an "unsure" flag + **the requested feature phrase(s)** for feature requests. These phrases double as the **gold set for extraction** (Phase 4).
 - **Label provenance:** human labels from scratch, from the text alone (no rating/flair shown, matching what the models see), without seeing any model prediction.
-- *(optional)* **Intra-annotator agreement:** re-label 50 random items a few days later and report κ.
+- **Intra-annotator agreement:** the first 27 items were labelled in a pilot pass, discarded, and relabelled from scratch (`annotations/gold_labels_pilot.csv`): κ = 0.76.
 
 ---
 
@@ -321,8 +321,10 @@ Each phase = one PR merged into `main`. Days are approximate.
 - [x] `annotations/guidelines.md` (taxonomy, decision rules, hard cases)
 - [x] Gold sampling script (random + metadata-enriched, stratified dev/test split)
 - [x] Labelling app (keyboard-driven Streamlit, resumable, feature-phrase capture)
-- [ ] **👤 You label ~400 items** (~2–3 hrs, can be split across sessions)
+- [x] **👤 You label ~400 items** (~2–3 hrs, can be split across sessions)
+- [x] Gold summary (`scripts/gold_summary.py` → `reports/tables/gold_summary.md`)
 - **Done when:** `gold.csv` complete with dev/test split; class distribution reported.
+- **Result:** 400 items labelled in one ~3 h session. Feature requests are rare: 35 (8.8%; 11 dev / 24 test), 34 with a feature phrase. Complaints dominate (36%); questions are mostly Reddit posts, `other` mostly Reddit comments. Intra-annotator agreement on 27 pilot items labelled before a discarded first pass: 81.5%, κ = 0.76 (most changes were bug ↔ complaint, which was clarified between passes). With only 24 test positives, FR-class F1 has wide CIs; macro-F1 over all six classes is the primary metric and FR metrics are reported with bootstrap CIs.
 
 ### Phase 3: Detection & distillation experiments *(Day 3–5)*
 - [ ] Rule-based classifier (tuned on dev only)

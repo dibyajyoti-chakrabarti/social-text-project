@@ -1,4 +1,4 @@
-.PHONY: setup test lint format smoke scrape corpus eda data sample label
+.PHONY: setup test lint format smoke scrape corpus eda data sample label gold
 
 setup:
 	uv sync
@@ -34,3 +34,6 @@ sample:
 
 label:
 	uv run streamlit run apps/labeller.py
+
+gold:
+	uv run python scripts/gold_summary.py
