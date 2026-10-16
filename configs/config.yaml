@@ -47,3 +47,21 @@ llm:
   temperature: 0.0
   max_retries: 6
   timeout_s: 120
+
+# Data collection window and sources (Phase 1).
+data:
+  since: "2025-10-16"   # inclusive, UTC
+  until: "2026-10-16"   # exclusive, UTC
+  min_words: 4          # shorter items ("very awesome") carry no request signal
+  playstore:
+    app_id: com.spotify.music
+    lang: en
+    country: us
+  reddit:
+    # r/spotify is now a playlist-sharing sub; app discussion lives in r/truespotify.
+    subreddit: truespotify
+    # Top-level comments are fetched only for posts likely to discuss features.
+    comment_flairs: ["Feature Request", "Rant", "Discussion", "News", "Suggestion"]
+    comment_min_post_comments: 3
+    comment_max_posts: 3000
+    comment_min_score: 2
