@@ -93,3 +93,15 @@ class LabelStore:
     def latest(self) -> pd.DataFrame:
         df = pd.read_csv(self.path, dtype={"features": str}, keep_default_na=False)
         return df.drop_duplicates("id", keep="last").set_index("id")
+
+
+def load_gold(annotations_dir: Path, split: str | None = None) -> pd.DataFrame:
+    """Gold sample joined with its latest labels; optionally restricted to one split."""
+    sample = pd.read_csv(annotations_dir / "gold_sample.csv")
+    labels = LabelStore(annotations_dir / "gold_labels.csv").latest()
+    gold = sample.merge(labels[["label", "features", "unsure"]], left_on="id", right_index=True)
+    if len(gold) != len(sample):
+        raise ValueError(f"{len(sample) - len(gold)} gold items are unlabelled")
+    if split is not None:
+        gold = gold[gold["split"] == split]
+    return gold.sort_values("order").reset_index(drop=True)
