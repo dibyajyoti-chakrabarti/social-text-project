@@ -20,3 +20,8 @@ models/
 .DS_Store
 .vscode/
 .idea/
+
+# Editor swap files (can contain secrets)
+*.swp
+*.swo
+*~
