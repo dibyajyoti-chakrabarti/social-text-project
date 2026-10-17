@@ -94,13 +94,15 @@ def normalize(phrase: str) -> str:
     text = clean(phrase)
     if not text:
         return ""
-    return " ".join(t.lemma_ for t in _nlp()(text) if not t.is_space)
+    return _lemmas(_nlp()(text))
 
 
 def normalize_many(phrases: list[str]) -> list[str]:
     cleaned = [clean(p) for p in phrases]
     docs = _nlp().pipe(cleaned, batch_size=256)
-    return [
-        " ".join(t.lemma_ for t in d if not t.is_space) if c else ""
-        for c, d in zip(cleaned, docs, strict=True)
-    ]
+    return [_lemmas(d) if c else "" for c, d in zip(cleaned, docs, strict=True)]
+
+
+def _lemmas(doc) -> str:
+    # Keep the original spacing so "on-demand" stays one word.
+    return "".join(t.lemma_.lower() + t.whitespace_ for t in doc if not t.is_space).strip()
