@@ -139,6 +139,7 @@ cluster:
     clusters: 30          # judged by the LLM judge (both methods)
     members: 10
     human: 20             # of method A's sample, also checked by hand (apps/purity.py)
+    judge_batch: {A: 3, B: 1}   # clusters per judge call (B members are long posts)
   judge:
     profile: secondary
 

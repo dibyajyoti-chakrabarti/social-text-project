@@ -75,3 +75,40 @@ class FakeLLM:
 def test_purity_judge_marks_missing_members_none():
     res = purity.judge(FakeLLM(), ["a", "b"], [["x", "y"], ["z"]], batch_size=2)
     assert res.outputs == [[True, None], [True]]
+
+
+def test_merge_validator_and_apply():
+    from frminer.cluster import merge
+
+    v = merge._validator({1, 2, 3})
+    v({"groups": [[1, 2]]})
+    with pytest.raises(ValueError):
+        v({"groups": [[1, 2], [2, 3]]})
+    with pytest.raises(ValueError):
+        v({"groups": [[1, 9]]})
+    out = merge.apply_groups(np.array([3, 1, 2, -1]), [[2, 3]])
+    assert out.tolist() == [2, 1, 2, -1]
+
+
+class VerifyLLM:
+    """Confirms a pair only when both descriptions mention 'skip'."""
+
+    def map(self, prompts, **kwargs):
+        out = []
+        for p in prompts:
+            blocks = p.split("Items:\n\n")[1].split("\n\n")
+            same = {
+                str(i + 1): all("skip" in line for line in b.splitlines()[1:])
+                for i, b in enumerate(blocks)
+            }
+            out.append(({"same": same}, FakeResp()))
+        return out
+
+
+def test_verify_groups_keeps_only_confirmed_members():
+    from frminer.cluster import merge
+
+    descs = {1: "remove skip limit (90)", 2: "unlimited skips (40)", 3: "clear queue (5)"}
+    groups, checked = merge.verify_groups(VerifyLLM(), [[1, 2, 3]], descs, {1: 90, 2: 40, 3: 5})
+    assert groups == [[1, 2]]
+    assert sorted(checked) == [(1, 2, True), (1, 3, False)]

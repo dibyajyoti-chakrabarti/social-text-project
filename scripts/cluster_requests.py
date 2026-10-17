@@ -19,7 +19,7 @@ Outputs:
 import numpy as np
 import pandas as pd
 
-from frminer.cluster import naming, phrases
+from frminer.cluster import merge, naming, phrases
 from frminer.config import load_config, path
 from frminer.llm import LLM
 
@@ -37,6 +37,7 @@ def select(grid: pd.DataFrame, rule: dict) -> pd.Series:
 def bertopic_topics(texts: list[str], emb: np.ndarray, cfg: dict) -> np.ndarray:
     from bertopic import BERTopic
     from sklearn.cluster import HDBSCAN
+    from sklearn.feature_extraction.text import CountVectorizer
     from umap import UMAP
 
     model = BERTopic(
@@ -48,6 +49,8 @@ def bertopic_topics(texts: list[str], emb: np.ndarray, cfg: dict) -> np.ndarray:
             random_state=cfg["seed"],
         ),
         hdbscan_model=HDBSCAN(min_cluster_size=cfg["bertopic"]["min_topic_size"]),
+        # Stopword-free topic words (labels only; assignments come from UMAP + HDBSCAN).
+        vectorizer_model=CountVectorizer(stop_words="english", min_df=2),
         calculate_probabilities=False,
     )
     topics, _ = model.fit_transform(texts, emb)
@@ -83,6 +86,21 @@ def main() -> None:
     best = select(grid, cfg["select"])
     labels = runs[(int(best["min_cluster_size"]), int(best["min_samples"]))]
     print("selected", best.to_dict())
+
+    # Consolidate clusters that are the same request in different words.
+    table["pre_merge"] = labels
+    pre = pd.DataFrame({"phrase": table["phrase"], "mentions": table["mentions"], "c": labels})
+    pre = pre[pre["c"] >= 0].groupby("c")
+    ids = list(pre.groups)
+    descs = {
+        c: naming.describe(g["phrase"].tolist(), g["mentions"].tolist(), top=6) for c, g in pre
+    }
+    sizes = {c: float(g["mentions"].sum()) for c, g in pre}
+    proposed = merge.find_groups(LLM(cfg["naming"]["profile"]), ids, [descs[c] for c in ids])
+    groups, checked = merge.verify_groups(LLM(cfg["judge"]["profile"]), proposed, descs, sizes)
+    labels = merge.apply_groups(labels, groups)
+    q_merged = phrases.quality(emb, labels, weights)
+    print(f"merged {sum(len(g) for g in groups)} clusters into {len(groups)}: {vars(q_merged)}")
 
     # Renumber themes by mention volume (0 = biggest) and name them.
     table["cluster"] = labels
@@ -121,7 +139,9 @@ def main() -> None:
 
     proc = path("processed")
     themes.to_parquet(proc / "themes.parquet", index=False)
-    table.drop(columns="cluster").to_parquet(proc / "phrase_themes.parquet", index=False)
+    table.drop(columns=["cluster", "pre_merge"]).to_parquet(
+        proc / "phrase_themes.parquet", index=False
+    )
     themed.drop(columns="phrase").to_parquet(proc / "request_themes.parquet", index=False)
 
     # Method B: BERTopic on the item texts.
@@ -155,7 +175,31 @@ def main() -> None:
             f"clusters → min_cluster_size={int(best['min_cluster_size'])}, "
             f"min_samples={int(best['min_samples'])}.\n\n"
         )
-        f.write(grid.round(3).to_markdown(index=False) + "\n")
+        f.write(grid.round(3).to_markdown(index=False) + "\n\n")
+        n_ok = sum(ok for *_, ok in checked)
+        f.write(
+            f"LLM consolidation: {load_config()['models'][cfg['naming']['profile']]['model']} "
+            f"proposed {len(proposed)} groups of same-request clusters "
+            f"({len(checked)} merges); "
+            f"{load_config()['models'][cfg['judge']['profile']]['model']} confirmed {n_ok} "
+            f"of them as pairwise yes/no questions. Confirmed merges joined "
+            f"{sum(len(g) for g in groups)} clusters into {len(groups)}, leaving "
+            f"{q_merged.n_clusters} themes (silhouette {q_merged.silhouette:.3f}).\n\n"
+            "Kept merges:\n\n"
+        )
+        for g in groups:
+            names = [
+                "; ".join(table[table["pre_merge"] == i].nlargest(2, "mentions")["phrase"])
+                for i in g
+            ]
+            f.write("- " + " + ".join(f"[{n}]" for n in names) + "\n")
+        f.write("\nRejected merges (largest cluster ← rejected member):\n\n")
+        top2 = lambda i: "; ".join(  # noqa: E731
+            table[table["pre_merge"] == i].nlargest(2, "mentions")["phrase"]
+        )
+        for a, b, ok in checked:
+            if not ok:
+                f.write(f"- [{top2(a)}] ← [{top2(b)}]\n")
     with open(tables / "cluster_compare.md", "w") as f:
         f.write("# Phrase clusters (A) vs BERTopic on item texts (B)\n\n")
         compare = pd.DataFrame(

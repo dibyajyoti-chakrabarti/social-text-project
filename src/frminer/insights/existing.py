@@ -38,7 +38,14 @@ available to everyone), so the request signals that users cannot find it.
 tier or without paying.
   - "partly": a limited version exists and users ask for more than it offers.
   - "new": no candidate offers what is asked (use match 0).
-Be strict: a candidate must offer the capability itself, not merely a related one.\
+Rules:
+- Be strict: a candidate must offer the capability itself, not merely a related one.
+- If the matching candidate's availability is "premium", answer "premium_only" unless the \
+phrases clearly come from paying Premium users (users on the free tier cannot use it, so \
+for them it does not exist).
+- Requests to lower prices (cheaper Premium, regional pricing, discounts) are "new" even \
+though discounted plan types exist, unless the phrases ask for a plan type that exists \
+(e.g. "family plan", "student plan").\
 """
 
 INSTRUCTION = """\

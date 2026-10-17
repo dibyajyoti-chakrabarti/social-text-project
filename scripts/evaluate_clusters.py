@@ -37,16 +37,20 @@ def main() -> None:
         else f"topic words: {g['name'].iloc[0]}"
         for (m, _), g in groups
     ]
-    res = purity.judge(
-        LLM(cfg["judge"]["profile"]),
-        labels,
-        [g["member"].tolist() for _, g in groups],
-        desc="purity judge",
-    )
+    judge_llm = LLM(cfg["judge"]["profile"])
     sample["judge"] = None
-    for ((_m, _r), g), verdicts in zip(groups, res.outputs, strict=True):
-        if verdicts is not None:
-            sample.loc[g.index, "judge"] = verdicts
+    for method in ("A", "B"):
+        idx = [k for k, ((m, _), _) in enumerate(groups) if m == method]
+        res = purity.judge(
+            judge_llm,
+            [labels[k] for k in idx],
+            [groups[k][1]["member"].tolist() for k in idx],
+            batch_size=cfg["purity"]["judge_batch"][method],
+            desc=f"purity judge {method}",
+        )
+        for k, verdicts in zip(idx, res.outputs, strict=True):
+            if verdicts is not None:
+                sample.loc[groups[k][1].index, "judge"] = verdicts
     sample["judge"] = sample["judge"].astype("boolean")
 
     human_path = ann / "purity_labels.csv"

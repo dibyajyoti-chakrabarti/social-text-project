@@ -1,0 +1,601 @@
+method,rank,cluster,name,description,member
+A,0,94,Library Folder Customization,"Users request custom cover images, icons, and better organization tools for their library folders.",folders for library content
+A,0,94,Library Folder Customization,"Users request custom cover images, icons, and better organization tools for their library folders.",library organization
+A,0,94,Library Folder Customization,"Users request custom cover images, icons, and better organization tools for their library folders.",custom folder cover pictures
+A,0,94,Library Folder Customization,"Users request custom cover images, icons, and better organization tools for their library folders.",share folders
+A,0,94,Library Folder Customization,"Users request custom cover images, icons, and better organization tools for their library folders.",library folders tab
+A,0,94,Library Folder Customization,"Users request custom cover images, icons, and better organization tools for their library folders.",add artists to folders
+A,0,94,Library Folder Customization,"Users request custom cover images, icons, and better organization tools for their library folders.",albums in folders
+A,0,94,Library Folder Customization,"Users request custom cover images, icons, and better organization tools for their library folders.",artist folders
+A,0,94,Library Folder Customization,"Users request custom cover images, icons, and better organization tools for their library folders.",better library navigation
+A,0,94,Library Folder Customization,"Users request custom cover images, icons, and better organization tools for their library folders.",folder cover photos
+A,1,100,Pin More Playlists,Users want the ability to pin more playlists and items to the top of their library or sidebar.,pin more than four items
+A,1,100,Pin More Playlists,Users want the ability to pin more playlists and items to the top of their library or sidebar.,pin songs to top of playlist
+A,1,100,Pin More Playlists,Users want the ability to pin more playlists and items to the top of their library or sidebar.,unlimited pinned items
+A,1,100,Pin More Playlists,Users want the ability to pin more playlists and items to the top of their library or sidebar.,pin top playlists
+A,1,100,Pin More Playlists,Users want the ability to pin more playlists and items to the top of their library or sidebar.,unlimited playlist pins
+A,1,100,Pin More Playlists,Users want the ability to pin more playlists and items to the top of their library or sidebar.,more pinned playlists
+A,1,100,Pin More Playlists,Users want the ability to pin more playlists and items to the top of their library or sidebar.,pinned playlists
+A,1,100,Pin More Playlists,Users want the ability to pin more playlists and items to the top of their library or sidebar.,pin more than 4 items
+A,1,100,Pin More Playlists,Users want the ability to pin more playlists and items to the top of their library or sidebar.,pin playlists in folders
+A,1,100,Pin More Playlists,Users want the ability to pin more playlists and items to the top of their library or sidebar.,pin more sidebar items
+A,2,82,Home Screen Customization,Users want the ability to customize and simplify the layout of their home screen.,simplify home screen
+A,2,82,Home Screen Customization,Users want the ability to customize and simplify the layout of their home screen.,reorganize homepage
+A,2,82,Home Screen Customization,Users want the ability to customize and simplify the layout of their home screen.,customize home cards order
+A,2,82,Home Screen Customization,Users want the ability to customize and simplify the layout of their home screen.,simplify home page
+A,2,82,Home Screen Customization,Users want the ability to customize and simplify the layout of their home screen.,classic home page
+A,2,82,Home Screen Customization,Users want the ability to customize and simplify the layout of their home screen.,customize homepage
+A,2,82,Home Screen Customization,Users want the ability to customize and simplify the layout of their home screen.,auto refresh home page
+A,2,82,Home Screen Customization,Users want the ability to customize and simplify the layout of their home screen.,customize home page content
+A,2,82,Home Screen Customization,Users want the ability to customize and simplify the layout of their home screen.,sort home feed
+A,2,82,Home Screen Customization,Users want the ability to customize and simplify the layout of their home screen.,customizable homepage
+A,3,78,Album Art and Layout Customization,Users want control over how album artwork and visual elements are displayed.,show deluxe album covers
+A,3,78,Album Art and Layout Customization,Users want control over how album artwork and visual elements are displayed.,show cover art in layout
+A,3,78,Album Art and Layout Customization,Users want control over how album artwork and visual elements are displayed.,android auto show album name
+A,3,78,Album Art and Layout Customization,Users want control over how album artwork and visual elements are displayed.,album art screensaver mode
+A,3,78,Album Art and Layout Customization,Users want control over how album artwork and visual elements are displayed.,square album art
+A,3,78,Album Art and Layout Customization,Users want control over how album artwork and visual elements are displayed.,filter albums by custom tag
+A,3,78,Album Art and Layout Customization,Users want control over how album artwork and visual elements are displayed.,hide nsfw album covers
+A,3,78,Album Art and Layout Customization,Users want control over how album artwork and visual elements are displayed.,enlarge cover art
+A,3,78,Album Art and Layout Customization,Users want control over how album artwork and visual elements are displayed.,clean motion artwork
+A,3,78,Album Art and Layout Customization,Users want control over how album artwork and visual elements are displayed.,enlarged cover art view
+A,4,109,Sequential Playlist Playback on Free Tier,Free tier users want the ability to play playlists in order on-demand without shuffle restrictions.,free tier playlist editing
+A,4,109,Sequential Playlist Playback on Free Tier,Free tier users want the ability to play playlists in order on-demand without shuffle restrictions.,play on repeat on free tier
+A,4,109,Sequential Playlist Playback on Free Tier,Free tier users want the ability to play playlists in order on-demand without shuffle restrictions.,play saved playlists on free tier
+A,4,109,Sequential Playlist Playback on Free Tier,Free tier users want the ability to play playlists in order on-demand without shuffle restrictions.,remove play limits on free tier
+A,4,109,Sequential Playlist Playback on Free Tier,Free tier users want the ability to play playlists in order on-demand without shuffle restrictions.,choose songs in playlists on free tier
+A,4,109,Sequential Playlist Playback on Free Tier,Free tier users want the ability to play playlists in order on-demand without shuffle restrictions.,public playlists on free tier
+A,4,109,Sequential Playlist Playback on Free Tier,Free tier users want the ability to play playlists in order on-demand without shuffle restrictions.,play playlists in order on free tier
+A,4,109,Sequential Playlist Playback on Free Tier,Free tier users want the ability to play playlists in order on-demand without shuffle restrictions.,choose music in playlists on free tier
+A,4,109,Sequential Playlist Playback on Free Tier,Free tier users want the ability to play playlists in order on-demand without shuffle restrictions.,play repeats on free tier
+A,4,109,Sequential Playlist Playback on Free Tier,Free tier users want the ability to play playlists in order on-demand without shuffle restrictions.,play playlist in order on free tier
+A,5,36,AI Music Labeling,"Users request tools to identify, tag, and label AI-generated music and artists.",ai generated content label
+A,5,36,AI Music Labeling,"Users request tools to identify, tag, and label AI-generated music and artists.",artist ai disclosure
+A,5,36,AI Music Labeling,"Users request tools to identify, tag, and label AI-generated music and artists.",mark ai music
+A,5,36,AI Music Labeling,"Users request tools to identify, tag, and label AI-generated music and artists.",ai music assistant
+A,5,36,AI Music Labeling,"Users request tools to identify, tag, and label AI-generated music and artists.",collaborative playlist for ai music
+A,5,36,AI Music Labeling,"Users request tools to identify, tag, and label AI-generated music and artists.",identify ai music
+A,5,36,AI Music Labeling,"Users request tools to identify, tag, and label AI-generated music and artists.",movement numbers at start of classical labels
+A,5,36,AI Music Labeling,"Users request tools to identify, tag, and label AI-generated music and artists.",ai content tag
+A,5,36,AI Music Labeling,"Users request tools to identify, tag, and label AI-generated music and artists.",tagging system for music
+A,5,36,AI Music Labeling,"Users request tools to identify, tag, and label AI-generated music and artists.",label ai generated music
+A,6,125,Canvas Video Controls,Users ask for options to disable or hide looping canvas videos on the now playing screen.,disable canvas
+A,6,125,Canvas Video Controls,Users ask for options to disable or hide looping canvas videos on the now playing screen.,hide canvas video from now playing
+A,6,125,Canvas Video Controls,Users ask for options to disable or hide looping canvas videos on the now playing screen.,hide canvas background
+A,6,125,Canvas Video Controls,Users ask for options to disable or hide looping canvas videos on the now playing screen.,prevent screen timeout on canvas
+A,6,125,Canvas Video Controls,Users ask for options to disable or hide looping canvas videos on the now playing screen.,disable canvas background animations
+A,6,125,Canvas Video Controls,Users ask for options to disable or hide looping canvas videos on the now playing screen.,disable canvas gifs
+A,6,125,Canvas Video Controls,Users ask for options to disable or hide looping canvas videos on the now playing screen.,disable canvas visualizers
+A,6,125,Canvas Video Controls,Users ask for options to disable or hide looping canvas videos on the now playing screen.,canvas feature in region
+A,6,125,Canvas Video Controls,Users ask for options to disable or hide looping canvas videos on the now playing screen.,disable canvas art
+A,6,125,Canvas Video Controls,Users ask for options to disable or hide looping canvas videos on the now playing screen.,disable gifs
+A,7,63,True Playlist Shuffle,Users ask for improved and fairer playlist shuffling algorithms without forced randomization or smart shuffle interference.,disable smart shuffle on playlists
+A,7,63,True Playlist Shuffle,Users ask for improved and fairer playlist shuffling algorithms without forced randomization or smart shuffle interference.,true shuffle for playlists
+A,7,63,True Playlist Shuffle,Users ask for improved and fairer playlist shuffling algorithms without forced randomization or smart shuffle interference.,shuffle playlist without interrupting current song
+A,7,63,True Playlist Shuffle,Users ask for improved and fairer playlist shuffling algorithms without forced randomization or smart shuffle interference.,unlimited playlist shuffle
+A,7,63,True Playlist Shuffle,Users ask for improved and fairer playlist shuffling algorithms without forced randomization or smart shuffle interference.,shuffle playlists into jams
+A,7,63,True Playlist Shuffle,Users ask for improved and fairer playlist shuffling algorithms without forced randomization or smart shuffle interference.,shuffle user playlists
+A,7,63,True Playlist Shuffle,Users ask for improved and fairer playlist shuffling algorithms without forced randomization or smart shuffle interference.,full playlist shuffle
+A,7,63,True Playlist Shuffle,Users ask for improved and fairer playlist shuffling algorithms without forced randomization or smart shuffle interference.,hard shuffle playlists
+A,7,63,True Playlist Shuffle,Users ask for improved and fairer playlist shuffling algorithms without forced randomization or smart shuffle interference.,shuffle all playlists together
+A,7,63,True Playlist Shuffle,Users ask for improved and fairer playlist shuffling algorithms without forced randomization or smart shuffle interference.,disable shuffle on playlists
+A,8,115,Disable Podcast Transcripts,"Users want to turn off automated podcast transcripts, captions, and subtitles.",turn off auto generated captions
+A,8,115,Disable Podcast Transcripts,"Users want to turn off automated podcast transcripts, captions, and subtitles.",disable ai podcast transcriptions
+A,8,115,Disable Podcast Transcripts,"Users want to turn off automated podcast transcripts, captions, and subtitles.",turn off podcast captions
+A,8,115,Disable Podcast Transcripts,"Users want to turn off automated podcast transcripts, captions, and subtitles.",disable podcast subtitles
+A,8,115,Disable Podcast Transcripts,"Users want to turn off automated podcast transcripts, captions, and subtitles.",turn off podcast auto captions
+A,8,115,Disable Podcast Transcripts,"Users want to turn off automated podcast transcripts, captions, and subtitles.",disable skits and interludes
+A,8,115,Disable Podcast Transcripts,"Users want to turn off automated podcast transcripts, captions, and subtitles.",podcast subtitles
+A,8,115,Disable Podcast Transcripts,"Users want to turn off automated podcast transcripts, captions, and subtitles.",turn off subtitles
+A,8,115,Disable Podcast Transcripts,"Users want to turn off automated podcast transcripts, captions, and subtitles.",disable podcast closed captions
+A,8,115,Disable Podcast Transcripts,"Users want to turn off automated podcast transcripts, captions, and subtitles.",turn off podcast transcripts
+A,9,54,Sequential Playlist Playback,"Users want on-demand, sequential playback controls for playlists on all tiers.",free on demand playlist playback
+A,9,54,Sequential Playlist Playback,"Users want on-demand, sequential playback controls for playlists on all tiers.",bookmark position in playlist
+A,9,54,Sequential Playlist Playback,"Users want on-demand, sequential playback controls for playlists on all tiers.",bookmark playlist playback position
+A,9,54,Sequential Playlist Playback,"Users want on-demand, sequential playback controls for playlists on all tiers.",remember playback position
+A,9,54,Sequential Playlist Playback,"Users want on-demand, sequential playback controls for playlists on all tiers.",playlist duration counter
+A,9,54,Sequential Playlist Playback,"Users want on-demand, sequential playback controls for playlists on all tiers.",playlist looping
+A,9,54,Sequential Playlist Playback,"Users want on-demand, sequential playback controls for playlists on all tiers.",sequential playlist playback without ads
+A,9,54,Sequential Playlist Playback,"Users want on-demand, sequential playback controls for playlists on all tiers.",play playlist from beginning
+A,9,54,Sequential Playlist Playback,"Users want on-demand, sequential playback controls for playlists on all tiers.",free sequential playlist playback
+A,9,54,Sequential Playlist Playback,"Users want on-demand, sequential playback controls for playlists on all tiers.",stop playlist refreshing
+A,10,91,Bluetooth Autoplay Control,Users ask to disable automatic music playback and connection prompts when connecting to Bluetooth devices.,disable auto-start on bluetooth connection
+A,10,91,Bluetooth Autoplay Control,Users ask to disable automatic music playback and connection prompts when connecting to Bluetooth devices.,disable auto connect play
+A,10,91,Bluetooth Autoplay Control,Users ask to disable automatic music playback and connection prompts when connecting to Bluetooth devices.,disable auto connect settings
+A,10,91,Bluetooth Autoplay Control,Users ask to disable automatic music playback and connection prompts when connecting to Bluetooth devices.,disable automatic bluetooth audio transfer
+A,10,91,Bluetooth Autoplay Control,Users ask to disable automatic music playback and connection prompts when connecting to Bluetooth devices.,disable autoplay on bluetooth connect
+A,10,91,Bluetooth Autoplay Control,Users ask to disable automatic music playback and connection prompts when connecting to Bluetooth devices.,disable autoplay on connection
+A,10,91,Bluetooth Autoplay Control,Users ask to disable automatic music playback and connection prompts when connecting to Bluetooth devices.,disable autoplay on bluetooth
+A,10,91,Bluetooth Autoplay Control,Users ask to disable automatic music playback and connection prompts when connecting to Bluetooth devices.,disable auto loop on bluetooth connect
+A,10,91,Bluetooth Autoplay Control,Users ask to disable automatic music playback and connection prompts when connecting to Bluetooth devices.,manual connect button
+A,10,91,Bluetooth Autoplay Control,Users ask to disable automatic music playback and connection prompts when connecting to Bluetooth devices.,disable autoplay on headphone connection
+A,11,31,Free Music Downloads,Users ask for the ability to download songs and music on the free tier without a premium subscription.,free mp3 download
+A,11,31,Free Music Downloads,Users ask for the ability to download songs and music on the free tier without a premium subscription.,download songs to local storage
+A,11,31,Free Music Downloads,Users ask for the ability to download songs and music on the free tier without a premium subscription.,copyright free music upload
+A,11,31,Free Music Downloads,Users ask for the ability to download songs and music on the free tier without a premium subscription.,download rare songs
+A,11,31,Free Music Downloads,Users ask for the ability to download songs and music on the free tier without a premium subscription.,download single album songs
+A,11,31,Free Music Downloads,Users ask for the ability to download songs and music on the free tier without a premium subscription.,copyright counter notification system
+A,11,31,Free Music Downloads,Users ask for the ability to download songs and music on the free tier without a premium subscription.,download individual album tracks
+A,11,31,Free Music Downloads,Users ask for the ability to download songs and music on the free tier without a premium subscription.,unlimited free music
+A,11,31,Free Music Downloads,Users ask for the ability to download songs and music on the free tier without a premium subscription.,use downloaded songs as ringtone
+A,11,31,Free Music Downloads,Users ask for the ability to download songs and music on the free tier without a premium subscription.,download songs to device storage
+A,12,133,DJ Mixing Tools,"Users want better automated and manual mixing features, controls, and tools for tracks and albums.",mix feature
+A,12,133,DJ Mixing Tools,"Users want better automated and manual mixing features, controls, and tools for tracks and albums.",32 and 64 bars support
+A,12,133,DJ Mixing Tools,"Users want better automated and manual mixing features, controls, and tools for tracks and albums.",dj mixes and live mixes
+A,12,133,DJ Mixing Tools,"Users want better automated and manual mixing features, controls, and tools for tracks and albums.",desktop mix feature
+A,12,133,DJ Mixing Tools,"Users want better automated and manual mixing features, controls, and tools for tracks and albums.",better mix algorithm
+A,12,133,DJ Mixing Tools,"Users want better automated and manual mixing features, controls, and tools for tracks and albums.",improved auto mixer
+A,12,133,DJ Mixing Tools,"Users want better automated and manual mixing features, controls, and tools for tracks and albums.",mix button in carplay
+A,12,133,DJ Mixing Tools,"Users want better automated and manual mixing features, controls, and tools for tracks and albums.",mix beta feature
+A,12,133,DJ Mixing Tools,"Users want better automated and manual mixing features, controls, and tools for tracks and albums.",bring back mix button
+A,12,133,DJ Mixing Tools,"Users want better automated and manual mixing features, controls, and tools for tracks and albums.",auto mix
+A,13,2,Cheaper Premium Plans,"Users request more affordable subscription options, including cheaper individual plans and the return of tiered or duo plans.",bring back short term plans
+A,13,2,Cheaper Premium Plans,"Users request more affordable subscription options, including cheaper individual plans and the return of tiered or duo plans.",cheaper premium plan without ai
+A,13,2,Cheaper Premium Plans,"Users request more affordable subscription options, including cheaper individual plans and the return of tiered or duo plans.",add members to duo plan
+A,13,2,Cheaper Premium Plans,"Users request more affordable subscription options, including cheaper individual plans and the return of tiered or duo plans.",improve free plan benefits
+A,13,2,Cheaper Premium Plans,"Users request more affordable subscription options, including cheaper individual plans and the return of tiered or duo plans.",cheaper music only premium plan
+A,13,2,Cheaper Premium Plans,"Users request more affordable subscription options, including cheaper individual plans and the return of tiered or duo plans.",bring back yearly premium
+A,13,2,Cheaper Premium Plans,"Users request more affordable subscription options, including cheaper individual plans and the return of tiered or duo plans.",one week premium plan
+A,13,2,Cheaper Premium Plans,"Users request more affordable subscription options, including cheaper individual plans and the return of tiered or duo plans.",pay per use plan
+A,13,2,Cheaper Premium Plans,"Users request more affordable subscription options, including cheaper individual plans and the return of tiered or duo plans.",discounted premium plan
+A,13,2,Cheaper Premium Plans,"Users request more affordable subscription options, including cheaper individual plans and the return of tiered or duo plans.",one day premium pass
+A,14,110,On-Demand Sequential Album Playback,Users want to play full albums sequentially on demand without automatic shuffling or skips.,play full albums
+A,14,110,On-Demand Sequential Album Playback,Users want to play full albums sequentially on demand without automatic shuffling or skips.,play songs multiple times without premium
+A,14,110,On-Demand Sequential Album Playback,Users want to play full albums sequentially on demand without automatic shuffling or skips.,play album from start to finish
+A,14,110,On-Demand Sequential Album Playback,Users want to play full albums sequentially on demand without automatic shuffling or skips.,unlimited play songs
+A,14,110,On-Demand Sequential Album Playback,Users want to play full albums sequentially on demand without automatic shuffling or skips.,disable auto end between albums
+A,14,110,On-Demand Sequential Album Playback,Users want to play full albums sequentially on demand without automatic shuffling or skips.,play albums sequentially
+A,14,110,On-Demand Sequential Album Playback,Users want to play full albums sequentially on demand without automatic shuffling or skips.,play full album straight through
+A,14,110,On-Demand Sequential Album Playback,Users want to play full albums sequentially on demand without automatic shuffling or skips.,unlimited music
+A,14,110,On-Demand Sequential Album Playback,Users want to play full albums sequentially on demand without automatic shuffling or skips.,play albums in order
+A,14,110,On-Demand Sequential Album Playback,Users want to play full albums sequentially on demand without automatic shuffling or skips.,play entire album in car
+A,15,71,Volume Control and Normalization,"Users want better volume management, including ad volume reduction and louder audio options.",consistent ad audio volume
+A,15,71,Volume Control and Normalization,"Users want better volume management, including ad volume reduction and louder audio options.",participant volume control in jam
+A,15,71,Volume Control and Normalization,"Users want better volume management, including ad volume reduction and louder audio options.",higher maximum volume
+A,15,71,Volume Control and Normalization,"Users want better volume management, including ad volume reduction and louder audio options.",louder audio
+A,15,71,Volume Control and Normalization,"Users want better volume management, including ad volume reduction and louder audio options.",louder volume
+A,15,71,Volume Control and Normalization,"Users want better volume management, including ad volume reduction and louder audio options.",ad volume normalization
+A,15,71,Volume Control and Normalization,"Users want better volume management, including ad volume reduction and louder audio options.",disable device volume control takeover
+A,15,71,Volume Control and Normalization,"Users want better volume management, including ad volume reduction and louder audio options.",louder playback volume
+A,15,71,Volume Control and Normalization,"Users want better volume management, including ad volume reduction and louder audio options.",disable hardware volume control
+A,15,71,Volume Control and Normalization,"Users want better volume management, including ad volume reduction and louder audio options.",in-app volume control
+A,16,141,Parental Controls And Content Filtering,"Users request robust parental controls, content filtering, and tools to report inappropriate media.",parental controls for explicit content
+A,16,141,Parental Controls And Content Filtering,"Users request robust parental controls, content filtering, and tools to report inappropriate media.",parental controls for algorithm
+A,16,141,Parental Controls And Content Filtering,"Users request robust parental controls, content filtering, and tools to report inappropriate media.",report impersonation option
+A,16,141,Parental Controls And Content Filtering,"Users request robust parental controls, content filtering, and tools to report inappropriate media.",mark content as uninteresting
+A,16,141,Parental Controls And Content Filtering,"Users request robust parental controls, content filtering, and tools to report inappropriate media.",report false crediting
+A,16,141,Parental Controls And Content Filtering,"Users request robust parental controls, content filtering, and tools to report inappropriate media.",report content
+A,16,141,Parental Controls And Content Filtering,"Users request robust parental controls, content filtering, and tools to report inappropriate media.",remove explicit content
+A,16,141,Parental Controls And Content Filtering,"Users request robust parental controls, content filtering, and tools to report inappropriate media.",censor explicit visual content
+A,16,141,Parental Controls And Content Filtering,"Users request robust parental controls, content filtering, and tools to report inappropriate media.",human curation
+A,16,141,Parental Controls And Content Filtering,"Users request robust parental controls, content filtering, and tools to report inappropriate media.",prioritize local content
+A,17,74,Listening History Management,"Users want to view, clear, and manage their listening history and recent stats.",listening history
+A,17,74,Listening History Management,"Users want to view, clear, and manage their listening history and recent stats.",resume last listened item
+A,17,74,Listening History Management,"Users want to view, clear, and manage their listening history and recent stats.",reset listening history
+A,17,74,Listening History Management,"Users want to view, clear, and manage their listening history and recent stats.",artist listening history stats
+A,17,74,Listening History Management,"Users want to view, clear, and manage their listening history and recent stats.",clear listening history stats
+A,17,74,Listening History Management,"Users want to view, clear, and manage their listening history and recent stats.",location-based listening history
+A,17,74,Listening History Management,"Users want to view, clear, and manage their listening history and recent stats.",delete listening history
+A,17,74,Listening History Management,"Users want to view, clear, and manage their listening history and recent stats.",extended listening history tracking
+A,17,74,Listening History Management,"Users want to view, clear, and manage their listening history and recent stats.",ai listening history prompt
+A,17,74,Listening History Management,"Users want to view, clear, and manage their listening history and recent stats.",song listening history
+A,18,105,Customize AI DJ Voice,"Users want options to disable, change, or customize the AI DJ voice and commentary.",voice options for dj
+A,18,105,Customize AI DJ Voice,"Users want options to disable, change, or customize the AI DJ voice and commentary.",toggle to disable dj voice
+A,18,105,Customize AI DJ Voice,"Users want options to disable, change, or customize the AI DJ voice and commentary.",alternative dj voices
+A,18,105,Customize AI DJ Voice,"Users want options to disable, change, or customize the AI DJ voice and commentary.",british english dj
+A,18,105,Customize AI DJ Voice,"Users want options to disable, change, or customize the AI DJ voice and commentary.",customizable dj voice
+A,18,105,Customize AI DJ Voice,"Users want options to disable, change, or customize the AI DJ voice and commentary.",disable dj narration
+A,18,105,Customize AI DJ Voice,"Users want options to disable, change, or customize the AI DJ voice and commentary.",voice control for dj
+A,18,105,Customize AI DJ Voice,"Users want options to disable, change, or customize the AI DJ voice and commentary.",disable dj voice narration
+A,18,105,Customize AI DJ Voice,"Users want options to disable, change, or customize the AI DJ voice and commentary.",british accent for dj
+A,18,105,Customize AI DJ Voice,"Users want options to disable, change, or customize the AI DJ voice and commentary.",more ai dj voices
+A,19,37,Alternative Payment Methods,"Users ask for local payment methods, mobile money, and flexible payment options.",prepaid card payment option
+A,19,37,Alternative Payment Methods,"Users ask for local payment methods, mobile money, and flexible payment options.",qr code payment support
+A,19,37,Alternative Payment Methods,"Users ask for local payment methods, mobile money, and flexible payment options.",regional payment methods
+A,19,37,Alternative Payment Methods,"Users ask for local payment methods, mobile money, and flexible payment options.",local currency payment
+A,19,37,Alternative Payment Methods,"Users ask for local payment methods, mobile money, and flexible payment options.",remove automatic payment
+A,19,37,Alternative Payment Methods,"Users ask for local payment methods, mobile money, and flexible payment options.",one-time payment premium
+A,19,37,Alternative Payment Methods,"Users ask for local payment methods, mobile money, and flexible payment options.",delete payment method
+A,19,37,Alternative Payment Methods,"Users ask for local payment methods, mobile money, and flexible payment options.",airtel money payment method
+A,19,37,Alternative Payment Methods,"Users ask for local payment methods, mobile money, and flexible payment options.",bank transfer payment method
+A,19,37,Alternative Payment Methods,"Users ask for local payment methods, mobile money, and flexible payment options.",opay payment option
+A,20,21,Enhanced Liked Songs Management,"Users want better tools to organize, share, sort, and control their Liked Songs collection.",prevent song removal from liked songs
+A,20,21,Enhanced Liked Songs Management,"Users want better tools to organize, share, sort, and control their Liked Songs collection.",liked songs history
+A,20,21,Enhanced Liked Songs Management,"Users want better tools to organize, share, sort, and control their Liked Songs collection.",one tap to remove from liked songs
+A,20,21,Enhanced Liked Songs Management,"Users want better tools to organize, share, sort, and control their Liked Songs collection.",prioritize liked songs in search
+A,20,21,Enhanced Liked Songs Management,"Users want better tools to organize, share, sort, and control their Liked Songs collection.",chronological liked songs playback
+A,20,21,Enhanced Liked Songs Management,"Users want better tools to organize, share, sort, and control their Liked Songs collection.",double like songs
+A,20,21,Enhanced Liked Songs Management,"Users want better tools to organize, share, sort, and control their Liked Songs collection.",recover liked songs list
+A,20,21,Enhanced Liked Songs Management,"Users want better tools to organize, share, sort, and control their Liked Songs collection.",selectable liked songs
+A,20,21,Enhanced Liked Songs Management,"Users want better tools to organize, share, sort, and control their Liked Songs collection.",search within liked songs
+A,20,21,Enhanced Liked Songs Management,"Users want better tools to organize, share, sort, and control their Liked Songs collection.",bulk remove liked songs
+A,21,81,Local Audio File Support,"Users want better capabilities to play, upload, and manage their own local music files.",import music tutorial
+A,21,81,Local Audio File Support,"Users want better capabilities to play, upload, and manage their own local music files.",rescan local files
+A,21,81,Local Audio File Support,"Users want better capabilities to play, upload, and manage their own local music files.",better local files support
+A,21,81,Local Audio File Support,"Users want better capabilities to play, upload, and manage their own local music files.",local music playback
+A,21,81,Local Audio File Support,"Users want better capabilities to play, upload, and manage their own local music files.",add local music
+A,21,81,Local Audio File Support,"Users want better capabilities to play, upload, and manage their own local music files.",upload local music from phone
+A,21,81,Local Audio File Support,"Users want better capabilities to play, upload, and manage their own local music files.",play local folders
+A,21,81,Local Audio File Support,"Users want better capabilities to play, upload, and manage their own local music files.",import local files to mobile library
+A,21,81,Local Audio File Support,"Users want better capabilities to play, upload, and manage their own local music files.",upload local audio files
+A,21,81,Local Audio File Support,"Users want better capabilities to play, upload, and manage their own local music files.",lrc file support
+A,22,9,Ad Removal and Blocking,"Users ask for options to completely block or remove specific types of ads, such as political, video, and horror ads.",remove ai ads
+A,22,9,Ad Removal and Blocking,"Users ask for options to completely block or remove specific types of ads, such as political, video, and horror ads.",remove audio ads for premium
+A,22,9,Ad Removal and Blocking,"Users ask for options to completely block or remove specific types of ads, such as political, video, and horror ads.",opt out of full screen ads
+A,22,9,Ad Removal and Blocking,"Users ask for options to completely block or remove specific types of ads, such as political, video, and horror ads.",hide horror ads
+A,22,9,Ad Removal and Blocking,"Users ask for options to completely block or remove specific types of ads, such as political, video, and horror ads.",remove pop up ads
+A,22,9,Ad Removal and Blocking,"Users ask for options to completely block or remove specific types of ads, such as political, video, and horror ads.",disable ads
+A,22,9,Ad Removal and Blocking,"Users ask for options to completely block or remove specific types of ads, such as political, video, and horror ads.",opt out of banner ads
+A,22,9,Ad Removal and Blocking,"Users ask for options to completely block or remove specific types of ads, such as political, video, and horror ads.",hide blocked ads
+A,22,9,Ad Removal and Blocking,"Users ask for options to completely block or remove specific types of ads, such as political, video, and horror ads.",remove ice recruitment ads
+A,22,9,Ad Removal and Blocking,"Users ask for options to completely block or remove specific types of ads, such as political, video, and horror ads.",remove specific ad categories
+A,23,73,Disable Recommendations,"Users want the ability to turn off automated, promotional, and sponsored recommendations.",disable homepage suggestions
+A,23,73,Disable Recommendations,"Users want the ability to turn off automated, promotional, and sponsored recommendations.",disable smart recommendations
+A,23,73,Disable Recommendations,"Users want the ability to turn off automated, promotional, and sponsored recommendations.",disable sponsored recommendations
+A,23,73,Disable Recommendations,"Users want the ability to turn off automated, promotional, and sponsored recommendations.",remove suggested content from feed
+A,23,73,Disable Recommendations,"Users want the ability to turn off automated, promotional, and sponsored recommendations.",remove unwanted recommendations
+A,23,73,Disable Recommendations,"Users want the ability to turn off automated, promotional, and sponsored recommendations.",hide suggested content
+A,23,73,Disable Recommendations,"Users want the ability to turn off automated, promotional, and sponsored recommendations.",exclude reissues from recommendations
+A,23,73,Disable Recommendations,"Users want the ability to turn off automated, promotional, and sponsored recommendations.",disable suggestions
+A,23,73,Disable Recommendations,"Users want the ability to turn off automated, promotional, and sponsored recommendations.",remove recommendation slop
+A,23,73,Disable Recommendations,"Users want the ability to turn off automated, promotional, and sponsored recommendations.",disable home screen suggestions
+A,24,77,Sequential Playlist Playback,Users want to play playlists in their exact custom order without forced shuffling.,play playlist in order
+A,24,77,Sequential Playlist Playback,Users want to play playlists in their exact custom order without forced shuffling.,control playlist track order
+A,24,77,Sequential Playlist Playback,Users want to play playlists in their exact custom order without forced shuffling.,choose song order in playlists
+A,24,77,Sequential Playlist Playback,Users want to play playlists in their exact custom order without forced shuffling.,exact playlist track order
+A,24,77,Sequential Playlist Playback,Users want to play playlists in their exact custom order without forced shuffling.,free playlist playback order
+A,24,77,Sequential Playlist Playback,Users want to play playlists in their exact custom order without forced shuffling.,custom playlist order
+A,24,77,Sequential Playlist Playback,Users want to play playlists in their exact custom order without forced shuffling.,play playlist songs in order
+A,24,77,Sequential Playlist Playback,Users want to play playlists in their exact custom order without forced shuffling.,play playlist in correct order
+A,24,77,Sequential Playlist Playback,Users want to play playlists in their exact custom order without forced shuffling.,custom playlist ordering
+A,24,77,Sequential Playlist Playback,Users want to play playlists in their exact custom order without forced shuffling.,lock custom playlist order
+A,25,97,Playlist Search Functionality,Users want a search bar inside playlists to easily find songs and add tracks to playlists.,search within playlists
+A,25,97,Playlist Search Functionality,Users want a search bar inside playlists to easily find songs and add tracks to playlists.,search songs within playlist
+A,25,97,Playlist Search Functionality,Users want a search bar inside playlists to easily find songs and add tracks to playlists.,search alarm playlists
+A,25,97,Playlist Search Functionality,Users want a search bar inside playlists to easily find songs and add tracks to playlists.,slide up play bar
+A,25,97,Playlist Search Functionality,Users want a search bar inside playlists to easily find songs and add tracks to playlists.,sticky playlist search bar
+A,25,97,Playlist Search Functionality,Users want a search bar inside playlists to easily find songs and add tracks to playlists.,playlist search ui
+A,25,97,Playlist Search Functionality,Users want a search bar inside playlists to easily find songs and add tracks to playlists.,redesign playlist search bar
+A,25,97,Playlist Search Functionality,Users want a search bar inside playlists to easily find songs and add tracks to playlists.,playlist search
+A,25,97,Playlist Search Functionality,Users want a search bar inside playlists to easily find songs and add tracks to playlists.,content request search bar
+A,25,97,Playlist Search Functionality,Users want a search bar inside playlists to easily find songs and add tracks to playlists.,search bar in playlists
+A,26,0,Fewer and Shorter Ads,"Users request a reduction in ad frequency, duration, and interruptions while listening.",ad language personalization
+A,26,0,Fewer and Shorter Ads,"Users request a reduction in ad frequency, duration, and interruptions while listening.",ads watched in wrapped
+A,26,0,Fewer and Shorter Ads,"Users request a reduction in ad frequency, duration, and interruptions while listening.",less aggressive ads
+A,26,0,Fewer and Shorter Ads,"Users request a reduction in ad frequency, duration, and interruptions while listening.",lower ad frequency
+A,26,0,Fewer and Shorter Ads,"Users request a reduction in ad frequency, duration, and interruptions while listening.",fewer repetitive ads
+A,26,0,Fewer and Shorter Ads,"Users request a reduction in ad frequency, duration, and interruptions while listening.",target ads
+A,26,0,Fewer and Shorter Ads,"Users request a reduction in ad frequency, duration, and interruptions while listening.",fewer ads
+A,26,0,Fewer and Shorter Ads,"Users request a reduction in ad frequency, duration, and interruptions while listening.",family friendly ads
+A,26,0,Fewer and Shorter Ads,"Users request a reduction in ad frequency, duration, and interruptions while listening.",filter ad categories
+A,26,0,Fewer and Shorter Ads,"Users request a reduction in ad frequency, duration, and interruptions while listening.",target ad language
+A,27,59,Search and History Management,Users want improved search functionality and better tools to manage and clear their listening history.,improved search
+A,27,59,Search and History Management,Users want improved search functionality and better tools to manage and clear their listening history.,bring back search shortcut
+A,27,59,Search and History Management,Users want improved search functionality and better tools to manage and clear their listening history.,one tap search
+A,27,59,Search and History Management,Users want improved search functionality and better tools to manage and clear their listening history.,deleted history trash bin
+A,27,59,Search and History Management,Users want improved search functionality and better tools to manage and clear their listening history.,open keyboard by double tapping search
+A,27,59,Search and History Management,Users want improved search functionality and better tools to manage and clear their listening history.,natural language search
+A,27,59,Search and History Management,Users want improved search functionality and better tools to manage and clear their listening history.,clear recently played history
+A,27,59,Search and History Management,Users want improved search functionality and better tools to manage and clear their listening history.,automatic keyboard on search
+A,27,59,Search and History Management,Users want improved search functionality and better tools to manage and clear their listening history.,longer search history
+A,27,59,Search and History Management,Users want improved search functionality and better tools to manage and clear their listening history.,search history in search ui
+A,28,4,True Random Shuffle,Users request improvements to the shuffle algorithm to make it genuinely random rather than predictable.,reduce song repeats in shuffle
+A,28,4,True Random Shuffle,Users request improvements to the shuffle algorithm to make it genuinely random rather than predictable.,customizable smart shuffle
+A,28,4,True Random Shuffle,Users request improvements to the shuffle algorithm to make it genuinely random rather than predictable.,fewer repeat songs in shuffle
+A,28,4,True Random Shuffle,Users request improvements to the shuffle algorithm to make it genuinely random rather than predictable.,free shuffle control
+A,28,4,True Random Shuffle,Users request improvements to the shuffle algorithm to make it genuinely random rather than predictable.,repeat count for shuffle
+A,28,4,True Random Shuffle,Users request improvements to the shuffle algorithm to make it genuinely random rather than predictable.,save shuffle order on restart
+A,28,4,True Random Shuffle,Users request improvements to the shuffle algorithm to make it genuinely random rather than predictable.,free song shuffling
+A,28,4,True Random Shuffle,Users request improvements to the shuffle algorithm to make it genuinely random rather than predictable.,discovery based smart shuffle
+A,28,4,True Random Shuffle,Users request improvements to the shuffle algorithm to make it genuinely random rather than predictable.,better random shuffle
+A,28,4,True Random Shuffle,Users request improvements to the shuffle algorithm to make it genuinely random rather than predictable.,lock songs together on shuffle
+A,29,120,App Redesign And Customization,"Users ask to modernize the app interface, improve navigation, and add customization options.",improve app navigation
+A,29,120,App Redesign And Customization,"Users ask to modernize the app interface, improve navigation, and add customization options.",customizable app content tabs
+A,29,120,App Redesign And Customization,"Users ask to modernize the app interface, improve navigation, and add customization options.",simplified app interface
+A,29,120,App Redesign And Customization,"Users ask to modernize the app interface, improve navigation, and add customization options.",app appearance customization
+A,29,120,App Redesign And Customization,"Users ask to modernize the app interface, improve navigation, and add customization options.",bypass android os resampling
+A,29,120,App Redesign And Customization,"Users ask to modernize the app interface, improve navigation, and add customization options.",more app customisations
+A,29,120,App Redesign And Customization,"Users ask to modernize the app interface, improve navigation, and add customization options.",better app customizations
+A,29,120,App Redesign And Customization,"Users ask to modernize the app interface, improve navigation, and add customization options.",app aesthetic customization
+A,29,120,App Redesign And Customization,"Users ask to modernize the app interface, improve navigation, and add customization options.",app performance improvements
+A,29,120,App Redesign And Customization,"Users ask to modernize the app interface, improve navigation, and add customization options.",new app design
+B,0,28,"stats, capsule, sound, monthly, listening, bring",,"Bring back ""your sound capsule"" and remove the ""listening stats""."
+B,0,28,"stats, capsule, sound, monthly, listening, bring",,I want to see my listening time without waiting for wrapped i found stats.fm but it's paid and i want free last.fm is good but doesn't show listening time pls help guys
+B,0,28,"stats, capsule, sound, monthly, listening, bring",,"Hello spotify, in your ""Your sound capsule"" in top songs previously you were showing count also, how many times song has been played in that month. Please bring back that feature."
+B,0,28,"stats, capsule, sound, monthly, listening, bring",,"worst update ever, PLEASE bring back sound capsule!"
+B,0,28,"stats, capsule, sound, monthly, listening, bring",,Please give us access to previous wrapped summaries so we can compare them end of the year 😭🙏
+B,0,28,"stats, capsule, sound, monthly, listening, bring",,please bring sound capsule back.
+B,0,28,"stats, capsule, sound, monthly, listening, bring",,please bring back sound capsule and get rid of the listening stats it's so useless
+B,0,28,"stats, capsule, sound, monthly, listening, bring",,"Did anyone else prefer the old stats? It changed over for me today 😭, the old one was sooooo much better, wouldn’t you agree? It let you look back over multiple years of stats in detail, this one barley allows me to look at a month’s stats and you don’t even get the minutes listened to stat anymore it’s so bad. I hope they change it back ☹️"
+B,0,28,"stats, capsule, sound, monthly, listening, bring",,Why has Spotify removed sound capsule For around a month Spotify sound capsule has been removed and we can't see the amount of minutes listened
+B,0,28,"stats, capsule, sound, monthly, listening, bring",,"spotify wrapped was so bad i canceled my subscription. i would have liked to see my accurate listening stats instead of promotions for artists i barely listen to. the stats don't match my other stats tracker. also, the listening age thing was really stupid. i don't know or care what my listening age is. but i do care what my listening stats are!"
+B,1,18,"podcasts, podcast, ads, premium, paying, pay",,unsubscribed until ads are completely gone from even podcasts.
+B,1,18,"podcasts, podcast, ads, premium, paying, pay",,"Music and podcast is much appreciated because of the sound quality. The only thing that needs improvement is that when you subscribe, payments will automatically deduct from your gcash"
+B,1,18,"podcasts, podcast, ads, premium, paying, pay",,"As a premium user, I am paying for ZERO ads; so why do I have ads popping up during podcasts? I've seen your replies to others who brought up the same concerns, and using the excuse of ""it's only ad-free for the music experience"" is pretty underhanded. Unless there's improvements on this aspect (as well as promoting ICE), I will be cancelling my subscription and moving to YouTube Music."
+B,1,18,"podcasts, podcast, ads, premium, paying, pay",,"I enjoy Spotify very much, but my biggest complaint is that I pay for premium so I don't have to listen to ads. Unfortunately, ad-free is only for music, not podcasts. Most of my listening is podcasts, so I wish they were ad-free. It's very nice not having the ads while listening to music, but sometimes, listening to my podcasts, the ads are relentless. Honestly, makes me want to just cancel it. C"
+B,1,18,"podcasts, podcast, ads, premium, paying, pay",,"i love this app and have used it for a long time, lately it hasn't been as good. i can only have 6 skips per hour, limited lyrics, can't even choose my own songs after a bit. at least give the option to turn off smart shuffle. the ads are way too often, and i think that anyone, paid or free, should be able to have music downloaded. why's there a limit to how much i can listen to podcasts? it sucks"
+B,1,18,"podcasts, podcast, ads, premium, paying, pay",,"Podcasts advertisement drives me mad How do I get rid of these pop up podcast ads?? Especially this julian dorey one. I hate them so much, makes me want to exit the app as soon as I open it given it is right in the middle of main page😞 I tried to ""dislike"" them somehow or block the creator but it doesn't seem to be possible"
+B,1,18,"podcasts, podcast, ads, premium, paying, pay",,"I don't know who decided premium users would get ads on podcasts recently, but can we at least make them not be 10 times louder than the podcast? going to make me need a hearing aid."
+B,1,18,"podcasts, podcast, ads, premium, paying, pay",,Not sure what planet I was on when I wrote the b/S about my ear buds nowt to do with Spotify. Just want to *REMIND THAT MY IDEA FOR THOSE THAT ARE UNABLE TO PAY THE FULL SUBSCRIPTION & DON'T WANT PODCASTS* HOW ABOUT £5:99 DEAL FOR MUSIC ONLY I COULDN'T CARE IF 10 TRILLION PODCASTS WERE ON HERE I'VE NEVER HEARD ANY PODCAST SO GIVE US A DISCOUNT PLZ..
+B,1,18,"podcasts, podcast, ads, premium, paying, pay",,"Want to listen to a song you search for? To bad, Spotify will play a diggerent song from a different artist unless you pay Spotify. Even on premium you will still get adds on podcasts. Should be a way of taking them out if your paying a subscription or some Claus that they give the podcasters to have a separate upload that only shows for premium users that has no adds. The adds are the reason why "
+B,1,18,"podcasts, podcast, ads, premium, paying, pay",,"they keep changing around the User Interface as if anyone asked for it. If it ain't broke, don't fix it. Just because the higher ups think they need to roll out new and shiny updates every few months for the sake of change does not mean anyone actually asked for it. Also, I sometimes get ads before or after a podcast... Why am I paying for premium if y'all are showing ads anyway? sigh and most of "
+B,2,32,"widget, old, new, screen, widgets, 4x1",,I hate the new Spotify widget. I don't like that it matches the album color instead of my device color and the smaller version doesn't have the shuffle toggle anymore. Why do companies always have to change things that are working fine
+B,2,32,"widget, old, new, screen, widgets, 4x1",,"For some reason Spotify have decided to introduce a new widget that is twice as big and insist that everyone switches to it. I literally just want the ability to see what is playing, pause, play and skip - like every other media player ever. Instead I either need to delegate 4 of my apps or Spotify itself to another page. I don't need or want things on the home page making suggestions or whatever "
+B,2,32,"widget, old, new, screen, widgets, 4x1",,New widget is terrible. In the 4x1 configuration you now lose the ability to skip forward or back. Why would you remove features with an update? Edit: The Spotify response says I should look at premium packages to enhance features. I already have premium...
+B,2,32,"widget, old, new, screen, widgets, 4x1",,"""Update your spotify widget - switch to the new widget to keep spotify on your home screen"" are we being for real rn? Why can't I just use the small one?"
+B,2,32,"widget, old, new, screen, widgets, 4x1",,"why do I have to switch my Spotify widget to be able to keep it on my screen? The 4x1 widget fits perfectly on an organised screen so why was this needed? Can we not just keep the 4x1 widget, it brings you no harm"
+B,2,32,"widget, old, new, screen, widgets, 4x1",,"The only reason I'm still using Spotify is because there's no way to transfer my 7+ years of data to another service. Please stop pushing for AI features no one asked for and spend you resources to make a good app. And pay your artists a proper amount instead of fractions of pennies/listen. The new widget is completely useless and doesn't work, you should at the very least give us the choice to ke"
+B,2,32,"widget, old, new, screen, widgets, 4x1",,"Why would you remove the slimmer widget... there is no reason to do this. I don't want to have a huge widget on my screen to handle my Spotify. Edit: I have changed the review, pending this new information"
+B,2,32,"widget, old, new, screen, widgets, 4x1",,Love spotify but the new widget is terrible. constantly just a blank box because can't connect or sync or something until you tap it. looks ugly on my homescreen unless you tap it to try to resync or reconnect or whatever. never had this issue with the last widget. seriously give us back the last widget. both even. I still have the last widget but it just says update your widget now and forces you
+B,2,32,"widget, old, new, screen, widgets, 4x1",,"not a fan of the new widget, the 4x1 fit on my screen and I've had to move things around to accommodate the new one. Ignore Spotifys reply, you can not make it less than 2 tiles tall. the old one (which they won't let you use anymore) was one tile tall"
+B,2,32,"widget, old, new, screen, widgets, 4x1",,Ruined Widget??!? WHY? Yo Spotify why the heck would you botch your amazing widget that allowed me to quickly access and swap between my recently listened albums and replaced to something IdGaF about. Okay I get it Spotify rap ed was cool but I don’t need it to completely take over my widget with no option to revert it. Whyyyy I just don’t understand. Who makes these decisions and decides how I us
+B,3,49,"cancel, subscription, option, cancellation, easy, app",,"you write, I can cancel subscription any time, but I can do this only from desctop, not from application. and I can't delete my payment. I will seek new app for music, thanks"
+B,3,49,"cancel, subscription, option, cancellation, easy, app",,can you put some reminders that subscription is about to expire? I forgot to cancel it and my allowance was cut because of that premium at least I have to choose and no hassle for me and your app that I might buy again in the future.
+B,3,49,"cancel, subscription, option, cancellation, easy, app",,I am pissed because I am trying to cancel my subscription but this damn app takes you everywhere but to the cancel option. I don't need to view plans. The services was great no other complaints but I want this canceled asap. Under management subscription there should clearly be a cancel option not a damn add on option. For this I'm only doing 3 stars instead of 5.
+B,3,49,"cancel, subscription, option, cancellation, easy, app",,There is no cancellation option or button in the app to cancel premium option. Very absurd app. Dont understand why the user has not been given an option. I am still unable to cancel my subscription and it is frustrating.
+B,3,49,"cancel, subscription, option, cancellation, easy, app",,great app. very easy to use. CANCELING OR CHANGING SUBSCRIPTION IS THE MOST NOT INTUITIVE THING THERE IS. does it even exist??????
+B,3,49,"cancel, subscription, option, cancellation, easy, app",,"worst app doesn't show option to cancel subscription..... developer reply here asking me to call them from contact us option, but why? why on earth you guys are expecting user to call for cancellation of subscription... it should as easy as i subscribe. if you can't manage too many options then remove other options but add unsubscribe option.. you proved that it's one of the worst app."
+B,3,49,"cancel, subscription, option, cancellation, easy, app",,i dont like the Autopay. and its hard to cancel the subscription. pls fix this.
+B,3,49,"cancel, subscription, option, cancellation, easy, app",,Doesn't have a cancel subscription option in the app.
+B,3,49,"cancel, subscription, option, cancellation, easy, app",,"I want to cancel my subscription, no easy accessible button for cancel (words). I'm confused."
+B,3,49,"cancel, subscription, option, cancellation, easy, app",,Where is the option to cancel subscription in manage my subscription. You are using tactics to make it difficult to cancel. 😡😡😡😡😡
+B,4,50,"adds, add, spotify, blah, calm, problem",,"adds are annoying and sometimes too long, but with Spotify premium it's really nice. I wish the prices were lower though"
+B,4,50,"adds, add, spotify, blah, calm, problem",,"Spotify's an app that I literally use everyday. Because I genuinely love listening to music, especially on this app. But lately it's hitting my nerve. Previously it was 1 add after 4 or 5 songs at max (The era everyone loved the most). And then, it became 2 adds back to back after 3 or 4 songs... Pretty reasonable. Which was okay with most of us because it seemed fair enough. But 3 adds back to ba"
+B,4,50,"adds, add, spotify, blah, calm, problem",,i like Spotify but could you get rid of the adds please I really don't like them it's ruining my time to relax and vibe
+B,4,50,"adds, add, spotify, blah, calm, problem",,I love Spotify but it would be a five if the adds were shorter and less frequent
+B,4,50,"adds, add, spotify, blah, calm, problem",,spotrify should have no adds and Listen to your own songs you like
+B,4,50,"adds, add, spotify, blah, calm, problem",,sportify sucks on adds preferences... When you start reporting an add that you don't wanna see...You will get that add the most because they want to annoy you so that you can finally pay for the premium membership out of frustration. Team really need to work on the add preference. I don't wanna see a specific add and I'm tired of giving thumbs down to that add 10000 times. But still getting it aga
+B,4,50,"adds, add, spotify, blah, calm, problem",,"The adds are really annoying. I know I'm a free user and i accept the adds but not this many times, please reduce adds and don't let me leave Spotify. 💔For now a broken heart."
+B,4,50,"adds, add, spotify, blah, calm, problem",,I feel like now Spotify should tone down on the adds it has reached to a point were it's now annoying and frustrating that we as listeners can not enjoy their own music please fix this issue
+B,4,50,"adds, add, spotify, blah, calm, problem",,"Don't download this app !!! You literally only get to listen to one song before you get an unskippable add and if you're lucky you will get two in a row. Spotify, I once loved you but now you've just begun to be a pain. Please go easier on the adds because it's almost impossible to enjoy your app."
+B,4,50,"adds, add, spotify, blah, calm, problem",,"I like using spotify, the only thing I wish they could change are the types of adds that play. if I have a playlist playing that seems to have a lot of peacefully calm music in it, I think there should be calm quiet adds that play during those types of songs or playlists.but currently it is not so, right now all the adds are js random or. whatever, and sometimes surprise me because I was js listen"
+B,5,19,"offline, wifi, internet, downloaded, download, play",,"The app is fine, except a couple of caveats. Why not include in the player controls outside the app the sleep timer and the loop button? Also, sometimes the app just decides it would be nice if it's staying offline. To fix that bug after the app was in a private session, I gotta close the app, restart it, close it again, restart it, until it actually works. Please try to fix this bug.."
+B,5,19,"offline, wifi, internet, downloaded, download, play",,"Great app, pay for premium, yada yada My only annoyance is, the setting ""Offline Access"" allows for song downloads so that you can listen offline, but it also adds all of your recently listened songs into your cache. With the addition of lossless listening there is a large inflation of what goes into your cache. Just wondering if we can separate the two, allowing for downloaded songs so we can lis"
+B,5,19,"offline, wifi, internet, downloaded, download, play",,"good but, it would be better to listen without WiFi or MB, i just wish that's it 🙂🙊"
+B,5,19,"offline, wifi, internet, downloaded, download, play",,"I think it's a great app, but I would prefer it if it was offline"
+B,5,19,"offline, wifi, internet, downloaded, download, play",,the app is good why is it that you can play offline song
+B,5,19,"offline, wifi, internet, downloaded, download, play",,I love this app but I wish there is offline songs
+B,5,19,"offline, wifi, internet, downloaded, download, play",,We need a customisable sleep timer (or just 20 minutes instead of 15) 🤔👌🏻👌🏻 Also for some reason the offline downloads do not work offline 😐
+B,5,19,"offline, wifi, internet, downloaded, download, play",,The amount of time spent unable to interact with the app due to (I presume) waiting for network requests is a bit ridiculous; for things that could easily exist locally. Can we move forward in terms of technology? We have gone a bit backwards from the iPod.
+B,5,19,"offline, wifi, internet, downloaded, download, play",,offline music will be more nice
+B,5,19,"offline, wifi, internet, downloaded, download, play",,"there should be offline music available at least for few days,for the selected song which listen online once."
+B,6,42,"animations, ui, spotify, interface, visualizer, design",,To be honest I still would much rather have a visualizer instead
+B,6,42,"animations, ui, spotify, interface, visualizer, design",,"I love the new remix feature, it would be great to also have a MilkDrop visualizer for the ultimate party experience https://preview.redd.it/qfzk0zaixgrh1.png?width=926&format=png&auto=webp&s=4173588c266bd91e22f8409946e1c88216b35b35"
+B,6,42,"animations, ui, spotify, interface, visualizer, design",,"from 10 y Spotify consumer, 2 the devs.... why nobody test new idias? examble? why change likè‐mechanic of ui to worse? after update: the thump have to move, more, longer, repeadly to rxecute? Tjats bad by design! please stop this role-dice-unergonomical-design... put the search to the thumb! lower the range of movement to execute, lower the sum steps to execute, lower the rate of possibilty failu"
+B,6,42,"animations, ui, spotify, interface, visualizer, design",,"Spotify’s UI is throwing me for a loop I’m aware I’m not the only person to point this out, but it’s gotten to the point where I want to make my own post… As someone who’s been on the platform since 2012, I’ve recently been tempted to move away from it because of how cluttered the UI is. The feature creep is real and I don’t get why the Spotify team doesn’t realize or care enough to fix it? Look… "
+B,6,42,"animations, ui, spotify, interface, visualizer, design",,"Spotify Now Playing UI Needs A Refresh I feel that the Now Playing UI, with the gradient looks pretty outdated and inconsistent with the overall app now that Spotify has updated other elements of the app (like the lyrics view, which has a different gradient scheme now). Would really appreciate a clean redux of this screen now, with no unnecessary button removal/movements."
+B,6,42,"animations, ui, spotify, interface, visualizer, design",,"After Apple Music’s new update… is it time for Spotify to fix its UI? after seeing Apple Music’s recent update, their UI feels a lot prettier and more modern. It kind of made me realize Spotify’s design hasn’t changed much in comparison. I feel like Spotify could do way better here if they actually refreshed things a bit. Do you think Spotify needs a UI update, or is it fine as it is? What would y"
+B,6,42,"animations, ui, spotify, interface, visualizer, design",,"TikTok for Spotify Users I know Spotify has a TikTok-like feature to go through a playlist, but it would be cool if I could see other music in a TikTok-like style like this app does: [https://apple.co/3L0FZty](https://apple.co/3L0FZty) Where can I request this feature?"
+B,6,42,"animations, ui, spotify, interface, visualizer, design",,There should be a color coded/who's singing feature on Spotify For groups so I can enjoy the experience better
+B,6,42,"animations, ui, spotify, interface, visualizer, design",,What if Spotify had a music visualizer?
+B,6,42,"animations, ui, spotify, interface, visualizer, design",,"Spotify's recommendations are carrying this app. 💀 The music library is amazing, but the UI feels cluttered, confusing, and honestly a bit outdated. Every update seems to add more features, yet the app doesn't feel cleaner or easier to use. Please consider a visual refresh with a better UI, smoother animations, and more polished transitions. Also, not everyone likes dark mode 24/7—adding a light t"
+B,7,17,"video, videos, disable, turn, home, watch",,"dont like the pushy inclusion of videos. think their should be an option to turn them off, or at least have them not be in your face when you launch"
+B,7,17,"video, videos, disable, turn, home, watch",,"The app is getting very bad lately, can you please delete the video idea? like i have YouTube i can go and watch whatever i want there. plus i would accidentally click on episodes instead of the albums i want, this is an audio app not a wannabe YouTube knock off!! unacceptable!"
+B,7,17,"video, videos, disable, turn, home, watch",,I hope the updated version makes it easier to find the off button. I'd watch more often if I didn't always have to search for a way to turn it off.
+B,7,17,"video, videos, disable, turn, home, watch",,"I love Spotify, have premium, But I'd like to turn off videos. There there are video podcasts that are basically just YouTube, and what used to be find music, has now become YouTube shorts but musical. All in all, I would be much happier if there was a setting to disable the videos/ set my preference. I come to Spotify to focus and find music and I feel like y'all's be pushing videos."
+B,7,17,"video, videos, disable, turn, home, watch",,"can you please let us turn VIDEO off? its really annoying. I dont go to spotify to watch content, I use it to listen. whatever you did in your last update removed the ability to turn the video off on podcasts. Please return the option to have only audio."
+B,7,17,"video, videos, disable, turn, home, watch",,"bro I need you guys to develop a feature where I can block/mute/remove certain creators/videos/pods from my page. Spotify keeps recommending content that I'm not interested in in the ""videos for you"" section and it annoys me. also what if I don't want any videos to appear?? If I want to watch a video podcast I'll just go to YouTube. I think you should make the feature of choosing to see video cont"
+B,7,17,"video, videos, disable, turn, home, watch",,"it's really great but what I find really annoying is that it keeps recommending videos, even though I haven't watched any yet. I won't be allowed it if it keeps showing videos and I can't figure out how to stop showing it. If anyone has parents who don't allow alot of social media, please be aware because it's really agitating🫩."
+B,7,17,"video, videos, disable, turn, home, watch",,"Put in an option to switch between song or music video format or I'm closing my account Most of my playlists are now full of ""music videos"" instead of just songs, some songs went from ~3mins to ~5mins just because the video version has a bunch of long pauses, cuts in the song where people talk and other stuff. I WANT TO LISTEN TO MUSIC, NOTHING MORE! I have no problem if this remains but there is "
+B,7,17,"video, videos, disable, turn, home, watch",,Homepage needs work. Too much clutter.
+B,7,17,"video, videos, disable, turn, home, watch",,this isn't a video app. please make an option to have a classic home page
+B,8,35,"ice, recruitment, running, stop, ads, canceled",,Unsubscribing and uninstalling until Spotify terminates ICE recruitment ads contracts. Freedom is more profitable than fascism.
+B,8,35,"ice, recruitment, running, stop, ads, canceled",,STOP RUNNING ICE ADS SUCKERS...
+B,8,35,"ice, recruitment, running, stop, ads, canceled",,Running ads for ICE and collaborating with GenAI. had Spotify since 2014 and cancelled last week because of this. Get rid of Daniel Ek and all that BS.
+B,8,35,"ice, recruitment, running, stop, ads, canceled",,"pay your artists more, stop with the ai slop training, and stop promoting ICE recruitment ads. Switching my subscription to QoBuzz"
+B,8,35,"ice, recruitment, running, stop, ads, canceled",,Updated review 10/19/25 - Stop running ICE ads! Deleting & closing acct. Billionaire$ shouldn't exist. Free Falasteen! Original: Free version is barely functional. Spotify needs to provide more of my $$ to artists before I go back to a paid acct.
+B,8,35,"ice, recruitment, running, stop, ads, canceled",,Stop Running Recruitment Ads for ICE Spotify is running recruitment ads for ICE. ICE thugs are kidnapping US citizens. Do better.
+B,8,35,"ice, recruitment, running, stop, ads, canceled",,"can yall fix your download please. I have cleared the cache, re-download the app and logged out 4 times, it still downloads at least 2-3 times an hour!! also get rid of your ice ads and ai, no one wants to use your ai!"
+B,8,35,"ice, recruitment, running, stop, ads, canceled",,"stop the ICE ads! (no one wants to join or see ICE ads), we accept ads but not tolerate ads that instills fear and is political against immigrants who built the USA from scratch!"
+B,8,35,"ice, recruitment, running, stop, ads, canceled",,"I have canceled my premium subscription as of today, specifically because Spotify refuses to remove the despicable ice recruiting ads. bye"
+B,8,35,"ice, recruitment, running, stop, ads, canceled",,stop running ice recruitment ads. pay your artists. stop being a corporate nightmare.
+B,9,47,"widget, 4x1, 4x2, new, need, screen",,"Making it where the only widget is 4x2 is extremely irritating. With the 4x1 widget I could add it to a stack with other audio apps, but now it doesnt fit. Please correct this in the next update. 😑👎"
+B,9,47,"widget, 4x1, 4x2, new, need, screen",,"The new big widget is awfullll Why did u take away the small widget?? i dont want that big thing annoying my screen!!! And I've been trying the DJ and its not good, confuses kpop with pop and even when i ask for a specific song and vibe it throws sth else, or sth ""technically"" in the same genre but not the vibe i ask for or the song i put as an example. Song radio is still being better to listen f"
+B,9,47,"widget, 4x1, 4x2, new, need, screen",,after update I can't have the 4x1 widget on home screen....I'm forced to have used the bigger 4x2 just for it to spam me recommended songs....I have my own damn play list I don't need ur recommended...I don't wanna have to launch the whole app just to change songs...just leave it alone now one ask for this..
+B,9,47,"widget, 4x1, 4x2, new, need, screen",,"Bring back the 4x1 widget. You still give the option to put it on my homescreen but it says ""use the updated version"" and it just pushes music I don't want to listen to. You clearly still have the capacity, you're just forcing your users to use something they don't want."
+B,9,47,"widget, 4x1, 4x2, new, need, screen",,"STOP. FORCING. THE. NEW. WIDGET. I don't care for it, I just want to listen to my music."
+B,9,47,"widget, 4x1, 4x2, new, need, screen",,they ruined the app short cut by adding new update from shortcut 4x1 to 4x2 deleting app they made it less user friendly terrible update hopefully they fix the option or at least give the option for 4x1 again ridiculous luckily SoundCloud still got the 4x1 shortcut widget SoundCloud for the win
+B,9,47,"widget, 4x1, 4x2, new, need, screen",,"the new widget sucks. It shows the loading animation frequently, forcing me to open the app, defeating the purpose of the widget. The ""+"" button for adding a song to liked songs is also gone. it also has an icon that launches the app. this is redundant. the song icon already does that. that space could have been used for the ""+"" button."
+B,9,47,"widget, 4x1, 4x2, new, need, screen",,EDIT: Bring back the smaller widget. This new one either doesn't work at all or acts like I've tapped on something else. I want to go to my Liked Songs? Nope. I'm going to the Currently Playing song. I want to try and restart the song? Nope. I'm going back to the song I was trying to skip in the first place. I don't want a TV screen taking up half my phone screen. I just want a small widget to sen
+B,9,47,"widget, 4x1, 4x2, new, need, screen",,newest update removes my widget! Need to bring back the 4×1 box!! Plays suggested songs when told it NOT to. Same as other peoples complaints in the reviews.
+B,9,47,"widget, 4x1, 4x2, new, need, screen",,"If it isn't broken don't fix it. I like the old widget (4x1). The new one is too big for no reason (5x1). Put the old one back. Also, if I remove song(s) from my queue when I edit it when the repeat is on, I'd like it/them out of the queue when it repeats. I don't want to repeatedly remove the song(s) from the queue each loop."
+B,10,37,"quality, audio, lossless, sound, india, countries",,Please release Fitness Running mode in India.
+B,10,37,"quality, audio, lossless, sound, india, countries",,"I am a premium user but I can't experience lossless audio in India why?, when will available in India?"
+B,10,37,"quality, audio, lossless, sound, india, countries",,"Good application with a remarkable integration throughout all OS, platforms.. but lack of Hi-Res resolution."
+B,10,37,"quality, audio, lossless, sound, india, countries",,"I'm enjoying myself on the app, but I still cant increase the audio quality."
+B,10,37,"quality, audio, lossless, sound, india, countries",,Just give Latin America Lossless quality and I'll give you 5 stars.
+B,10,37,"quality, audio, lossless, sound, india, countries",,when will lossless audio option be available ? I'm from chile🇨🇱
+B,10,37,"quality, audio, lossless, sound, india, countries",,needs some improvements in the quality
+B,10,37,"quality, audio, lossless, sound, india, countries",,Give us lossless in Zimbabwe
+B,10,37,"quality, audio, lossless, sound, india, countries",,"I am a premium user when will you bring the Lossless audio feature to india ? . Please don't say 'COMING SOON', We have been waiting too long"
+B,10,37,"quality, audio, lossless, sound, india, countries",,cool need more high res audio files
+B,11,3,"ads, spotify, ad, premium, free, music",,"A little bit of advice, instead of Spotify it would be better Radiofy or something like that, previously I could listen to my favorite artists now after update, Spotify plays anyone but the artist I wish to hear, more like a radio, and full of ads more than 1 minute of ad, YouTube is better in this regard even though they are champions on ads, I wish this to change I dont mind ads but at least don"
+B,11,3,"ads, spotify, ad, premium, free, music",,"ADS. when doing a daily task, ADS. when making a video, ADS. when doing everything you need, ADS. Everytime is always showing a Spotify advertisement that is beyond stupid and nonsense. Also, you need to delete any advertisement and never make one advertisement again. Do not get Spotify unless you want to pay for just no advertisements."
+B,11,3,"ads, spotify, ad, premium, free, music",,You should stick to the dream of Spotify's founder and let people listen to music freely with a voluntary contribution and less intrusive ads
+B,11,3,"ads, spotify, ad, premium, free, music",,"Spotify’s free version has so many ads 😂 Previously it was 1 ad, now it’s 3 ads every time! At this point, just stop playing the music and play ads only 😂 No issues though, I’ve moved to YouTube Music ✌️🎧"
+B,11,3,"ads, spotify, ad, premium, free, music",,I love Spotify but there's one thing I would like no ads cuz I don't have money to buy Spotify premium on Spotify premium costs money and I really like Spotify cuz I can go on different things on like YouTube YouTube premium YouTube music YouTube music premium.
+B,11,3,"ads, spotify, ad, premium, free, music",,"Spotify has a great music collection, but the free version has become very frustrating. Getting 3–4 long unskippable ads after every 2 or 3 songs completely ruins the listening experience. The ads are too frequent and interrupt the flow of music. I understand ads are needed for a free service, but the current experience feels excessive and needs improvement."
+B,11,3,"ads, spotify, ad, premium, free, music",,"this sucks after an ads then i pick a song there is another ads, like what the heck? are you guys for real? it should be named spotify: music, podcasts and ads"
+B,11,3,"ads, spotify, ad, premium, free, music",,"The constant premium ads after almost every song are becoming very frustrating. They interrupt the music experience and completely ruin the mood and flow of listening. I understand promoting Spotify Premium, but showing ads this frequently makes the app uncomfortable to use. Please consider reducing the frequency of these subscription ads so users can enjoy their music without constant interruptio"
+B,11,3,"ads, spotify, ad, premium, free, music",,can there be fewer ads spotify at least lessen the frequency
+B,11,3,"ads, spotify, ad, premium, free, music",,"too much ads it sucks, we know you want us to pay premium but if we can't use Spotify anymore for free because of ads just discontinue free usage once, ads every after song Nah"
+B,12,29,"skips, skip, unlimited, hour, limited, free",,"good app, tho why is it necessary to add a limit of 6 skips for non-premium users?"
+B,12,29,"skips, skip, unlimited, hour, limited, free",,"It is pretty good, but it goes slow sometimes and I would prefer more skips per hour, although I get having a limited amount."
+B,12,29,"skips, skip, unlimited, hour, limited, free",,wish i had more skips :(
+B,12,29,"skips, skip, unlimited, hour, limited, free",,could add a few more free skips to the non premium version
+B,12,29,"skips, skip, unlimited, hour, limited, free",,"It's pretty good, but I suggest you add a streak just like the tiktok."
+B,12,29,"skips, skip, unlimited, hour, limited, free",,At least give us a few more skips lol
+B,12,29,"skips, skip, unlimited, hour, limited, free",,eh to many subscriptions. I prefer being able to skip for free and unlimited.
+B,12,29,"skips, skip, unlimited, hour, limited, free",,need more skips for free but everything else is great
+B,12,29,"skips, skip, unlimited, hour, limited, free",,still removed unlimited skips again. I'm waiting.
+B,12,29,"skips, skip, unlimited, hour, limited, free",,"It's good, but the limited skips ruins the experience of music, so please, I largely recommend giving us multiple skips and stop giving us six skips per hour, but ads can stay sadly."
+B,13,46,"playlist, stop, songs, listen, playlists, random",,"It would be nice if I could listen to my list instead of having it keep going to songs it (thinks) I'd like. If I'm paying to listen to songs I want to listen to, why can't it stay on my list?"
+B,13,46,"playlist, stop, songs, listen, playlists, random",,Stop giving me AI generated songs and stop randomly removing songs from my Liked Songs playlist.
+B,13,46,"playlist, stop, songs, listen, playlists, random",,Please stop putting random songs on my playlist like cant u just let me listen to the songs i added to my playlists
+B,13,46,"playlist, stop, songs, listen, playlists, random",,love it wish I could duplicate the playlists
+B,13,46,"playlist, stop, songs, listen, playlists, random",,"ok so I have 56 songs around maybe 3-4 hours on my playlist it's made of many different songs and when I press the play button you know what it does, it plays so.ething from the what we added section first of all there shouldn't be a what we added section on MY playlist I don't want to listen to frank Sinatra although he is amazing I want to here queen and or sombr there is such a big difference i"
+B,13,46,"playlist, stop, songs, listen, playlists, random",,"can you PLEASE stop adding songs to my liked songs without my consent? I do not like rpkprincess at all, terrible music you keep adding it to my Playlists"
+B,13,46,"playlist, stop, songs, listen, playlists, random",,UGH I HATE IT WHEN I PLAYS SONGS THAT ARENT EVEN ON MY LIST AND I HATE THESE RECCOMENDED SONGS STOP IT AAAAAAAAA
+B,13,46,"playlist, stop, songs, listen, playlists, random",,"Ok I'll just get to the point. Stop adding different songs to the playlist without your consent. I'll be listening to rap, after a couple skips it plays something that's not even in my playlist. If I am playing my music leave me playing my music and stop adding different songs to the damn playlist even if it's not even there."
+B,13,46,"playlist, stop, songs, listen, playlists, random",,"can you like stop putting random music in my playlist, i have like 200 random songs in my playlist."
+B,13,46,"playlist, stop, songs, listen, playlists, random",,stop giving me songs that are not in my playlist.
+B,14,9,"widget, old, new, 4x1, screen, bring",,Widget update ... Your new widget sucks!!! Put it back. Keep it simple. Whenever you change it it sucks and you end up changing it anyways. The new one is overheating my phone cuz it's using so much data. More data than just the app alone
+B,14,9,"widget, old, new, 4x1, screen, bring",,I've been using this App since years. however pushing people to change the widget is not okay. why can't we have both? please fix this for a better review.
+B,14,9,"widget, old, new, 4x1, screen, bring",,"Besides all the issues w/ bugs(that have been present & unaddressed for YEARS) you're forcing us to use a bloated/worse version of the widget. If you don't bring back a streamlined version, I will not be using it at all... This might just be enough to drive me away from the platform after all the price increa$e$."
+B,14,9,"widget, old, new, 4x1, screen, bring",,This was a great app. Service continues to be great but app has gotten worse and worse. And now they removed the nice useful widget with a much larger version which takes up half a screen. I have no problem with a second widget option but why remove the old one?
+B,14,9,"widget, old, new, 4x1, screen, bring",,removed the 3x1 widget. 4x2 is ugly and I hate it.
+B,14,9,"widget, old, new, 4x1, screen, bring",,"hey so y'all made this new widget. then you made the old one not work. understandable. but ah it is ugly, specifically the color and I have not found a way or option to change it. I know this is kind of petty, but y'all forces the new widget and made it unpleasant to look at. please allow us to change it or make it the green and black the logo uses."
+B,14,9,"widget, old, new, 4x1, screen, bring",,why removing the 4X1 widget????
+B,14,9,"widget, old, new, 4x1, screen, bring",,why are you removing the home widget replacing it by one that uses twice the space or has half of the functionality in the same space let me have the old widget what no sense is this
+B,14,9,"widget, old, new, 4x1, screen, bring",,"Can you reduce the size of the new widget? It's too big and not customizable, or just bring back the old one"
+B,14,9,"widget, old, new, 4x1, screen, bring",,"New widget is garbage. To elaborate, the old widget worked with almost no issues. If it needed a refresh I could tap it and the app would open and refresh. When I tried to refresh the widget this morning it didn't do anything. Didn't open the app to refresh and didn't refresh from the home screen. This is a classic case of trying to revamp something that didn't need revamping. You're a media playe"
+B,15,14,"device, phone, jam, car, bluetooth, automatically",,Doesn't have the basic feature to disable auto play. It's annoying when it starts playing music on every Bluetooth connection!!
+B,15,14,"device, phone, jam, car, bluetooth, automatically",,get rid of these horrendous in app full screen notifications I have to dismiss.
+B,15,14,"device, phone, jam, car, bluetooth, automatically",,"Automatically inviting people nearby to ""jam"" without a way to disable the feature so I don't have to turn it off EVERY TIME is cumbersome."
+B,15,14,"device, phone, jam, car, bluetooth, automatically",,"Auto-Invite is just randomly turned on sometimes. I have never used this feature and never will, it is extremely annoying. Is there not an option to turn this off? The app constantly tells me that I am offline when there is absolutely no issue with my internet connection. I had to restart the app over 5 times just earlier. One plus point is for the option to turn off smart shuffle in settings."
+B,15,14,"device, phone, jam, car, bluetooth, automatically",,"I pay for Spotify premium, and i like a lot if it's features. I absolutely HATE that it automatically starts playing whenever it wants! I have auto play turned off in the settings, but it still plays whenever it wants. why? Galaxy S24 Ultra, app is updated. make this auto play stop and I'll put it at 5 stars"
+B,15,14,"device, phone, jam, car, bluetooth, automatically",,"I routinely clear my cache and even reinstall the app, but it's still unreasonably slow. It's terrible at accessing downloaded content in areas without service- going to airplane mode and restarting the app is the only way to get things to load. It's also maddening that I play a playlist/album and after one song a podcast from an old queue shows up! Offer a setting to auto clear old queues when a "
+B,15,14,"device, phone, jam, car, bluetooth, automatically",,"4 star review, but i think the Connect button (The one with no bluetooth needed) should be manual and optional, since everytime me and my mom are playing music, our phone won't play different music (We share the same Profile)"
+B,15,14,"device, phone, jam, car, bluetooth, automatically",,"The previous negative issue has been resolved. Oddly specific issue. Make the ""auto invite nearby to a jam"" opt-in or send a notification that someone has joined you session. Had a terrible experience where my music was being controlled without my knowledge then started playing music which I did not want to listen to. I hadn't even seen the toggle for the auto invite until this random person had j"
+B,15,14,"device, phone, jam, car, bluetooth, automatically",,I'm rating this 1 star because Spotify will automatically connect to my car Bluetooth even when I've not open the app. It will even override other things that I have already qued up to listen to. There is no way to disengage this feature without deleting the app.
+B,15,14,"device, phone, jam, car, bluetooth, automatically",,"Spotify, I had a psychotic episode recently due to no one believing me that cars driving next to me were dancing along to my music. This was going on for months. I eventually had a cyberstalker. Why? Well apparently when spotify connects to a vehicle, it turns on a setting that auto-invites other nearby listeners to your jam, even if your profile is private. Wouldn't it be nice if this setting cou"
+B,16,7,"ads, reduce, remove, ad, stop, good",,love it but if there wasn't ads I would have rate it a 4 Star
+B,16,7,"ads, reduce, remove, ad, stop, good",,Show me so many ads bro even if I don't have sunscription you should not show these many ads
+B,16,7,"ads, reduce, remove, ad, stop, good",,please reduce the ads
+B,16,7,"ads, reduce, remove, ad, stop, good",,you guys should reduce the ad's it's much
+B,16,7,"ads, reduce, remove, ad, stop, good",,stop the frequent ads
+B,16,7,"ads, reduce, remove, ad, stop, good",,I hate the ads and is very distracting when I am studying why do you have to pay to get rid of the stupid ads unnecessary!
+B,16,7,"ads, reduce, remove, ad, stop, good",,i hate.please stop the ad....
+B,16,7,"ads, reduce, remove, ad, stop, good",,experience is good but can decrease the amount of ads
+B,16,7,"ads, reduce, remove, ad, stop, good",,i dont like the ai vioce ads bring back the old one
+B,16,7,"ads, reduce, remove, ad, stop, good",,you should add more ads
+B,17,23,"download, app, good, music, wish, songs",,I love this app......u should include a chat option under songs....so that people can express their emotions about the songs.....also it would be great if you introduced Group chat option like instagram please please do it would love it.......
+B,17,23,"download, app, good, music, wish, songs",,"it's the best music app that I ever seen but if the program have a way to download songs it was better, it's the best now🎀"
+B,17,23,"download, app, good, music, wish, songs",,"love this app! I've been using it since 2021 and haven't stopped! But can y'all add more songs plz, it'd be really appreciated!"
+B,17,23,"download, app, good, music, wish, songs",,"app is great, but many songs have not been found like whole AUR songs are not available. #my request..Please bring back AUR soung ..*🎵"
+B,17,23,"download, app, good, music, wish, songs",,Great app. I can listen to old time golden era Indian songs anytime. Going forward i want more variety of songs available.
+B,17,23,"download, app, good, music, wish, songs",,"love everything about this app except a few things. its very laggy, and sometimes it just crashes when i try to share the song im listening to on other apps. just add a feature to make folders of artists and ill be happy."
+B,17,23,"download, app, good, music, wish, songs",,"The songs that are not available after sometime please re-upload them, otherwise this app is brilliant. Number one app for listening any type of song anywhere."
+B,17,23,"download, app, good, music, wish, songs",,I just wish the app can connect fans with their favorite artist 🥲
+B,17,23,"download, app, good, music, wish, songs",,Can aad more phonk songs but very nice app I love it
+B,17,23,"download, app, good, music, wish, songs",,love this app wish I could get the music onto a USB stick or something
+B,18,33,"mix, transitions, transition, crossfade, automix, feature",,Very good app needs to improve on mixes especially in terms of genre
+B,18,33,"mix, transitions, transition, crossfade, automix, feature",,Spotify should add 32 bars for mixing and remove this shit Like genuinely what am i looking at
+B,18,33,"mix, transitions, transition, crossfade, automix, feature",,Add an option where it fixes your transitions for spotify mix Sometimes when I play my mixed playlist the transitions sounds off and bad so maybe they should add a feature where just incase it sounds off ppl can press the “sync” option and when you press the sync option it automatically fixes the transition.
+B,18,33,"mix, transitions, transition, crossfade, automix, feature",,I've been looking for the fade-in setting I can't find it. but the application is wonderful. you guys should work on the fade-in to next song.
+B,18,33,"mix, transitions, transition, crossfade, automix, feature",,"I like how it now organises tracks in a mixed playlist but the automatic transitions leave a lot to be desired This pairing is unexpected and cool but the parts of the song in automatic just seem random, and it's the most boring transition It iis was 16 bars I'd line up the 4/4 drum outro with an intro so builds into the song. This means more manual editing, and editing can be repetitive because a"
+B,18,33,"mix, transitions, transition, crossfade, automix, feature",,it's okay to me.... It's just remaining that gap or time before the next song starts... am trying to shout the time between two songs so it could sounds like DJ mix.... never the less thank you the app is cool.. I will be more happy if you guys can help me with this my request 🙏🏼🥰
+B,18,33,"mix, transitions, transition, crossfade, automix, feature",,"Spotify mix, A good idea but poor execution its horrifically intrusive for no reason, first off, hitting mix applies a random transition to EVERY song (and they sound pretty bad by default). So you have to go in and manually change each and every one of them. There's no option to ""turn off"" transitions for any songs either, It's all or nothing. Every song will have some sort of overlap. And it als"
+B,18,33,"mix, transitions, transition, crossfade, automix, feature",,"Mix 32 bar transition I'm not sure how I did it, but 32 bar transitions should be a feature instead of a bug."
+B,18,33,"mix, transitions, transition, crossfade, automix, feature",,Best mix feature imo but they still have to add 32 and 64 bars
+B,18,33,"mix, transitions, transition, crossfade, automix, feature",,We need seamless transitions from one song to another
+B,19,8,"podcast, podcasts, episodes, episode, block, feed",,"Spotify, Great app and selection. There's only one thing. Please allow the ability to delete your podcast and show list. There are numerous complaints about this. Why won't you do this? 6/17/26- Hey Spotify, me again. Writing to leave a review of the app. I really enjoy it and finding new music and podcasts. However, I still would love for you to give us the ability to delete podcasts we no longer"
+B,19,8,"podcast, podcasts, episodes, episode, block, feed",,"Why doesn't the web player display the listen progress bar, or at least even a checkmark on listened podcasts anymore?"
+B,19,8,"podcast, podcasts, episodes, episode, block, feed",,"June 2024 - The home page is terrible. You used to put up meaningful suggestions. Now it's stuff that I have no interest in! How do I get the old format of the home page? Dec 2025 - The application gets worse and worse. As a premium subscriber, I should not see any ads or stuff that I'm not interested in. Some of the podcasts won't even play on the same day that they're uploaded, which I find frus"
+B,19,8,"podcast, podcasts, episodes, episode, block, feed",,trying to get rid of podcasters from my feed is impossible. every time I thumb them down. they're re-rotated back into something I might like. extremely annoying. thinking about canceling my subscription. Spotify just doesn't do it anymore.
+B,19,8,"podcast, podcasts, episodes, episode, block, feed",,"PODCAST SKIP AHEAD? Please allow the option to skip ahead longer than 15 seconds. YouTube music, apple podcast, and all other podcast apps let you customize the skip ahead option. please add this and this will be my main podcast app"
+B,19,8,"podcast, podcasts, episodes, episode, block, feed",,"If you don't have the perfect connection it tells you you're offline. If you have a podcast, don't think about making anything because it'll get sniped in 0.5 seconds. Also why did you get rid of the ""What's new"" button?"
+B,19,8,"podcast, podcasts, episodes, episode, block, feed",,I'd like an option to fully remove podcasts from the home page.
+B,19,8,"podcast, podcasts, episodes, episode, block, feed",,Please let us block podcasts! The same 4 podcats are plaguing me months after binging them for just one weekend. Help!
+B,19,8,"podcast, podcasts, episodes, episode, block, feed",,"Both of the widgets have stopped working. Also, I wish there was a better way to sort and track my podcast episodes, such as automatic daily episodes play lists."
+B,19,8,"podcast, podcasts, episodes, episode, block, feed",,"The app is a great one I must say 😌❤️ For streaming songs, podcast, etc. My suggestion... can you try adding the total number of episodes a podcast has? And maybe total number of finished and unfinished messages and episodes... That'd be lovely 🌹 Asides that the app is stress-free ❤️"
+B,20,11,"ads, ad, song, music, songs, stop",,What. The. Hell. why do you guys have to show ads (2of them every 2 songs?
+B,20,11,"ads, ad, song, music, songs, stop",,amazing I love the fact U can see the lyrics but needs less ads tbh
+B,20,11,"ads, ad, song, music, songs, stop",,"Y'all should add less music while the ads playing, too many songs disturbs while listening ads."
+B,20,11,"ads, ad, song, music, songs, stop",,too many ads 1 ad every 1-2 ads plzz maje it 1ad every 4-5 song
+B,20,11,"ads, ad, song, music, songs, stop",,Would be better if there wasn't like 3 ads every song
+B,20,11,"ads, ad, song, music, songs, stop",,There are way too many ads. What do you mean I must watch 3 ads after every second song. You might as well go to youtube at this point. Please could u reduce the number of ads
+B,20,11,"ads, ad, song, music, songs, stop",,ads are more than songs I am going to uninstall if ads not decrease
+B,20,11,"ads, ad, song, music, songs, stop",,"If you want to advertise a song at least make it suits my taste. also it literally plays ads every 1 - 2 songs and the problem is that my songs are 1 or less than a minute long. sarcastically, that is very fair :/"
+B,20,11,"ads, ad, song, music, songs, stop",,"I don't like it combines all my music. If I want to listen to country, I'll listen to country. If I want 80's big hair bands, I'll listen to 80's big hair bands. Don't combine them. And it needs less ads. It will say 30 minutes of non stop music. 1 song later is all about ads again."
+B,20,11,"ads, ad, song, music, songs, stop",,"Hate that I can't repeat my music, that there's ads repeating my music is very good for 5 minute sleep music so but I like that I can turn off my phone and it will still play my music unlike YouTube music but I'm still wondering why are there so many ads and why I can't repeat my music though 🤔"
+B,21,13,"ads, app, good, reduce, ad, great",,"I've had this app for so long,but recently the free version has gotten alot of ads,too many ads,even if you want to enter the app you need to see a ad,please decrease the amount of ads"
+B,21,13,"ads, app, good, reduce, ad, great",,nice app but they just need to lower the ads
+B,21,13,"ads, app, good, reduce, ad, great",,if you're into ads this app is for you ... recommendation add sending text option in this app
+B,21,13,"ads, app, good, reduce, ad, great",,even opening the app requires us to watch ad. just make the app pay to use atp
+B,21,13,"ads, app, good, reduce, ad, great",,"too many ads , should be free [premium] apart from that its a great app!"
+B,21,13,"ads, app, good, reduce, ad, great",,it's a good app but having 5 ads is so unnecessary why not just keep it at 3?
+B,21,13,"ads, app, good, reduce, ad, great",,Love the app. Just a bit less ads would be helpful 🙂
+B,21,13,"ads, app, good, reduce, ad, great",,it's a great app but you need to put that line of you want to break from the ads to a true sentence like make it come true for free because I don't want to pay for not to have ads not with this government shutdown in America but besides those things is a great app
+B,21,13,"ads, app, good, reduce, ad, great",,"description keeps collapsing after u let it sit..needs to stay.the other info isn't necessary like outlines. u dont allow transcripts, we will go over to ytmusic.new voting up/down on comments sucks.was best when opinions didnt care for others opinions.its just gettin way too slow bc of bloated ads n i guess ur need to be like video YouTube..looking for new app.women aren't concerned w superficial"
+B,21,13,"ads, app, good, reduce, ad, great",,"awesome app, just a little less ads and it would be perfect!"
+B,22,26,"subscription, payment, plan, plans, bring, duo",,Please bring back the annual subscription. I love to pay for it once and forget about it for a year. Plus this is Nigeria we don't have a monthly payment culture. Our economy is very unstable. No one wants to pay for stuff monthly given how uncertain the economy is. Please bring it back I have subscribed since you took it away.
+B,22,26,"subscription, payment, plan, plans, bring, duo",,"Can you make the subscription easy for online bank users like ; Opay , Moniepoint....... Many don't have debits cards and we really want to experience the premium features. Please adjust and update so that those who don't have debit card but uses online banks to subscribe"
+B,22,26,"subscription, payment, plan, plans, bring, duo",,get back the 1 day subscription!
+B,22,26,"subscription, payment, plan, plans, bring, duo",,I want to subscribe but not add my card details until I make up my mind.
+B,22,26,"subscription, payment, plan, plans, bring, duo",,subscription prices should have been less
+B,22,26,"subscription, payment, plan, plans, bring, duo",,bring back annual subscription pls
+B,22,26,"subscription, payment, plan, plans, bring, duo",,great but make the subscriptions much cheaper
+B,22,26,"subscription, payment, plan, plans, bring, duo",,This rating is purely based on their overpriced subscription rate. It would be nice if it went down especially the cost of living at the moment. 😭
+B,22,26,"subscription, payment, plan, plans, bring, duo",,"bring back the duo plan, also the rise of prices is unbelievable"
+B,22,26,"subscription, payment, plan, plans, bring, duo",,The duo plan is too much make it like 10$ maybe then people will start buying it and maybe it will get more subscriptions because it is less expensive.
+B,23,34,"let, choose, pick, select, songs, song",,why can't I choose song freely
+B,23,34,"let, choose, pick, select, songs, song",,why is allowing me to choose only 5 songs?
+B,23,34,"let, choose, pick, select, songs, song",,amazing just stop giving limit in the songs
+B,23,34,"let, choose, pick, select, songs, song",,Dude please let me loop my songs pls sobs and let me skip some parts of songssssss
+B,23,34,"let, choose, pick, select, songs, song",,Know how to combine song to your preference
+B,23,34,"let, choose, pick, select, songs, song",,at least let us choose the songs that we want to listen to like before
+B,23,34,"let, choose, pick, select, songs, song",,trash if there was an option to give 0 starts or negative starts I'lled select the wosrt rating that i can... you can't even play the song that u want to play
+B,23,34,"let, choose, pick, select, songs, song",,please make song choice unlimited
+B,23,34,"let, choose, pick, select, songs, song",,why did these people put that u can just skip 6 songs and then we can't play he songs which we want to hear I will be happy if they remove this thing please let's hear the songs we want
+B,23,34,"let, choose, pick, select, songs, song",,"It is ridiculous that we can't play our willwished song. Although we can't skip the song, let us allow to play our liked song on our will."
+B,24,30,"queue, add, song, playlist, adding, clear",,"While we are at it, can we get add to beginning of queue and be able to play folders on phone like we do on PC?"
+B,24,30,"queue, add, song, playlist, adding, clear",,"long time Spotify user here to vent my frustrations to no one. the queue/album/playlist situation is really aggravating. if I ask it to play an album I would like to do that instead of playing the first song of the album and then returning to the queue I set up 2 days ago and no longer care about. also you should be able to choose between play now, play next or add to end of queue. also podcasts a"
+B,24,30,"queue, add, song, playlist, adding, clear",,Be real cool if you'd let me add chapters of an audiobook to my current queue WITHOUT me having to add the entire book to the queue. Apparently this used to be a function and then y'all thought it made sense to get rid of it. Let me add chapters to the queue like podcasts!
+B,24,30,"queue, add, song, playlist, adding, clear",,"Hi @devs, The queue feature appears to be singly linked, only allowing forwarding to the next song, while the previous songs in the queue are lost. Maybe implement it as double linked? ps : I'll share my QR if this helps xD"
+B,24,30,"queue, add, song, playlist, adding, clear",,"Premium user here, I'm annoyed by Spotify clearing my queues for no reason. I was already in a session, playing songs with a queue following it up when it cleared the entire queue when I tapped on another song. Mind you, most of these were new songs I'd manually added for discovery. I'm also surprised to see we have no way of keeping multiple queues, we're forced to make temporary playlists for th"
+B,24,30,"queue, add, song, playlist, adding, clear",,On the recent search side you should be able to put one song on queue without searching it again.
+B,24,30,"queue, add, song, playlist, adding, clear",,"spotify needs to add top of queue spotify needs to add a ""add to top of queue"" button, similar to what i know apple music has. it just seems like such an obvious option? recently trying to move songs around the queue slows down my whole computer and is just such a slow + tedious process that appears to have pretty straightforward fix."
+B,24,30,"queue, add, song, playlist, adding, clear",,"If we can add a playlist from the queue, add a ""remove playlist from queue"" option next. It's so annoying; I accidentally added a playlist from my queue, and whenever I try to listen to another song, that queue immediately plays. Also, can you all add something that will display the genre of the song? It will be very much appreciated."
+B,24,30,"queue, add, song, playlist, adding, clear",,please guys tell me how to stop the queue 😭😭 I don't want it to play like that😭😭😭
+B,24,30,"queue, add, song, playlist, adding, clear",,can we stop removing the songs from queue that I put on queue? if I put a song on queue and do not play it immediately why is it removed?
+B,25,5,"lyrics, language, english, song, karaoke, songs",,why is there's no lyrics??😭
+B,25,5,"lyrics, language, english, song, karaoke, songs",,Love this app. Missing the fifth star for improvement on lyrics option in romanisation and pinyin.
+B,25,5,"lyrics, language, english, song, karaoke, songs",,this app is really good but it doesn't shows any lyrics are totally in Hindi if it is a Hindi song in some lyrics are there and the lyrics should be in Hindi and English like combination
+B,25,5,"lyrics, language, english, song, karaoke, songs",,"As a music streaming app, it works. However some features are clearly broken. The ""synched"" lyrics are awful and literally never match the tempo of the song/vocals. There should be an option to turn this off and just have the lyrics as ""read only"". I understand that the DJ feature is still in beta but it's godawful. It seems almost disconnected from my regular music choices. The AI features are al"
+B,25,5,"lyrics, language, english, song, karaoke, songs",,"its awsome app but some suggestions from my side,please try to add all songs fubbed and other... in malayalam song oh my sweety was not available in Spotify... so please add that👍"
+B,25,5,"lyrics, language, english, song, karaoke, songs",,I highly recommend adding romanized lyrics alongside the original text for non-English songs so that global fans can easily read and sing along to K-POP songs.
+B,25,5,"lyrics, language, english, song, karaoke, songs",,"Important: I need the separate Kannada trending list from Spotify. It is a major oversight that Kannada, Tamil, and Telugu songs are frequently missing from the India Top 50 and Top 100 lists. The algorithm should be updated to better reflect the massive popularity of South Indian music. The ad frequency is disruptive; ads are playing before even 30 minutes of music has passed. This timing needs t"
+B,25,5,"lyrics, language, english, song, karaoke, songs",,"Amazing app although some of the songs do not have lyrics ,so please fix that."
+B,25,5,"lyrics, language, english, song, karaoke, songs",,Spotify add lyric in the middle now playing album art
+B,25,5,"lyrics, language, english, song, karaoke, songs",,the new update on laptop sucks. bring back old way for lyrics so that. we don't have to click back each time. how can a update make things worse. no one needed this nonsense layout for lyrics
+B,26,51,"timer, sleep, end, custom, longer, add",,hay spotify please add voice control for change the song in sleep
+B,26,51,"timer, sleep, end, custom, longer, add",,"please, please, PLEASE add a sleep timer for music!!! Listening to music helps me sleep, but leaving my Spotify on all night drains my phone battery and isn't good for my ears. Other than that, i love the app. Please read my comment and consider it! thank you, all of the Spotify people, for letting me listen to my music! ❤️"
+B,26,51,"timer, sleep, end, custom, longer, add",,"I love this app BUT, I wish the sleep mode was longer. it takes me much longer to fall to sleep then an hour, and I need noise to help me sleep but dont want phone on all night"
+B,26,51,"timer, sleep, end, custom, longer, add",,"It would be great to add a Time/Timer feature—for example, allowing users to set a timer for 5 minutes or choose a specific time, and then automatically start playing a song when the timer ends. An alarm-style option could also be useful. I think this would be a helpful feature, especially for Spotify. Thank you!"
+B,26,51,"timer, sleep, end, custom, longer, add",,"Length vs. Countdown If you tap the timer at the end of a track, you can switch between just showing the length of the track to a countdown of how much time is left in that track. Now, if they would just give us an accurate timer for our mixed playlists."
+B,26,51,"timer, sleep, end, custom, longer, add",,add an option to end sleep timer when the playlist ends. 1 hr sleep timer is too short.
+B,26,51,"timer, sleep, end, custom, longer, add",,Good app but sleep timer needs a custom option. please add a custom timer on the sleep timer feature!!!
+B,26,51,"timer, sleep, end, custom, longer, add",,"Great app, all the music a person could every want. if at all possible, could you allow a custom sleep timer? I like to set it for more than 1 hrs. Other than that, quite the app 😀"
+B,26,51,"timer, sleep, end, custom, longer, add",,please add a custom timer option Or give options more than 1 hour of timer
+B,26,51,"timer, sleep, end, custom, longer, add",,Can there be an update where sleep timer is longer than a hour?
+B,27,48,"logo, icon, disco, ball, shiny, color",,I wish we had an option to change the icon so it can be a disco ball or just the regular flat logo
+B,27,48,"logo, icon, disco, ball, shiny, color",,When are we getting back our Old Spotify Logo? we were supposed to have our old logo back 3 days ago
+B,27,48,"logo, icon, disco, ball, shiny, color",,bring that shiny logo back i lovedd it ✨️✨️✨️
+B,27,48,"logo, icon, disco, ball, shiny, color",,"New app icon, like or dislike? Does anyone dislike the new app icon on iOS as much as I do? I feel it looks like a cheesy mid-2010’s mobile game app with an icon that is just too busy.. it actively keeps me from wanting to open it, or even have it on my Home Screen. At least give me the option to use the old app icon for premium users like MANY other apps do? Do the devs frequent this subreddit? W"
+B,27,48,"logo, icon, disco, ball, shiny, color",,"can we please have the choice.for the original logo back? the disco ball egg i just keep forgetting it changed and ill be looking for the dang tile and have to search it. thank youuuuuu, someone with short term memory issues"
+B,27,48,"logo, icon, disco, ball, shiny, color",,Spotify’s “disco ball” icon is still here… more than 2 weeks after and this disco ball is still here and i’m really fucking tired of it. when is it going to change back
+B,27,48,"logo, icon, disco, ball, shiny, color",,"Vote instead for a setting to choose the icon you want; original, disco, or new variants. Like other apps do"
+B,27,48,"logo, icon, disco, ball, shiny, color",,Who Else Misses The Heart Logo For Liked Songs? should they bring it back?
+B,27,48,"logo, icon, disco, ball, shiny, color",,"I know it's a silly thing to be annoyed with, but weren't we supposed to get the old Spotify logo back a week or two ago?"
+B,27,48,"logo, icon, disco, ball, shiny, color",,"Just bring the old Spotify back and the old logo, stop doing unnecessary updates!!!!"
+B,28,40,"adds, add, songs, song, listen, 1min",,it's really good but I haven't found the remix and there are so many adds
+B,28,40,"adds, add, songs, song, listen, 1min",,"ADDS.ADDS.ADDS.ITS ALWAYS ADDS.. I SUGGEST THAT IF THE ADDS CAN BE A LESS ADDS... THERE ARE A LOT OF THEM, EVERYWHERE YOU LOOK THERE!! ARE ADDS, AFTER JS ONE MUSIC...BUT THIS IS GOOD NA CUZ ITS FREE AND I UNDERSTAND IT 🙇🏻‍♀️ (SORRY FORR MY GRAMMAARR)"
+B,28,40,"adds, add, songs, song, listen, 1min",,ok. ok but need to remove adds it's not for song not adds.... if feels bad so sorry'
+B,28,40,"adds, add, songs, song, listen, 1min",,"so many adds, can they limit the songs i can choose. your better off finding a different app"
+B,28,40,"adds, add, songs, song, listen, 1min",,Only add no music
+B,28,40,"adds, add, songs, song, listen, 1min",,little bit adds while listening songs please set this add problem
+B,28,40,"adds, add, songs, song, listen, 1min",,WAY TO MUCH ADDS just let me listen to my eddtord yaoi playlist in peace
+B,28,40,"adds, add, songs, song, listen, 1min",,so good but the adds are sometimes so creepy they should at least little sofe when I'm using earphones that's like boom 💥 do you want subscription 😅😅💀
+B,28,40,"adds, add, songs, song, listen, 1min",,low-key would be nice if I can add at least 20 songs from my queue together
+B,28,40,"adds, add, songs, song, listen, 1min",,remove add please support meddle class song lovers 😭😭
+B,29,31,"search, shazam, searching, bar, song, siri",,"it would be helpful if the search was better. if I am searching for a song title I don't want to get results of artists and albums. if I am looking for an artist I don't want songs and albums. if I am looking for and album I don't want artists and songs. example - I'm looking for a song called old crow, I don't want results of the band old crow medicine show with song titles that have neither old "
+B,29,31,"search, shazam, searching, bar, song, siri",,good just lacking the ability to sample songs (like shazam)
+B,29,31,"search, shazam, searching, bar, song, siri",,"""Search by voice"" In-App Song recognition/Hum recognition Spotify feature This feature is a widely requested and anticipated idea for Spotify users, but doesn't seem to have received much attention from the devs. There are popular alternatives like Shazam, Google hum search, or even aha-music finder. Though all of these have their own issues, like shazam being terrible for hum recognition, Google'"
+B,29,31,"search, shazam, searching, bar, song, siri",,"the way to search music is sometimes confusing to me, I do wish that the suggested music w{yld be less. what I mean by that is I wanna do the work when I'm searching for the music so when I search I want the suggestions to be related to the exact artist that I'm listening to."
+B,29,31,"search, shazam, searching, bar, song, siri",,Showed up today after a month why did they have to take away the feature to choose song’s from the search and the pre made playlists I hate this app and this came out of nowhere when I was playing music at night 😑
+B,29,31,"search, shazam, searching, bar, song, siri",,It's just a app the difference is that you're playing your music online and please improve the searchibg part we need more songs
+B,29,31,"search, shazam, searching, bar, song, siri",,it a needs a Shazam like feature
+B,29,31,"search, shazam, searching, bar, song, siri",,"Really stepped it up lately. Love the new foldable split screen. Searching has been drastically improved, thank you, but still ignores my liked songs, please add this, would make it easier than going to the artist and then liked songs and then scrolling"
+B,29,31,"search, shazam, searching, bar, song, siri",,"personally there's no problem with this app i just want to tell developers about the ""search"", please make it like YouTube,like when you want to search a song but you don't know the lyrics you can use voice note to search a song. ty."
+B,29,31,"search, shazam, searching, bar, song, siri",,"when im scrolling my playlist, i cant use search function in my playlist. i have to scroll to the top of my playlist to use search. please bring back dragging down the playlist title to show search bar"
