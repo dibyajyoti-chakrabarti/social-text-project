@@ -1,4 +1,4 @@
-.PHONY: setup test lint format smoke scrape corpus eda data sample label gold silver detect errors
+.PHONY: setup test lint format smoke scrape corpus eda data sample label gold silver detect errors classify extract extract-eval
 
 setup:
 	uv sync
@@ -46,3 +46,12 @@ detect:
 
 errors:
 	uv run python scripts/error_analysis.py
+
+classify:
+	uv run python scripts/classify_corpus.py
+
+extract-eval:
+	uv run python scripts/evaluate_extraction.py
+
+extract:
+	uv run python scripts/extract_corpus.py
