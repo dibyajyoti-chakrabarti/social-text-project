@@ -1,0 +1,201 @@
+rank,cluster,member,intruder,name_fit,ts
+0,94,folders for library content,True,partly,2026-10-17T19:11:39+00:00
+0,94,library organization,True,partly,2026-10-17T19:11:39+00:00
+0,94,custom folder cover pictures,True,partly,2026-10-17T19:11:39+00:00
+0,94,share folders,False,partly,2026-10-17T19:11:39+00:00
+0,94,library folders tab,True,partly,2026-10-17T19:11:39+00:00
+0,94,add artists to folders,False,partly,2026-10-17T19:11:39+00:00
+0,94,albums in folders,True,partly,2026-10-17T19:11:39+00:00
+0,94,artist folders,False,partly,2026-10-17T19:11:39+00:00
+0,94,better library navigation,True,partly,2026-10-17T19:11:39+00:00
+0,94,folder cover photos,True,partly,2026-10-17T19:11:39+00:00
+1,100,pin more than four items,False,partly,2026-10-17T19:15:55+00:00
+1,100,pin songs to top of playlist,True,partly,2026-10-17T19:15:55+00:00
+1,100,unlimited pinned items,False,partly,2026-10-17T19:15:55+00:00
+1,100,pin top playlists,False,partly,2026-10-17T19:15:55+00:00
+1,100,unlimited playlist pins,False,partly,2026-10-17T19:15:55+00:00
+1,100,more pinned playlists,False,partly,2026-10-17T19:15:55+00:00
+1,100,pinned playlists,False,partly,2026-10-17T19:15:55+00:00
+1,100,pin more than 4 items,False,partly,2026-10-17T19:15:55+00:00
+1,100,pin playlists in folders,True,partly,2026-10-17T19:15:55+00:00
+1,100,pin more sidebar items,False,partly,2026-10-17T19:15:55+00:00
+2,82,simplify home screen,False,partly,2026-10-17T19:22:42+00:00
+2,82,reorganize homepage,False,partly,2026-10-17T19:22:42+00:00
+2,82,customize home cards order,False,partly,2026-10-17T19:22:42+00:00
+2,82,simplify home page,False,partly,2026-10-17T19:22:42+00:00
+2,82,classic home page,True,partly,2026-10-17T19:22:42+00:00
+2,82,customize homepage,False,partly,2026-10-17T19:22:42+00:00
+2,82,auto refresh home page,True,partly,2026-10-17T19:22:42+00:00
+2,82,customize home page content,False,partly,2026-10-17T19:22:42+00:00
+2,82,sort home feed,False,partly,2026-10-17T19:22:42+00:00
+2,82,customizable homepage,False,partly,2026-10-17T19:22:42+00:00
+3,78,show deluxe album covers,False,yes,2026-10-17T19:24:21+00:00
+3,78,show cover art in layout,False,yes,2026-10-17T19:24:21+00:00
+3,78,android auto show album name,True,yes,2026-10-17T19:24:21+00:00
+3,78,album art screensaver mode,False,yes,2026-10-17T19:24:21+00:00
+3,78,square album art,False,yes,2026-10-17T19:24:21+00:00
+3,78,filter albums by custom tag,True,yes,2026-10-17T19:24:21+00:00
+3,78,hide nsfw album covers,False,yes,2026-10-17T19:24:21+00:00
+3,78,enlarge cover art,False,yes,2026-10-17T19:24:21+00:00
+3,78,clean motion artwork,False,yes,2026-10-17T19:24:21+00:00
+3,78,enlarged cover art view,False,yes,2026-10-17T19:24:21+00:00
+4,109,free tier playlist editing,True,yes,2026-10-17T19:28:58+00:00
+4,109,play on repeat on free tier,True,yes,2026-10-17T19:28:58+00:00
+4,109,play saved playlists on free tier,False,yes,2026-10-17T19:28:58+00:00
+4,109,remove play limits on free tier,True,yes,2026-10-17T19:28:58+00:00
+4,109,choose songs in playlists on free tier,False,yes,2026-10-17T19:28:58+00:00
+4,109,public playlists on free tier,True,yes,2026-10-17T19:28:58+00:00
+4,109,play playlists in order on free tier,False,yes,2026-10-17T19:28:58+00:00
+4,109,choose music in playlists on free tier,False,yes,2026-10-17T19:28:58+00:00
+4,109,play repeats on free tier,True,yes,2026-10-17T19:28:58+00:00
+4,109,play playlist in order on free tier,False,yes,2026-10-17T19:28:58+00:00
+5,36,ai generated content label,False,partly,2026-10-17T19:33:45+00:00
+5,36,artist ai disclosure,False,partly,2026-10-17T19:33:45+00:00
+5,36,mark ai music,False,partly,2026-10-17T19:33:45+00:00
+5,36,ai music assistant,True,partly,2026-10-17T19:33:45+00:00
+5,36,collaborative playlist for ai music,True,partly,2026-10-17T19:33:45+00:00
+5,36,identify ai music,False,partly,2026-10-17T19:33:45+00:00
+5,36,movement numbers at start of classical labels,True,partly,2026-10-17T19:33:45+00:00
+5,36,ai content tag,False,partly,2026-10-17T19:33:45+00:00
+5,36,tagging system for music,True,partly,2026-10-17T19:33:45+00:00
+5,36,label ai generated music,False,partly,2026-10-17T19:33:45+00:00
+6,125,disable canvas,False,yes,2026-10-17T19:34:37+00:00
+6,125,hide canvas video from now playing,False,yes,2026-10-17T19:34:37+00:00
+6,125,hide canvas background,False,yes,2026-10-17T19:34:37+00:00
+6,125,prevent screen timeout on canvas,True,yes,2026-10-17T19:34:37+00:00
+6,125,disable canvas background animations,False,yes,2026-10-17T19:34:37+00:00
+6,125,disable canvas gifs,False,yes,2026-10-17T19:34:37+00:00
+6,125,disable canvas visualizers,False,yes,2026-10-17T19:34:37+00:00
+6,125,canvas feature in region,True,yes,2026-10-17T19:34:37+00:00
+6,125,disable canvas art,False,yes,2026-10-17T19:34:37+00:00
+6,125,disable gifs,False,yes,2026-10-17T19:34:37+00:00
+7,63,disable smart shuffle on playlists,False,yes,2026-10-17T19:38:59+00:00
+7,63,true shuffle for playlists,False,yes,2026-10-17T19:38:59+00:00
+7,63,shuffle playlist without interrupting current song,True,yes,2026-10-17T19:38:59+00:00
+7,63,unlimited playlist shuffle,True,yes,2026-10-17T19:38:59+00:00
+7,63,shuffle playlists into jams,True,yes,2026-10-17T19:38:59+00:00
+7,63,shuffle user playlists,False,yes,2026-10-17T19:38:59+00:00
+7,63,full playlist shuffle,False,yes,2026-10-17T19:38:59+00:00
+7,63,hard shuffle playlists,False,yes,2026-10-17T19:38:59+00:00
+7,63,shuffle all playlists together,True,yes,2026-10-17T19:38:59+00:00
+7,63,disable shuffle on playlists,True,yes,2026-10-17T19:38:59+00:00
+8,115,turn off auto generated captions,False,yes,2026-10-17T19:40:50+00:00
+8,115,disable ai podcast transcriptions,False,yes,2026-10-17T19:40:50+00:00
+8,115,turn off podcast captions,False,yes,2026-10-17T19:40:50+00:00
+8,115,disable podcast subtitles,False,yes,2026-10-17T19:40:50+00:00
+8,115,turn off podcast auto captions,False,yes,2026-10-17T19:40:50+00:00
+8,115,disable skits and interludes,True,yes,2026-10-17T19:40:50+00:00
+8,115,podcast subtitles,True,yes,2026-10-17T19:40:50+00:00
+8,115,turn off subtitles,False,yes,2026-10-17T19:40:50+00:00
+8,115,disable podcast closed captions,False,yes,2026-10-17T19:40:50+00:00
+8,115,turn off podcast transcripts,False,yes,2026-10-17T19:40:50+00:00
+9,54,free on demand playlist playback,False,yes,2026-10-17T19:42:25+00:00
+9,54,bookmark position in playlist,True,yes,2026-10-17T19:42:25+00:00
+9,54,bookmark playlist playback position,True,yes,2026-10-17T19:42:25+00:00
+9,54,remember playback position,True,yes,2026-10-17T19:42:25+00:00
+9,54,playlist duration counter,True,yes,2026-10-17T19:42:25+00:00
+9,54,playlist looping,True,yes,2026-10-17T19:42:25+00:00
+9,54,sequential playlist playback without ads,False,yes,2026-10-17T19:42:25+00:00
+9,54,play playlist from beginning,False,yes,2026-10-17T19:42:25+00:00
+9,54,free sequential playlist playback,False,yes,2026-10-17T19:42:25+00:00
+9,54,stop playlist refreshing,True,yes,2026-10-17T19:42:25+00:00
+10,91,disable auto-start on bluetooth connection,False,partly,2026-10-17T19:44:08+00:00
+10,91,disable auto connect play,False,partly,2026-10-17T19:44:08+00:00
+10,91,disable auto connect settings,True,partly,2026-10-17T19:44:08+00:00
+10,91,disable automatic bluetooth audio transfer,True,partly,2026-10-17T19:44:08+00:00
+10,91,disable autoplay on bluetooth connect,False,partly,2026-10-17T19:44:08+00:00
+10,91,disable autoplay on connection,False,partly,2026-10-17T19:44:08+00:00
+10,91,disable autoplay on bluetooth,False,partly,2026-10-17T19:44:08+00:00
+10,91,disable auto loop on bluetooth connect,True,partly,2026-10-17T19:44:08+00:00
+10,91,manual connect button,True,partly,2026-10-17T19:44:08+00:00
+10,91,disable autoplay on headphone connection,False,partly,2026-10-17T19:44:08+00:00
+11,31,free mp3 download,False,yes,2026-10-17T19:44:57+00:00
+11,31,download songs to local storage,False,yes,2026-10-17T19:44:57+00:00
+11,31,copyright free music upload,True,yes,2026-10-17T19:44:57+00:00
+11,31,download rare songs,False,yes,2026-10-17T19:44:57+00:00
+11,31,download single album songs,False,yes,2026-10-17T19:44:57+00:00
+11,31,copyright counter notification system,True,yes,2026-10-17T19:44:57+00:00
+11,31,download individual album tracks,False,yes,2026-10-17T19:44:57+00:00
+11,31,unlimited free music,True,yes,2026-10-17T19:44:57+00:00
+11,31,use downloaded songs as ringtone,True,yes,2026-10-17T19:44:57+00:00
+11,31,download songs to device storage,False,yes,2026-10-17T19:44:57+00:00
+12,133,mix feature,False,yes,2026-10-17T19:45:32+00:00
+12,133,32 and 64 bars support,True,yes,2026-10-17T19:45:32+00:00
+12,133,dj mixes and live mixes,True,yes,2026-10-17T19:45:32+00:00
+12,133,desktop mix feature,False,yes,2026-10-17T19:45:32+00:00
+12,133,better mix algorithm,False,yes,2026-10-17T19:45:32+00:00
+12,133,improved auto mixer,False,yes,2026-10-17T19:45:32+00:00
+12,133,mix button in carplay,False,yes,2026-10-17T19:45:32+00:00
+12,133,mix beta feature,False,yes,2026-10-17T19:45:32+00:00
+12,133,bring back mix button,False,yes,2026-10-17T19:45:32+00:00
+12,133,auto mix,False,yes,2026-10-17T19:45:32+00:00
+13,2,bring back short term plans,False,partly,2026-10-17T19:46:09+00:00
+13,2,cheaper premium plan without ai,False,partly,2026-10-17T19:46:09+00:00
+13,2,add members to duo plan,True,partly,2026-10-17T19:46:09+00:00
+13,2,improve free plan benefits,True,partly,2026-10-17T19:46:09+00:00
+13,2,cheaper music only premium plan,False,partly,2026-10-17T19:46:09+00:00
+13,2,bring back yearly premium,False,partly,2026-10-17T19:46:09+00:00
+13,2,one week premium plan,False,partly,2026-10-17T19:46:09+00:00
+13,2,pay per use plan,False,partly,2026-10-17T19:46:09+00:00
+13,2,discounted premium plan,False,partly,2026-10-17T19:46:09+00:00
+13,2,one day premium pass,False,partly,2026-10-17T19:46:09+00:00
+14,110,play full albums,False,yes,2026-10-17T19:47:15+00:00
+14,110,play songs multiple times without premium,True,yes,2026-10-17T19:47:15+00:00
+14,110,play album from start to finish,False,yes,2026-10-17T19:47:15+00:00
+14,110,unlimited play songs,True,yes,2026-10-17T19:47:15+00:00
+14,110,disable auto end between albums,True,yes,2026-10-17T19:47:15+00:00
+14,110,play albums sequentially,False,yes,2026-10-17T19:47:15+00:00
+14,110,play full album straight through,False,yes,2026-10-17T19:47:15+00:00
+14,110,unlimited music,True,yes,2026-10-17T19:47:15+00:00
+14,110,play albums in order,False,yes,2026-10-17T19:47:15+00:00
+14,110,play entire album in car,False,yes,2026-10-17T19:47:15+00:00
+15,71,consistent ad audio volume,False,partly,2026-10-17T19:47:53+00:00
+15,71,participant volume control in jam,False,partly,2026-10-17T19:47:53+00:00
+15,71,higher maximum volume,False,partly,2026-10-17T19:47:53+00:00
+15,71,louder audio,False,partly,2026-10-17T19:47:53+00:00
+15,71,louder volume,False,partly,2026-10-17T19:47:53+00:00
+15,71,ad volume normalization,False,partly,2026-10-17T19:47:53+00:00
+15,71,disable device volume control takeover,False,partly,2026-10-17T19:47:53+00:00
+15,71,louder playback volume,False,partly,2026-10-17T19:47:53+00:00
+15,71,disable hardware volume control,False,partly,2026-10-17T19:47:53+00:00
+15,71,in-app volume control,False,partly,2026-10-17T19:47:53+00:00
+16,141,parental controls for explicit content,False,yes,2026-10-17T19:48:35+00:00
+16,141,parental controls for algorithm,False,yes,2026-10-17T19:48:35+00:00
+16,141,report impersonation option,True,yes,2026-10-17T19:48:35+00:00
+16,141,mark content as uninteresting,True,yes,2026-10-17T19:48:35+00:00
+16,141,report false crediting,True,yes,2026-10-17T19:48:35+00:00
+16,141,report content,False,yes,2026-10-17T19:48:35+00:00
+16,141,remove explicit content,False,yes,2026-10-17T19:48:35+00:00
+16,141,censor explicit visual content,False,yes,2026-10-17T19:48:35+00:00
+16,141,human curation,True,yes,2026-10-17T19:48:35+00:00
+16,141,prioritize local content,True,yes,2026-10-17T19:48:35+00:00
+17,74,listening history,False,partly,2026-10-17T19:49:16+00:00
+17,74,resume last listened item,True,partly,2026-10-17T19:49:16+00:00
+17,74,reset listening history,False,partly,2026-10-17T19:49:16+00:00
+17,74,artist listening history stats,False,partly,2026-10-17T19:49:16+00:00
+17,74,clear listening history stats,False,partly,2026-10-17T19:49:16+00:00
+17,74,location-based listening history,False,partly,2026-10-17T19:49:16+00:00
+17,74,delete listening history,False,partly,2026-10-17T19:49:16+00:00
+17,74,extended listening history tracking,False,partly,2026-10-17T19:49:16+00:00
+17,74,ai listening history prompt,True,partly,2026-10-17T19:49:16+00:00
+17,74,song listening history,False,partly,2026-10-17T19:49:16+00:00
+18,105,voice options for dj,True,yes,2026-10-17T19:50:04+00:00
+18,105,toggle to disable dj voice,False,yes,2026-10-17T19:50:04+00:00
+18,105,alternative dj voices,False,yes,2026-10-17T19:50:04+00:00
+18,105,british english dj,False,yes,2026-10-17T19:50:04+00:00
+18,105,customizable dj voice,False,yes,2026-10-17T19:50:04+00:00
+18,105,disable dj narration,False,yes,2026-10-17T19:50:04+00:00
+18,105,voice control for dj,False,yes,2026-10-17T19:50:04+00:00
+18,105,disable dj voice narration,False,yes,2026-10-17T19:50:04+00:00
+18,105,british accent for dj,False,yes,2026-10-17T19:50:04+00:00
+18,105,more ai dj voices,False,yes,2026-10-17T19:50:04+00:00
+19,37,prepaid card payment option,False,yes,2026-10-17T19:51:03+00:00
+19,37,qr code payment support,False,yes,2026-10-17T19:51:03+00:00
+19,37,regional payment methods,False,yes,2026-10-17T19:51:03+00:00
+19,37,local currency payment,False,yes,2026-10-17T19:51:03+00:00
+19,37,remove automatic payment,True,yes,2026-10-17T19:51:03+00:00
+19,37,one-time payment premium,False,yes,2026-10-17T19:51:03+00:00
+19,37,delete payment method,True,yes,2026-10-17T19:51:03+00:00
+19,37,airtel money payment method,False,yes,2026-10-17T19:51:03+00:00
+19,37,bank transfer payment method,False,yes,2026-10-17T19:51:03+00:00
+19,37,opay payment option,False,yes,2026-10-17T19:51:03+00:00
