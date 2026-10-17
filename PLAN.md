@@ -4,7 +4,7 @@
 
 Advanced Social Text project · ~10 days · Agentic development (Claude Code)
 
-> **Status (2026-10-17):** Phases 0–4 merged; Phase 5 merged except the manual cluster purity check. **Next owner: start at [§0 Handoff](#0-handoff-status-and-next-steps).**
+> **Status (2026-10-17):** Phases 0–5 merged (incl. the human cluster purity check). **Next owner: start at [§0 Handoff](#0-handoff-status-and-next-steps).**
 
 ---
 
@@ -19,7 +19,7 @@ Advanced Social Text project · ~10 days · Agentic development (Claude Code)
 | 2 Annotation | ✅ | 400 gold items (dev 100 / test 300), intra-annotator κ 0.76 |
 | 3 Detection | ✅ | SetFit on 12k Gemini silver labels = Gemini itself (test macro-F1 0.69); deployed |
 | 4 Extraction | ✅ | LLM extractor 63% correct on gold (rules 34%); 19,669 feature mentions |
-| 5 Clustering / ranking / insights | ⚠️ one step left | 144 themes; LLM-judged purity 0.80; **human purity check not done** |
+| 5 Clustering / ranking / insights | ✅ | 144 themes; purity 0.69 (human, 20 themes) / 0.79 (LLM judge); judge–human κ 0.59 |
 | 6 Dashboard | ⬜ | |
 | 7 Report & demo | ⬜ | |
 
@@ -34,7 +34,7 @@ Every number above comes from a table in `reports/tables/` written by a script.
 
 ### Next steps, in order
 
-1. **Cluster purity check (👤 ~20 min).** `make purity` opens a small app: for each of 20 sampled themes, tick the phrases that do **not** belong and rate the name. Answers go to `annotations/purity_labels.csv`. Then run `uv run python scripts/evaluate_clusters.py`; it adds human purity and judge-vs-human agreement (κ) to `reports/tables/cluster_eval.md`. Commit both files and tick the box in Phase 5.
+1. ✅ **Cluster purity check (👤 ~20 min, done 2026-10-18).** `make purity` opens a small app: for each of 20 sampled themes, tick the phrases that do **not** belong and rate the name. Answers go to `annotations/purity_labels.csv`. Then run `uv run python scripts/evaluate_clusters.py`; it adds human purity and judge-vs-human agreement (κ) to `reports/tables/cluster_eval.md`. Commit both files and tick the box in Phase 5.
 2. **Review the feature catalogue (optional, ~5 min).** `annotations/existing_features.yaml` was written from general knowledge of Spotify; entries marked `verify: true` (tier or rollout uncertain) should be checked against Spotify's support pages. Then `uv run python scripts/rank_and_insights.py` to refresh the "already exists" insight.
 3. **Phase 6: dashboard** (see §8 and the Phase 6 checklist). Everything it needs is precomputed in `data/processed/` (file list below); the dashboard must not call heavy models at load time.
 4. **Phase 7: report & demo** (§12 outline). Tables and figures are in `reports/`.
@@ -74,7 +74,7 @@ Dev experiments: `scripts/detect_dev.py` (all detection settings on gold-dev →
 - Single annotator (intra-annotator κ 0.76 only); some gold labels are debatable (see `detect_errors.md`). Test labels were never changed after scoring.
 - Only 24 feature requests in gold-test, so FR-specific metrics have wide CIs; macro-F1 is the primary metric.
 - Prompt v2 encodes two annotator conventions inferred from dev.
-- Extraction and purity are judged by an LLM (Groq gpt-oss-20b, a different family from the Gemini extractor/namer); the human purity check calibrates it.
+- Extraction and purity are judged by an LLM (Groq gpt-oss-20b, a different family from the Gemini extractor/namer); the human purity check calibrates it: on 200 phrases the judge agrees with the human 83% of the time (κ 0.59) but is more lenient (24% vs 32% intruders), so LLM-judged purity overstates human purity (0.76 vs 0.69 on the same 20 themes).
 - Clustering over-splits some requests by wording; the LLM merge is deliberately conservative (8 of 25 proposed merges confirmed), so a few duplicate themes remain (e.g. two "on-demand playback" themes).
 - No theme is significantly emerging in the last quarter; declines (old widget, logo, AI features, forced shuffle) are significant.
 - "Already exists" statuses are LLM judgments against a hand-written catalogue.
@@ -438,12 +438,13 @@ Each phase = one PR merged into `main`. Days are approximate.
 - [x] Priority score + trend/emerging detection
 - [x] Competitor analysis, existing-feature catalogue + matching, platform & rating comparisons
 - [x] LLM purity judge on 30 sampled clusters per method (`scripts/evaluate_clusters.py`)
-- [ ] Manual cluster purity check (**👤 ~20 min**, `make purity`, see §0)
+- [x] Manual cluster purity check (**👤 ~20 min**, `make purity`, see §0): human purity 0.69 [0.61, 0.76] on 20 themes; judge vs human κ 0.59
 - **Done when:** `themes.parquet`, `theme_timeseries.parquet`, `insights/*.parquet` produced.
 - **Result:**
   - Phrase clustering (8,370 distinct phrases, MiniLM → UMAP 5-d → HDBSCAN): grid of 10 settings, chosen by rule (best silhouette with ≤ 20% unassigned mentions and 30–250 clusters) → 152 clusters; LLM consolidation merged 15 into 7 → **144 themes**, 3.6% of mentions unassigned (`cluster_grid.md`). A stronger encoder (mpnet) did not fix wording splits.
   - BERTopic on item texts: 52 topics, 34% of items outliers (`cluster_compare.md`).
-  - LLM-judged purity: phrase clusters 0.80 [0.72, 0.86], BERTopic 0.86 [0.80, 0.91]; BERTopic topics are broader and leave a third of items out (`cluster_eval.md`).
+  - LLM-judged purity: phrase clusters 0.79 [0.72, 0.86], BERTopic 0.87 [0.81, 0.92]; BERTopic topics are broader and leave a third of items out (`cluster_eval.md`).
+  - Human purity (20 phrase-cluster themes × 10 phrases): 0.69 [0.61, 0.76], only 1 theme fully pure; the judge on the same 200 phrases says 0.76 (agreement 0.83, κ 0.59). Theme name fits: yes 60%, partly 40% (`cluster_eval.md`).
   - Top themes by priority: fewer/shorter ads (2,709 items), unlimited skips (1,082), on-demand song selection, true random shuffle, ad-free podcasts, AI-music filter, cheaper Premium (`top_themes.md`).
   - Trends (last 13 weeks vs previous 13): no significant emerging theme; declining: old widget (319 → 68), old logo, disabling AI features, disabling forced shuffle (`trends.md`).
   - Existing features (`insights.md`): 18 themes ask for something that already exists (lyrics, hide song, crossfade, block artist…: discoverability), 27 for Premium-only features on the free tier (ads, skips, on-demand, downloads: paywall), 16 for more than a limited version offers.
