@@ -56,24 +56,26 @@ def main() -> None:
         info[name] = {
             "train": f"{len(examples)} dev examples" if few else "none",
             "model": llm.model,
-            "s_per_item": res.latency_s / len(test) if res.latency_s else float("nan"),
+            "s_per_item": res.latency_s / len(test),
             "tokens_per_item": (res.prompt_tokens + res.completion_tokens) / len(test),
             "failed_items": sum(lab is None for lab in res.labels),
         }
 
     for train_name, data in {"gold-dev": dev, "silver": silver}.items():
-        model = ml.train_tfidf_lr(data["text"], data["label"])
-        timed(
-            f"TF-IDF+LR ({train_name})",
-            lambda m=model: ml.predict(m, test["text"]),
-            train=f"{len(data)} {train_name}",
-        )
+        trainers = {"TF-IDF+LR": lambda d: ml.train_tfidf_lr(d["text"], d["label"])}
         if "--no-setfit" not in sys.argv:
-            model = ml.train_setfit(data["text"], data["label"], max_steps=SETFIT_STEPS[train_name])
+            trainers["SetFit"] = lambda d, n=train_name: ml.train_setfit(
+                d["text"], d["label"], max_steps=SETFIT_STEPS[n]
+            )
+        for method, train in trainers.items():
+            start = time.perf_counter()
+            model = train(data)
+            train_s = time.perf_counter() - start
             timed(
-                f"SetFit ({train_name})",
+                f"{method} ({train_name})",
                 lambda m=model: ml.predict(m, test["text"]),
                 train=f"{len(data)} {train_name}",
+                train_s=train_s,
             )
 
     systems = [c for c in preds.columns if c not in ("id", "source", "gold")]
@@ -104,13 +106,15 @@ def main() -> None:
         "fr_f1_ci",
         "s_per_item",
         "tokens_per_item",
+        "train_s",
     ]
     with open(tables / "detect_test.md", "w") as f:
         f.write(f"# Detection results on gold test (n={len(test)})\n\n")
         f.write(
             "Point estimates with 95% bootstrap CIs (2,000 resamples). `kappa` = Cohen's κ "
-            "against the human labels. Latency for LLMs is summed model time per item "
-            "(batched, 20 items per call); for local models, CPU/GPU inference time.\n\n"
+            "against the human labels. `s_per_item`: for LLMs, model time per call divided by "
+            "the 20 items in the call; for local models, inference time on the laptop "
+            "(RTX 5050 GPU for SetFit). `train_s`: training time in seconds.\n\n"
         )
         f.write(table[[c for c in show if c in table]].round(3).to_markdown() + "\n")
     with open(tables / "detect_test_per_class.md", "w") as f:

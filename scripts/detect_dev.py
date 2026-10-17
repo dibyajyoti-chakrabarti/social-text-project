@@ -2,8 +2,10 @@
 
 uv run python scripts/detect_dev.py [config ...]
 
-Runs the rule classifier and several LLM configurations on dev, so that prompt, batch
-size and few-shot choices are made without touching the test split. LLM calls are
+Runs the rule classifier, several LLM configurations and the silver-trained local
+models (`tfidf_silver`, `setfit_silver`) on dev, so that prompt, batch size, few-shot
+and deployed-model choices are made without touching the test split. Silver excludes
+every gold item, so dev is held out for the silver-trained models. LLM calls are
 cached, so re-running is free. Few-shot configs are scored on the dev items that are
 not used as examples.
 """
@@ -15,7 +17,7 @@ import pandas as pd
 
 from frminer.annotate import load_gold
 from frminer.config import path
-from frminer.detect import llm_classify, rules
+from frminer.detect import llm_classify, ml, rules
 from frminer.detect.evaluate import point_metrics
 from frminer.llm import LLM
 
@@ -70,6 +72,29 @@ def main() -> None:
                 "calls": res.n_calls,
                 "failed_calls": res.n_failed,
                 "tokens_per_item": (res.prompt_tokens + res.completion_tokens) / len(dev),
+            }
+        )
+
+    silver_models = {
+        "tfidf_silver": lambda d: ml.train_tfidf_lr(d["text"], d["label"]),
+        "setfit_silver": lambda d: ml.train_setfit(d["text"], d["label"], max_steps=2000),
+    }
+    for name, train in silver_models.items():
+        if name not in wanted:
+            continue
+        silver = pd.read_parquet(path("processed") / "silver.parquet")
+        start = time.perf_counter()
+        model = train(silver)
+        train_s = time.perf_counter() - start
+        start = time.perf_counter()
+        preds[name] = ml.predict(model, dev["text"])
+        rows.append(
+            {
+                "method": name,
+                "n": len(dev),
+                "train_items": len(silver),
+                "train_s": train_s,
+                "s_per_item": (time.perf_counter() - start) / len(dev),
             }
         )
 

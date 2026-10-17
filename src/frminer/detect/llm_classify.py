@@ -118,7 +118,7 @@ class BatchResult:
     labels: list[str | None]  # None where the batch failed
     prompt_tokens: int
     completion_tokens: int
-    latency_s: float  # summed model latency over uncached calls
+    latency_s: float  # summed model latency per call (the cache stores the original latency)
     n_calls: int
     n_failed: int
 
@@ -168,8 +168,7 @@ def classify(
         labels += [data["labels"][str(i + 1)] for i in range(len(b))]
         pt += resp.prompt_tokens or 0
         ct += resp.completion_tokens or 0
-        if not resp.cached:
-            lat += resp.latency_s
+        lat += resp.latency_s
     return BatchResult(labels, pt, ct, lat, len(batches), failed)
 
 
