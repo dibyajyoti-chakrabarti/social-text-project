@@ -17,6 +17,8 @@ providers:
   gemini:
     base_url: https://generativelanguage.googleapis.com/v1beta/openai/
     api_key_env: [GEMINI_KEY, GEMINI_KEY_2]  # separate projects; used in order
+    # A key whose provider-side cap is lower (GEMINI_KEY_2 allows 500/day) is detected from
+    # the 429 and skipped for the rest of the day.
     rpm: 10
     daily_limit: 1000
     quota_tz: America/Los_Angeles  # Gemini free-tier quotas reset at midnight Pacific

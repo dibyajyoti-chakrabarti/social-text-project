@@ -123,6 +123,34 @@ def parse_json(text: str) -> Any:
     raise InvalidJSON(f"Could not parse JSON from model output: {text[:200]!r}")
 
 
+DAILY_RETRY_S = 600  # a 429 asking us to wait longer than this is a daily quota
+
+
+def _retry_delay_s(err: Exception) -> float | None:
+    """Seconds the provider asks us to wait, from the retry-after header or the message."""
+    response = getattr(err, "response", None)
+    header = response.headers.get("retry-after") if response is not None else None
+    if header:
+        try:
+            return float(header)
+        except ValueError:
+            pass
+    msg = str(err)
+    m = re.search(r"retryDelay['\"]?:\s*['\"](\d+(?:\.\d+)?)s", msg)
+    if m:
+        return float(m.group(1))
+    m = re.search(r"retry in (?:(\d+)h)?(?:(\d+)m)?(?:([\d.]+)s)?", msg)
+    if m and any(m.groups()):
+        h, mins, sec = (float(g) if g else 0.0 for g in m.groups())
+        return h * 3600 + mins * 60 + sec
+    return None
+
+
+def _daily_quota_hit(err: Exception) -> bool:
+    delay = _retry_delay_s(err)
+    return (delay is not None and delay > DAILY_RETRY_S) or "PerDay" in str(err)
+
+
 class LLM:
     def __init__(
         self,
@@ -316,6 +344,13 @@ class LLM:
             try:
                 resp = key.client.chat.completions.create(**kwargs)
             except RETRYABLE as e:
+                if isinstance(e, openai.RateLimitError) and _daily_quota_hit(e):
+                    # The provider's own daily cap (which can be lower than ours): retrying
+                    # only burns attempts. Mark this key spent and move on to the next one.
+                    if self.daily_limit is None:
+                        raise QuotaExceeded(f"{self.provider}: {e}") from e
+                    self.cache.exhaust(key.usage_name, self.daily_limit, self.quota_tz)
+                    continue
                 if attempt == self.max_retries:
                     raise
                 time.sleep(self._backoff(attempt, e))
