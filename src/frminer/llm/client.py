@@ -123,6 +123,34 @@ def parse_json(text: str) -> Any:
     raise InvalidJSON(f"Could not parse JSON from model output: {text[:200]!r}")
 
 
+DAILY_RETRY_S = 600  # a 429 asking us to wait longer than this is a daily quota
+
+
+def _retry_delay_s(err: Exception) -> float | None:
+    """Seconds the provider asks us to wait, from the retry-after header or the message."""
+    response = getattr(err, "response", None)
+    header = response.headers.get("retry-after") if response is not None else None
+    if header:
+        try:
+            return float(header)
+        except ValueError:
+            pass
+    msg = str(err)
+    m = re.search(r"retryDelay['\"]?:\s*['\"](\d+(?:\.\d+)?)s", msg)
+    if m:
+        return float(m.group(1))
+    m = re.search(r"retry in (?:(\d+)h)?(?:(\d+)m)?(?:([\d.]+)s)?", msg)
+    if m and any(m.groups()):
+        h, mins, sec = (float(g) if g else 0.0 for g in m.groups())
+        return h * 3600 + mins * 60 + sec
+    return None
+
+
+def _daily_quota_hit(err: Exception) -> bool:
+    delay = _retry_delay_s(err)
+    return (delay is not None and delay > DAILY_RETRY_S) or "PerDay" in str(err)
+
+
 class LLM:
     def __init__(
         self,
@@ -143,8 +171,8 @@ class LLM:
         self.max_retries: int = cfg["llm"]["max_retries"]
         self.cache = cache or default_cache()
         # `api_key_env` may list several keys (separate projects, separate quotas). They
-        # are used in order: the next one takes over when the previous hits its daily
-        # limit. The key is not part of the cache key, since it cannot change the output.
+        # are used in turn, skipping any that hit their daily limit. The key is not part
+        # of the cache key, since it cannot change the output.
         envs = pcfg["api_key_env"]
         envs = [envs] if isinstance(envs, str) else list(envs)
         if client is None:
@@ -166,6 +194,8 @@ class LLM:
         for i, c in clients.items():
             name = self.provider if i == 0 else f"{self.provider}#{i + 1}"
             self._keys.append(_Key(name, c, _throttle_for(name, pcfg["rpm"])))
+        self._rr = 0  # round-robin position over the keys
+        self._rr_lock = threading.Lock()
 
     def __repr__(self) -> str:
         return f"LLM(profile={self.profile!r}, provider={self.provider!r}, model={self.model!r})"
@@ -284,8 +314,13 @@ class LLM:
         return sum(self.cache.requests_today(k.usage_name, self.quota_tz) for k in self._keys)
 
     def _pick_key(self) -> _Key:
-        """The first key with quota left today."""
-        for key in self._keys:
+        """The next key, round-robin, that has quota left today. Each key has its own rate
+        limit, so rotating lets concurrent workers use several keys at once."""
+        with self._rr_lock:
+            start = self._rr
+            self._rr += 1
+        for j in range(len(self._keys)):
+            key = self._keys[(start + j) % len(self._keys)]
             used = self.cache.requests_today(key.usage_name, self.quota_tz)
             if self.daily_limit is None or used < self.daily_limit:
                 return key
@@ -316,6 +351,13 @@ class LLM:
             try:
                 resp = key.client.chat.completions.create(**kwargs)
             except RETRYABLE as e:
+                if isinstance(e, openai.RateLimitError) and _daily_quota_hit(e):
+                    # The provider's own daily cap (which can be lower than ours): retrying
+                    # only burns attempts. Mark this key spent and move on to the next one.
+                    if self.daily_limit is None:
+                        raise QuotaExceeded(f"{self.provider}: {e}") from e
+                    self.cache.exhaust(key.usage_name, self.daily_limit, self.quota_tz)
+                    continue
                 if attempt == self.max_retries:
                     raise
                 time.sleep(self._backoff(attempt, e))

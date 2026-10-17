@@ -267,7 +267,7 @@ social-text-project/
 ├── README.md
 ├── pyproject.toml
 ├── Makefile                    # make setup | scrape | pipeline | dashboard | test
-├── .env.example                # OPENROUTER_API_KEY, GEMINI_KEY, GROQ_KEY
+├── .env.example                # OPENROUTER_API_KEY, GEMINI_KEY_1.., GROQ_KEY
 ├── configs/
 │   └── config.yaml             # models, thresholds, weights, paths
 ├── annotations/
@@ -343,11 +343,18 @@ Each phase = one PR merged into `main`. Days are approximate.
   - **Deployed:** SetFit (silver), chosen on dev.
 
 ### Phase 4: Extraction *(Day 5–6)*
-- [ ] Rule-based extractor
-- [ ] LLM extractor (JSON, multi-feature, competitor field)
-- [ ] Normalisation
-- [ ] Evaluation against the gold feature phrases captured during annotation (+ manual check of disagreements)
+- [x] Classify the full corpus with the deployed SetFit model (`make classify`): 16,608 of 117,875 items predicted feature_request
+- [x] Rule-based extractor (spaCy dependency patterns + competitor keyword list)
+- [x] LLM extractor (JSON, multi-feature, competitor field; 20 items per call)
+- [x] Normalisation (filler/article stripping, noun lemmas)
+- [x] Evaluation against the gold feature phrases captured during annotation, plus a blind LLM judge (Groq gpt-oss-20b) instead of the manual check (`make extract-eval`)
 - **Done when:** `requests.parquet` with features per item; extraction accuracy reported.
+- **Result** (`reports/tables/extract_eval.md`):
+  - Judge grades on the 35 gold requests: LLM 63% correct / 17% partial / 20% wrong; rules 34% / 11% / 54%. On 100 random corpus items predicted as requests: LLM 83% correct, rules 24%.
+  - Phrase F1 against the annotator's phrases (embedding match ≥ 0.6): LLM 0.44 [0.30, 0.59], rules 0.37 [0.20, 0.55]. Low for both because the annotator's phrases are terse and personal ("dont interrupt the 30 mins promised") while the LLM writes product-style phrases ("fewer ads"); the judge grades are the better measure.
+  - Rules find nothing in 44% of gold requests (implicit requests: "why can't I…", "Apple Music has…"); the LLM in 9%.
+  - The LLM doubles as a precision filter: it returns no request for 14% of predicted requests (36% of Reddit comments), which the judge mostly confirms.
+  - Corpus (`make extract`): 19,669 feature mentions, 8,158 distinct normalised phrases. Top: fewer ads (2.5k), cheaper premium (720), remove skip limit (424), bring back old widget (231). Competitors cited: YouTube Music 483, Apple Music 176, Pandora 43, SoundCloud 38.
 
 ### Phase 5: Clustering, ranking & insights *(Day 6–7)*
 - [ ] Embedding + HDBSCAN; BERTopic comparison
@@ -406,7 +413,7 @@ Polish, optional extensions (App Store data, second LLM, learning curve, intra-a
 
 | When | What |
 |---|---|
-| Phase 0 | ✅ API keys in `.env`: `OPENROUTER_API_KEY`, `GEMINI_KEY`, `GROQ_KEY` (all free tier) |
+| Phase 0 | ✅ API keys in `.env`: `OPENROUTER_API_KEY`, `GEMINI_KEY_1`…`_6`, `GROQ_KEY` (all free tier) |
 | Phase 2 | ~2–3 hrs of gold labelling |
 | Phase 4–5 | ~1 hr of manual judgement (extraction + clusters) |
 | Phase 6 | Feedback on dashboard UX |

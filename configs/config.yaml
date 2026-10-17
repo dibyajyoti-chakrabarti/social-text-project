@@ -7,6 +7,7 @@ paths:
   cache: data/cache
   annotations: annotations
   reports: reports
+  models: models          # trained local models (gitignored)
 
 # LLM providers. All expose an OpenAI-compatible chat completions API.
 # `rpm` = client-side requests-per-minute throttle.
@@ -15,7 +16,11 @@ paths:
 providers:
   gemini:
     base_url: https://generativelanguage.googleapis.com/v1beta/openai/
-    api_key_env: [GEMINI_KEY, GEMINI_KEY_2]  # separate projects; used in order
+    # Several keys from separate projects, each with its own quota, used in rotation.
+    # A key whose provider-side cap is lower than daily_limit (new projects allow 500/day)
+    # is detected from the 429 and skipped for the rest of the day.
+    api_key_env: [GEMINI_KEY_1, GEMINI_KEY_2, GEMINI_KEY_3, GEMINI_KEY_4, GEMINI_KEY_5,
+                  GEMINI_KEY_6]
     rpm: 10
     daily_limit: 1000
     quota_tz: America/Los_Angeles  # Gemini free-tier quotas reset at midnight Pacific
@@ -79,3 +84,37 @@ detect:
       play: 8000
       reddit_post: 3000
       reddit_comment: 1000
+  deployed:               # local model that classifies the full corpus (chosen on dev)
+    method: setfit
+    train: silver
+    max_steps: 2000
+    seed: 0
+
+# Feature extraction (Phase 4).
+extract:
+  llm:
+    profile: primary
+    batch_size: 20
+  judge:                  # grades extractions; a different model family from the extractor
+    profile: secondary
+    batch_size: 10
+  eval:
+    embed_model: sentence-transformers/all-MiniLM-L6-v2
+    threshold: 0.6        # cosine similarity at which two phrases count as the same feature
+    corpus_sample: 100    # predicted-FR corpus items graded by the judge
+    seed: 0
+  competitors:            # canonical name: lowercase aliases matched as whole words
+    Apple Music: [apple music, itunes]
+    YouTube Music: [youtube music, yt music, youtube, ytmusic, yt]
+    Amazon Music: [amazon music]
+    Tidal: [tidal]
+    Deezer: [deezer]
+    SoundCloud: [soundcloud, sound cloud]
+    Pandora: [pandora]
+    Audiomack: [audiomack]
+    JioSaavn: [jiosaavn, saavn]
+    Gaana: [gaana]
+    Wynk: [wynk]
+    Qobuz: [qobuz]
+    Pocket Casts: [pocket casts, pocketcasts]
+    Audible: [audible]

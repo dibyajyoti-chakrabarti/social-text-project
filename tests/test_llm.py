@@ -34,10 +34,11 @@ def make_llm(replies, daily_limit=None):
     return llm
 
 
-def rate_limit_error():
+def rate_limit_error(retry_after="0", message="slow down"):
     request = httpx2.Request("POST", "https://example.com")
-    response = httpx2.Response(429, request=request, headers={"retry-after": "0"})
-    return openai.RateLimitError("slow down", response=response, body=None)
+    headers = {"retry-after": retry_after} if retry_after else {}
+    response = httpx2.Response(429, request=request, headers=headers)
+    return openai.RateLimitError(message, response=response, body=None)
 
 
 def test_second_identical_call_is_cached():
@@ -68,6 +69,17 @@ def test_daily_quota_enforced():
         llm.complete("two")
 
 
+def test_keys_rotate_and_skip_spent_ones():
+    a, b, c = FakeClient(["a1", "a2"]), FakeClient(["b1"]), FakeClient(["c1", "c2"])
+    llm = LLM("primary", cache=Cache(":memory:"), client=[a, b, c])
+    llm.daily_limit = 1
+    for key in llm._keys:
+        key.throttle.interval = 0
+    llm.cache.exhaust(llm._keys[1].usage_name, 1, llm.quota_tz)
+    assert [llm.complete(f"q{i}").text for i in range(2)] == ["a1", "c1"]
+    assert len(b.calls) == 0
+
+
 def test_second_key_takes_over_when_first_hits_quota():
     first, second = FakeClient(["a"]), FakeClient(["b"])
     llm = LLM("primary", cache=Cache(":memory:"), client=[first, second])
@@ -80,6 +92,24 @@ def test_second_key_takes_over_when_first_hits_quota():
     assert llm.requests_today() == 2
     with pytest.raises(QuotaExceeded, match="all 2 keys"):
         llm.complete("three")
+
+
+def test_provider_daily_cap_moves_to_next_key_without_retrying():
+    daily = rate_limit_error(None, "Quota exceeded ... Please retry in 9h28m44.3s.")
+    first, second = FakeClient([daily]), FakeClient(["b"])
+    llm = LLM("primary", cache=Cache(":memory:"), client=[first, second])
+    llm.daily_limit = 1000
+    for key in llm._keys:
+        key.throttle.interval = 0
+    assert llm.complete("one").text == "b"
+    assert len(first.calls) == 1  # no backoff retries against the spent key
+    assert llm.cache.requests_today(llm._keys[0].usage_name, llm.quota_tz) == 1000
+
+
+def test_provider_daily_cap_on_last_key_raises_quota_exceeded():
+    llm = make_llm([rate_limit_error("40000")], daily_limit=1000)
+    with pytest.raises(QuotaExceeded):
+        llm.complete("one")
 
 
 def test_complete_json_reasks_on_bad_json():

@@ -14,9 +14,8 @@ from typing import Any
 import pandas as pd
 
 from frminer.annotate import LABELS
-from frminer.llm import LLM, QuotaExceeded
-
-MAX_WORDS = 300  # longer texts are truncated in the prompt
+from frminer.llm import LLM
+from frminer.llm.batch import clip, format_items, run_batched
 
 SYSTEM = """\
 You label user feedback about the Spotify app (Google Play reviews, Reddit posts and \
@@ -76,25 +75,16 @@ praise, question, other.\
 """
 
 
-def _clip(text: str) -> str:
-    words = str(text).split()
-    return " ".join(words[:MAX_WORDS]) + (" …" if len(words) > MAX_WORDS else "")
-
-
-def _format_items(texts: Sequence[str]) -> str:
-    return "\n\n".join(f"[{i + 1}] {_clip(t)}" for i, t in enumerate(texts))
-
-
 def build_prompt(texts: Sequence[str], examples: pd.DataFrame | None = None) -> str:
     parts = []
     if examples is not None and len(examples):
         shots = "\n\n".join(
-            f"Text: {_clip(t)}\nLabel: {lab}"
+            f"Text: {clip(t)}\nLabel: {lab}"
             for t, lab in zip(examples["text"], examples["label"], strict=True)
         )
         parts.append("Labelled examples:\n\n" + shots)
     parts.append(INSTRUCTION)
-    parts.append("Items:\n\n" + _format_items(texts))
+    parts.append("Items:\n\n" + format_items(texts))
     return "\n\n---\n\n".join(parts)
 
 
@@ -123,38 +113,6 @@ class BatchResult:
     n_failed: int  # items left unlabelled
 
 
-RETRY_BATCH_SIZE = 5  # items of a failed batch are retried in batches this small
-
-
-def _run(
-    llm: LLM,
-    texts: Sequence[str],
-    groups: list[list[int]],
-    examples: pd.DataFrame | None,
-    prompt: str,
-    workers: int,
-    desc: str | None,
-) -> list[Any]:
-    """One result (or exception) per group of item indices."""
-    results: list[Any] = [None] * len(groups)
-    # Each prompt has a different item count, so validators differ; run one map per size.
-    by_size: dict[int, list[int]] = {}
-    for j, g in enumerate(groups):
-        by_size.setdefault(len(g), []).append(j)
-    for size, idxs in by_size.items():
-        out = llm.map(
-            [build_prompt([texts[i] for i in groups[j]], examples) for j in idxs],
-            system=PROMPTS[prompt],
-            json_mode=True,
-            validate=_validator(size),
-            workers=workers,
-            desc=desc,
-        )
-        for j, r in zip(idxs, out, strict=True):
-            results[j] = r
-    return results
-
-
 def classify(
     llm: LLM,
     texts: Sequence[str],
@@ -165,33 +123,26 @@ def classify(
     workers: int = 4,
     desc: str | None = None,
 ) -> BatchResult:
-    """Label every text. Items of a failed batch (e.g. one blocked by a provider safety
-    filter) are retried in smaller batches, so one bad item cannot sink its neighbours."""
-    texts = list(texts)
-    labels: list[str | None] = [None] * len(texts)
-    pt = ct = calls = 0
-    lat = 0.0
-    pending = list(range(len(texts)))
-    for size in sorted({batch_size, min(batch_size, RETRY_BATCH_SIZE)}, reverse=True):
-        if not pending:
-            break
-        groups = [pending[i : i + size] for i in range(0, len(pending), size)]
-        results = _run(llm, texts, groups, examples, prompt, workers, desc)
-        calls += len(groups)
-        pending = []
-        for group, r in zip(groups, results, strict=True):
-            if isinstance(r, QuotaExceeded):
-                raise r
-            if isinstance(r, Exception):
-                pending += group
-                continue
-            data, resp = r
-            for k, i in enumerate(group):
-                labels[i] = data["labels"][str(k + 1)]
-            pt += resp.prompt_tokens or 0
-            ct += resp.completion_tokens or 0
-            lat += resp.latency_s
-    return BatchResult(labels, pt, ct, lat, calls, len(pending))
+    """Label every text, `batch_size` texts per prompt (see frminer.llm.batch)."""
+    res = run_batched(
+        llm,
+        texts,
+        system=PROMPTS[prompt],
+        build_prompt=lambda batch: build_prompt(batch, examples),
+        validator=_validator,
+        parse=lambda data, k: data["labels"][str(k + 1)],
+        batch_size=batch_size,
+        workers=workers,
+        desc=desc,
+    )
+    return BatchResult(
+        res.outputs,
+        res.prompt_tokens,
+        res.completion_tokens,
+        res.latency_s,
+        res.n_calls,
+        res.n_failed,
+    )
 
 
 def pick_examples(dev: pd.DataFrame, per_class: int = 2, seed: int = 0) -> pd.DataFrame:

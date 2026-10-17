@@ -79,6 +79,24 @@ def train_setfit(
     return model
 
 
+def load_setfit(model_dir: Path):
+    from setfit import SetFitModel
+
+    model = SetFitModel.from_pretrained(str(model_dir))
+    model.model_body.max_seq_length = SETFIT_MAX_TOKENS
+    return model
+
+
+def predict_proba(model, texts: Sequence[str], batch_size: int = 64) -> tuple[np.ndarray, list]:
+    """Class probabilities (rows = texts) and the class order of the columns."""
+    texts = list(texts)
+    if hasattr(model, "model_body"):
+        proba = model.predict_proba(texts, batch_size=batch_size, show_progress_bar=True)
+        proba = proba.cpu().numpy() if hasattr(proba, "cpu") else np.asarray(proba)
+        return proba, list(model.model_head.classes_)
+    return model.predict_proba(texts), list(model.classes_)
+
+
 def predict(model, texts: Sequence[str], batch_size: int = 64) -> np.ndarray:
     """Predict with either a sklearn pipeline or a SetFit model."""
     texts = list(texts)

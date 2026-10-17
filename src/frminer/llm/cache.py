@@ -114,3 +114,13 @@ class Cache:
                 (self.quota_day(tz), provider),
             )
             self._conn.commit()
+
+    def exhaust(self, provider: str, limit: int, tz: str = "UTC") -> None:
+        """Record that the provider refused more requests today (counter ≥ `limit`)."""
+        with self._lock:
+            self._conn.execute(
+                "INSERT INTO usage (day, provider, requests) VALUES (?, ?, ?) "
+                "ON CONFLICT(day, provider) DO UPDATE SET requests = MAX(requests, ?)",
+                (self.quota_day(tz), provider, limit, limit),
+            )
+            self._conn.commit()
