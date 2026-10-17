@@ -27,8 +27,10 @@ def test_clean(phrase, expected):
     assert clean(phrase) == expected
 
 
-def test_normalize_lemmatises():
+def test_normalize_lemmatises_nouns_only():
     assert normalize("Add lyrics to podcasts") == "lyric to podcast"
+    assert normalize("better shuffle algorithm") == "better shuffle algorithm"
+    assert normalize("on-demand playback") == "on-demand playback"
 
 
 @pytest.mark.parametrize(
@@ -53,6 +55,9 @@ def test_competitors():
         "YouTube Music",
     ]
     assert rules.competitors("tidal wave of ads") == ["Tidal"]  # keyword lists are crude
+    assert rules.canonical_competitor("YouTube") == "YouTube Music"
+    assert rules.canonical_competitor("Napster") == "Napster"
+    assert rules.canonical_competitor(None) is None
 
 
 def test_llm_extract_validator_and_parse():

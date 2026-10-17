@@ -131,7 +131,7 @@
 
 > the UI has become so cluttered with ads for videos and podcasts that it's getting hard to find any music. I pay for premium and it's gotten so bad I am jumping ship to either YT, Apple, or Deezer. The recommendations for music have gotten way out of whack as well. Spotify also has this thing about p…
 
-- rules [partial]: ['bring back spotify of 5 years ago'] (competitor: Deezer)
+- rules [partial]: ['bring back spotify of 5 years ago'] (competitor: YouTube Music, Deezer)
 - llm [partial]: ['less cluttered ui', 'hide specific artists'] (competitor: YouTube)
 
 > Put my music playlist into shuffle

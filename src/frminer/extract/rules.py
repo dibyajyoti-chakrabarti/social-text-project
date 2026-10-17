@@ -138,6 +138,14 @@ def _competitor_patterns() -> list[tuple[str, re.Pattern]]:
     ]
 
 
+def canonical_competitor(name: str | None) -> str | None:
+    """Map a competitor name to its canonical form ("YT Music" → "YouTube Music")."""
+    if not name:
+        return None
+    found = competitors(name)
+    return found[0] if found else name.strip()
+
+
 def competitors(text: str) -> list[str]:
     """Competing services mentioned in the text (canonical names, config order)."""
     return [name for name, pat in _competitor_patterns() if pat.search(str(text))]

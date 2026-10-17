@@ -43,7 +43,7 @@ def main() -> None:
         comps += [e.competitor if e is not None else None for e in res.outputs]
     items = items.iloc[: len(feats)].copy()
     items["llm_features"] = feats
-    items["competitor"] = comps
+    items["competitor"] = [rules.canonical_competitor(c) for c in comps]
     items["rule_features"] = rules.extract_many(items["text"])
     items["rule_competitors"] = [rules.competitors(t) for t in items["text"]]
 

@@ -105,7 +105,7 @@ extract:
     seed: 0
   competitors:            # canonical name: lowercase aliases matched as whole words
     Apple Music: [apple music, itunes]
-    YouTube Music: [youtube music, yt music, youtube]
+    YouTube Music: [youtube music, yt music, youtube, ytmusic, yt]
     Amazon Music: [amazon music]
     Tidal: [tidal]
     Deezer: [deezer]

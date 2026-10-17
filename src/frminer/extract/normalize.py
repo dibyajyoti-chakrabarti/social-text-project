@@ -2,7 +2,7 @@
 
 "Please add an option to hide songs!" → "hide song". Lowercase, strip punctuation and
 emoji, drop request filler ("please", "add", "an option to", "I wish I could"), drop
-articles, and lemmatise ("podcasts" → "podcast").
+articles, and lemmatise nouns ("podcasts" → "podcast").
 """
 
 from __future__ import annotations
@@ -104,5 +104,10 @@ def normalize_many(phrases: list[str]) -> list[str]:
 
 
 def _lemmas(doc) -> str:
-    # Keep the original spacing so "on-demand" stays one word.
-    return "".join(t.lemma_.lower() + t.whitespace_ for t in doc if not t.is_space).strip()
+    # Only nouns are lemmatised ("podcasts" → "podcast"): lemmatising comparatives would
+    # turn "better shuffle" into "well shuffle". Original spacing keeps "on-demand" whole.
+    return "".join(
+        (t.lemma_.lower() if t.pos_ == "NOUN" else t.lower_) + t.whitespace_
+        for t in doc
+        if not t.is_space
+    ).strip()
