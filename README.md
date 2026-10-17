@@ -2,7 +2,7 @@
 
 A text analytics dashboard for extracting customer feature requests from unstructured product feedback (Spotify reviews and Reddit discussions).
 
-Advanced Social Text project. See [PLAN.md](PLAN.md) for the full project plan.
+Advanced Social Text project. See [PLAN.md](PLAN.md) for the full plan; **§0 Handoff** there has the current status, setup (including the data bundle, which is not in git) and next steps.
 
 ## Setup
 
@@ -10,7 +10,7 @@ Requires [uv](https://docs.astral.sh/uv/).
 
 ```bash
 make setup               # install Python 3.12 deps into .venv
-cp .env.example .env     # then fill in API keys (Gemini, Groq, OpenRouter; all free tier)
+cp .env.example .env     # then fill in API keys (GEMINI_KEY_1.., GROQ_KEY, OPENROUTER_API_KEY; all free tier)
 make test                # unit tests (no API calls)
 make smoke               # one live call per configured LLM profile
 ```
