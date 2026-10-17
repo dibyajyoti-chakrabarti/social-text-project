@@ -19,8 +19,7 @@ providers:
     # Several keys from separate projects, each with its own quota, used in rotation.
     # A key whose provider-side cap is lower than daily_limit (new projects allow 500/day)
     # is detected from the 429 and skipped for the rest of the day.
-    api_key_env: [GEMINI_KEY_1, GEMINI_KEY_2, GEMINI_KEY_3, GEMINI_KEY_4, GEMINI_KEY_5,
-                  GEMINI_KEY_6]
+    api_key_env: GEMINI_KEY_*   # GEMINI_KEY_1, GEMINI_KEY_2, … in numeric order
     rpm: 10
     daily_limit: 1000
     quota_tz: America/Los_Angeles  # Gemini free-tier quotas reset at midnight Pacific
@@ -118,3 +117,41 @@ extract:
     Qobuz: [qobuz]
     Pocket Casts: [pocket casts, pocketcasts]
     Audible: [audible]
+
+# Theme clustering (Phase 5).
+cluster:
+  embed_model: sentence-transformers/all-MiniLM-L6-v2
+  seed: 0
+  umap: {n_components: 5, n_neighbors: 15}
+  grid:
+    min_cluster_size: [5, 8, 12, 20, 30]
+    min_samples: [2, 5]
+  outlier_threshold: 0.6  # attach a noise phrase to the nearest centroid at cosine ≥ this
+  select:                 # pick the highest-silhouette setting that satisfies these
+    max_outlier_mentions: 0.2
+    min_clusters: 30
+    max_clusters: 250
+  naming:
+    profile: primary
+  bertopic:
+    min_topic_size: 30
+  purity:                 # sample per method for the purity check
+    clusters: 30          # judged by the LLM judge (both methods)
+    members: 10
+    human: 20             # of method A's sample, also checked by hand (apps/purity.py)
+  judge:
+    profile: secondary
+
+# Ranking and trends (Phase 5).
+rank:
+  weights: {volume: 0.4, engagement: 0.2, dissatisfaction: 0.2, growth: 0.2}
+  window_weeks: 13        # recent quarter vs the quarter before
+  min_support: 20         # items in both windows needed to compute growth
+  trend: {min_ratio: 1.5, min_recent: 15, alpha: 0.05}
+
+# Insights (Phase 5).
+insights:
+  min_items: 15
+  existing:
+    profile: primary
+    candidates: 3         # closest catalogue entries shown to the LLM per theme

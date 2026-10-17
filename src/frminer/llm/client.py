@@ -123,6 +123,22 @@ def parse_json(text: str) -> Any:
     raise InvalidJSON(f"Could not parse JSON from model output: {text[:200]!r}")
 
 
+def _expand_key_envs(spec: str | list[str]) -> list[str]:
+    """Env var names for a provider's keys. A trailing "*" ("GEMINI_KEY_*") matches every
+    set variable with that prefix, in natural order (…_2 before …_10)."""
+    out = []
+    for name in [spec] if isinstance(spec, str) else spec:
+        if name.endswith("*"):
+            prefix = name[:-1]
+            found = [k for k in os.environ if k.startswith(prefix)]
+            out += sorted(
+                found, key=lambda k: [int(t) if t.isdigit() else t for t in re.split(r"(\d+)", k)]
+            )
+        else:
+            out.append(name)
+    return out
+
+
 DAILY_RETRY_S = 600  # a 429 asking us to wait longer than this is a daily quota
 
 
@@ -173,8 +189,7 @@ class LLM:
         # `api_key_env` may list several keys (separate projects, separate quotas). They
         # are used in turn, skipping any that hit their daily limit. The key is not part
         # of the cache key, since it cannot change the output.
-        envs = pcfg["api_key_env"]
-        envs = [envs] if isinstance(envs, str) else list(envs)
+        envs = _expand_key_envs(pcfg["api_key_env"])
         if client is None:
             clients = {
                 i: openai.OpenAI(

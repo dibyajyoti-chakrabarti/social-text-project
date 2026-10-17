@@ -1,0 +1,139 @@
+# Curated catalogue of features the Spotify Android app already offers (state of 2025–26),
+# used to spot requests for things that exist (a discoverability signal) or exist only
+# behind Premium (a paywall signal).
+# availability: all | premium | some_markets (rolled out in some countries / plans only)
+# verify: true marks entries whose details (tier, rollout) were less certain when curated.
+
+- name: Sleep timer
+  description: Stop playback of music or podcasts after a chosen time or at the end of a track or episode.
+  availability: all
+- name: Lyrics
+  description: Real-time synced lyrics shown under the Now Playing screen.
+  availability: all
+  verify: true
+- name: Hide song
+  description: Hide a song from a playlist, album or radio so it is skipped automatically.
+  availability: all
+- name: Don't play this artist
+  description: Block an artist so their songs are not played.
+  availability: all
+- name: Exclude from taste profile
+  description: Keep a playlist out of recommendations and Wrapped.
+  availability: all
+- name: Turn off Smart Shuffle
+  description: The shuffle button cycles between shuffle, Smart Shuffle (adds recommended songs) and off.
+  availability: premium
+- name: Shuffle off / play in order
+  description: Play playlists and albums in order instead of shuffled.
+  availability: premium
+- name: Offline downloads
+  description: Download songs, albums, playlists and podcasts to listen without a connection.
+  availability: premium
+- name: Unlimited skips
+  description: Skip as many tracks as you like (free mobile listeners have a limited number of skips per hour).
+  availability: premium
+- name: Pick and play any song
+  description: Choose and play a specific track on demand.
+  availability: premium
+  verify: true
+- name: Ad-free listening
+  description: Listen without audio or video ads.
+  availability: premium
+- name: Lossless audio
+  description: Lossless (up to 24-bit/44.1 kHz FLAC) streaming quality.
+  availability: premium
+  verify: true
+- name: Audio quality setting
+  description: Choose streaming and download quality (low to very high) and a data saver mode.
+  availability: all
+- name: Equalizer
+  description: Adjust bass, treble and frequency bands with presets.
+  availability: all
+- name: Volume normalization
+  description: Turn loudness normalisation on or off and choose its level.
+  availability: all
+- name: Crossfade
+  description: Fade between songs for a chosen number of seconds.
+  availability: all
+- name: Gapless playback
+  description: Play consecutive tracks without silence between them.
+  availability: all
+- name: Repeat one song
+  description: Repeat the current track or the whole playlist.
+  availability: premium
+  verify: true
+- name: Add to queue
+  description: Queue specific songs to play next and reorder the queue.
+  availability: premium
+  verify: true
+- name: Listening history
+  description: Recently played tracks, artists and playlists.
+  availability: all
+- name: Private session
+  description: Listen without the activity affecting recommendations or being visible to followers.
+  availability: all
+- name: Playlist folders
+  description: Group playlists into folders in Your Library.
+  availability: all
+  verify: true
+- name: Collaborative playlists
+  description: Let friends add, remove and reorder songs in a shared playlist.
+  availability: all
+- name: Blend
+  description: A shared playlist that mixes two or more people's tastes.
+  availability: all
+- name: Jam
+  description: Listen together in real time with a shared queue, in person or remotely.
+  availability: premium
+- name: AI DJ
+  description: A personalised AI DJ that picks music and talks between tracks; takes voice requests.
+  availability: premium
+- name: AI Playlist
+  description: Generate a playlist from a text prompt.
+  availability: some_markets
+- name: Daylist and personalised mixes
+  description: Daylist, Daily Mixes, Discover Weekly and Release Radar playlists made for each listener.
+  availability: all
+- name: Liked Songs filters and sorting
+  description: Filter Liked Songs by genre or mood and sort playlists by title, artist, album or date added.
+  availability: all
+- name: Custom playlist cover
+  description: Upload your own image as a playlist cover.
+  availability: all
+- name: Podcast playback speed
+  description: Play podcast episodes faster or slower.
+  availability: all
+- name: Video podcasts
+  description: Watch video versions of podcast episodes.
+  availability: all
+- name: Audiobooks in Premium
+  description: A monthly allowance of audiobook listening time included in Premium.
+  availability: some_markets
+- name: Spotify Connect
+  description: Control playback on speakers, TVs, consoles and other devices from the phone.
+  availability: all
+- name: Android Auto and car mode
+  description: A driving-friendly interface on Android Auto and car displays.
+  availability: all
+- name: Home screen widget
+  description: A widget with playback controls on the phone home screen.
+  availability: all
+- name: Explicit content filter
+  description: Block songs marked explicit.
+  availability: all
+- name: Storage location on SD card
+  description: Store downloaded music on an SD card instead of internal storage (Android).
+  availability: premium
+- name: Family, Duo and Student plans
+  description: Cheaper Premium plans for households, couples and students.
+  availability: all
+- name: Wrapped
+  description: The yearly personalised summary of listening.
+  availability: all
+- name: Mix (DJ-style transitions)
+  description: Smooth, DJ-style transitions between tracks in a playlist.
+  availability: premium
+  verify: true
+- name: Song radio
+  description: An endless station of similar songs started from any track, artist or playlist.
+  availability: all
