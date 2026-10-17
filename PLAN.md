@@ -354,7 +354,7 @@ Each phase = one PR merged into `main`. Days are approximate.
   - Phrase F1 against the annotator's phrases (embedding match ≥ 0.6): LLM 0.44 [0.30, 0.59], rules 0.37 [0.20, 0.55]. Low for both because the annotator's phrases are terse and personal ("dont interrupt the 30 mins promised") while the LLM writes product-style phrases ("fewer ads"); the judge grades are the better measure.
   - Rules find nothing in 44% of gold requests (implicit requests: "why can't I…", "Apple Music has…"); the LLM in 9%.
   - The LLM doubles as a precision filter: it returns no request for 14% of predicted requests (36% of Reddit comments), which the judge mostly confirms.
-  - Corpus (`make extract`): 19,669 feature mentions, 8,158 distinct normalised phrases. Top: fewer ads (2.5k), cheaper premium (720), remove skip limit (424), bring back old widget (231). Competitors cited: YouTube Music 468, Apple Music 169, Pandora 41, SoundCloud 37.
+  - Corpus (`make extract`): 19,669 feature mentions, 8,158 distinct normalised phrases. Top: fewer ads (2.5k), cheaper premium (720), remove skip limit (424), bring back old widget (231). Competitors cited: YouTube Music 483, Apple Music 176, Pandora 43, SoundCloud 38.
 
 ### Phase 5: Clustering, ranking & insights *(Day 6–7)*
 - [ ] Embedding + HDBSCAN; BERTopic comparison
