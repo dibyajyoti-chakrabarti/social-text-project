@@ -2,7 +2,83 @@
 
 **A Text Analytics Dashboard for Extracting Customer Feature Requests from Unstructured Product Feedback**
 
-Advanced Social Text project · Solo · ~10 days · Agentic development (Claude Code)
+Advanced Social Text project · ~10 days · Agentic development (Claude Code)
+
+> **Status (2026-10-17):** Phases 0–4 merged; Phase 5 merged except the manual cluster purity check. **Next owner: start at [§0 Handoff](#0-handoff-status-and-next-steps).**
+
+---
+
+## 0. Handoff: status and next steps
+
+### Where things stand
+
+| Phase | State | Key result |
+|---|---|---|
+| 0 Setup | ✅ | uv, CI, multi-key LLM client with SQLite cache |
+| 1 Data | ✅ | 117,875 items (Play 93,950; Reddit posts 17,423; comments 6,502), 2025-10-16 → 2026-10-16 |
+| 2 Annotation | ✅ | 400 gold items (dev 100 / test 300), intra-annotator κ 0.76 |
+| 3 Detection | ✅ | SetFit on 12k Gemini silver labels = Gemini itself (test macro-F1 0.69); deployed |
+| 4 Extraction | ✅ | LLM extractor 63% correct on gold (rules 34%); 19,669 feature mentions |
+| 5 Clustering / ranking / insights | ⚠️ one step left | 144 themes; LLM-judged purity 0.80; **human purity check not done** |
+| 6 Dashboard | ⬜ | |
+| 7 Report & demo | ⬜ | |
+
+Every number above comes from a table in `reports/tables/` written by a script.
+
+### Getting set up
+
+1. `make setup` (installs everything incl. the `ml` group: torch CUDA 12.8, SetFit, BERTopic). CPU-only machines work too, just slower.
+2. `cp .env.example .env` and fill in keys. Gemini keys are read as `GEMINI_KEY_1`, `GEMINI_KEY_2`, … (any number; each from a separate Google Cloud project, free tier ≈ 500 requests/day each). Groq (`GROQ_KEY`) is the judge model.
+3. **Get the data bundle** from the previous owner (not in git): unpack at the repo root so it fills `data/` (corpus, outputs, and `data/cache/llm.sqlite`, the LLM response cache) and, separately, `models/setfit_silver/` (the deployed classifier, ~420 MB). With the cache every LLM stage replays for free; without it, re-running costs quota.
+4. `make test` (77 tests, no API calls) and `make smoke` (one live call per model profile).
+
+### Next steps, in order
+
+1. **Cluster purity check (👤 ~20 min).** `make purity` opens a small app: for each of 20 sampled themes, tick the phrases that do **not** belong and rate the name. Answers go to `annotations/purity_labels.csv`. Then run `uv run python scripts/evaluate_clusters.py`; it adds human purity and judge-vs-human agreement (κ) to `reports/tables/cluster_eval.md`. Commit both files and tick the box in Phase 5.
+2. **Review the feature catalogue (optional, ~5 min).** `annotations/existing_features.yaml` was written from general knowledge of Spotify; entries marked `verify: true` (tier or rollout uncertain) should be checked against Spotify's support pages. Then `uv run python scripts/rank_and_insights.py` to refresh the "already exists" insight.
+3. **Phase 6: dashboard** (see §8 and the Phase 6 checklist). Everything it needs is precomputed in `data/processed/` (file list below); the dashboard must not call heavy models at load time.
+4. **Phase 7: report & demo** (§12 outline). Tables and figures are in `reports/`.
+
+### Pipeline (all stages are scripts; re-run any one independently)
+
+| Make target | Script | Writes |
+|---|---|---|
+| `make data` | scrape_*, build_corpus, eda | `data/interim/corpus.parquet`, EDA figures |
+| `make gold` | gold_summary | `reports/tables/gold_summary.md` |
+| `make silver` | silver_label | `data/processed/silver.parquet` (12k Gemini labels) |
+| `make detect` | evaluate_detection (**only reader of test labels**) | `reports/tables/detect_test*.md`, confusion figures |
+| `make errors` | error_analysis | `reports/tables/detect_errors.md` |
+| `make classify` | classify_corpus | `models/setfit_silver/`, `data/processed/classified.parquet` |
+| `make extract-eval` | evaluate_extraction | `reports/tables/extract_eval.md`, `extract_examples.md` |
+| `make extract` | extract_corpus | `extractions.parquet`, `requests.parquet` |
+| `make cluster` | cluster_requests | `themes.parquet`, `phrase_themes.parquet`, `request_themes.parquet`, `bertopic_topics.parquet`, `annotations/purity_sample.csv`, `cluster_grid.md`, `cluster_compare.md` |
+| `make purity` | apps/purity.py | `annotations/purity_labels.csv` |
+| — | evaluate_clusters | `reports/tables/cluster_eval.md` |
+| — | rank_and_insights | `theme_stats.parquet`, `theme_timeseries.parquet`, `insights/{platform,ratings,competitors,existing}.parquet`, `top_themes.md`, `trends.md`, `insights.md`, figures |
+
+Dev experiments: `scripts/detect_dev.py` (all detection settings on gold-dev → `detect_dev.md`).
+
+### Data for the dashboard (`data/processed/`)
+
+- `theme_stats.parquet`: one row per theme: name, description, items, Play/Reddit split, engagement, low-rating share, growth, priority, rank, trend.
+- `theme_timeseries.parquet`: theme × month: items and share of all corpus items.
+- `request_themes.parquet`: one row per (item, feature mention): source, date, rating, engagement, feature phrase, competitor, theme_id.
+- `themes.parquet`: theme names, descriptions, top phrases.
+- `insights/*.parquet`: platform comparison, rating profile, competitor × theme, existing-feature status.
+- `classified.parquet`: SetFit label + confidence for all 117,875 items; `extractions.parquet`: per-item LLM and rule features.
+- Model Lab tables: `reports/tables/detect_test.md`, `detect_test_per_class.md`, `detect_errors.md`, `extract_eval.md`, `cluster_eval.md`, `cluster_compare.md`; figures in `reports/figures/`.
+- Live Analyser: `frminer.detect.ml.load_setfit(models/setfit_silver)` + `ml.predict_proba` for the class; `frminer.extract.llm_extract.extract` (optional LLM) or `frminer.extract.rules.extract` for features; nearest theme by embedding the phrase with `cluster.embed_model` and comparing to theme centroids built from `phrase_themes.parquet`.
+
+### Known limitations to carry into the report
+
+- Single annotator (intra-annotator κ 0.76 only); some gold labels are debatable (see `detect_errors.md`). Test labels were never changed after scoring.
+- Only 24 feature requests in gold-test, so FR-specific metrics have wide CIs; macro-F1 is the primary metric.
+- Prompt v2 encodes two annotator conventions inferred from dev.
+- Extraction and purity are judged by an LLM (Groq gpt-oss-20b, a different family from the Gemini extractor/namer); the human purity check calibrates it.
+- Clustering over-splits some requests by wording; the LLM merge is deliberately conservative (8 of 25 proposed merges confirmed), so a few duplicate themes remain (e.g. two "on-demand playback" themes).
+- No theme is significantly emerging in the last quarter; declines (old widget, logo, AI features, forced shuffle) are significant.
+- "Already exists" statuses are LLM judgments against a hand-written catalogue.
+- Gemini free tier: keys beyond the first cap at 500 requests/day; the client rotates keys and skips spent ones automatically.
 
 ---
 
@@ -357,12 +433,20 @@ Each phase = one PR merged into `main`. Days are approximate.
   - Corpus (`make extract`): 19,669 feature mentions, 8,158 distinct normalised phrases. Top: fewer ads (2.5k), cheaper premium (720), remove skip limit (424), bring back old widget (231). Competitors cited: YouTube Music 483, Apple Music 176, Pandora 43, SoundCloud 38.
 
 ### Phase 5: Clustering, ranking & insights *(Day 6–7)*
-- [ ] Embedding + HDBSCAN; BERTopic comparison
-- [ ] LLM cluster naming
-- [ ] Priority score + trend/emerging detection
-- [ ] Competitor analysis, existing-feature catalogue + matching, platform & rating comparisons
-- [ ] Manual cluster purity check (**👤 ~20 min**)
+- [x] Embedding + HDBSCAN; BERTopic comparison (`make cluster`)
+- [x] LLM cluster consolidation (Gemini proposes same-request merges, Groq confirms each pair) and naming
+- [x] Priority score + trend/emerging detection
+- [x] Competitor analysis, existing-feature catalogue + matching, platform & rating comparisons
+- [x] LLM purity judge on 30 sampled clusters per method (`scripts/evaluate_clusters.py`)
+- [ ] Manual cluster purity check (**👤 ~20 min**, `make purity`, see §0)
 - **Done when:** `themes.parquet`, `theme_timeseries.parquet`, `insights/*.parquet` produced.
+- **Result:**
+  - Phrase clustering (8,370 distinct phrases, MiniLM → UMAP 5-d → HDBSCAN): grid of 10 settings, chosen by rule (best silhouette with ≤ 20% unassigned mentions and 30–250 clusters) → 152 clusters; LLM consolidation merged 15 into 7 → **144 themes**, 3.6% of mentions unassigned (`cluster_grid.md`). A stronger encoder (mpnet) did not fix wording splits.
+  - BERTopic on item texts: 52 topics, 34% of items outliers (`cluster_compare.md`).
+  - LLM-judged purity: phrase clusters 0.80 [0.72, 0.86], BERTopic 0.86 [0.80, 0.91]; BERTopic topics are broader and leave a third of items out (`cluster_eval.md`).
+  - Top themes by priority: fewer/shorter ads (2,709 items), unlimited skips (1,082), on-demand song selection, true random shuffle, ad-free podcasts, AI-music filter, cheaper Premium (`top_themes.md`).
+  - Trends (last 13 weeks vs previous 13): no significant emerging theme; declining: old widget (319 → 68), old logo, disabling AI features, disabling forced shuffle (`trends.md`).
+  - Existing features (`insights.md`): 18 themes ask for something that already exists (lyrics, hide song, crossfade, block artist…: discoverability), 27 for Premium-only features on the free tier (ads, skips, on-demand, downloads: paywall), 16 for more than a limited version offers.
 
 ### Phase 6: Dashboard *(Day 7–8)*
 - [ ] Six pages per §8
@@ -415,7 +499,7 @@ Polish, optional extensions (App Store data, second LLM, learning curve, intra-a
 |---|---|
 | Phase 0 | ✅ API keys in `.env`: `OPENROUTER_API_KEY`, `GEMINI_KEY_1`…`_6`, `GROQ_KEY` (all free tier) |
 | Phase 2 | ~2–3 hrs of gold labelling |
-| Phase 4–5 | ~1 hr of manual judgement (extraction + clusters) |
+| Phase 4–5 | Cluster purity check (~20 min, `make purity`); extraction was judged by an LLM instead of by hand |
 | Phase 6 | Feedback on dashboard UX |
 | Phase 7 | Report narrative, discussion, demo delivery |
 

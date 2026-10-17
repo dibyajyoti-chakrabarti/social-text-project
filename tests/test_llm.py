@@ -151,3 +151,12 @@ def test_quota_counted_per_provider_timezone():
     cache.record_request("p", "Pacific/Pago_Pago")  # UTC-11: always a different date
     assert cache.requests_today("p", "Pacific/Kiritimati") == 1
     assert cache.requests_today("p", "Pacific/Pago_Pago") == 1
+
+
+def test_key_env_wildcard_expands_in_numeric_order(monkeypatch):
+    from frminer.llm.client import _expand_key_envs
+
+    for i in (1, 2, 10):
+        monkeypatch.setenv(f"TESTKEY_{i}", "x")
+    assert _expand_key_envs("TESTKEY_*") == ["TESTKEY_1", "TESTKEY_2", "TESTKEY_10"]
+    assert _expand_key_envs(["A", "B"]) == ["A", "B"]
