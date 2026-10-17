@@ -29,7 +29,8 @@ class FakeClient:
 def make_llm(replies, daily_limit=None):
     llm = LLM("primary", cache=Cache(":memory:"), client=FakeClient(replies))
     llm.daily_limit = daily_limit
-    llm._throttle.interval = 0
+    for key in llm._keys:
+        key.throttle.interval = 0
     return llm
 
 
@@ -45,7 +46,7 @@ def test_second_identical_call_is_cached():
     second = llm.complete("pls add a sleep timer")
     assert first.text == second.text == "feature_request"
     assert not first.cached and second.cached
-    assert len(llm._client.calls) == 1
+    assert len(llm._keys[0].client.calls) == 1
 
 
 def test_different_system_prompt_is_a_different_cache_entry():
@@ -57,7 +58,7 @@ def test_different_system_prompt_is_a_different_cache_entry():
 def test_retries_on_rate_limit_then_succeeds():
     llm = make_llm([rate_limit_error(), "ok"])
     assert llm.complete("hi").text == "ok"
-    assert llm.cache.requests_today(llm.provider) == 2  # failed attempts count too
+    assert llm.requests_today() == 2  # failed attempts count too
 
 
 def test_daily_quota_enforced():
@@ -67,11 +68,25 @@ def test_daily_quota_enforced():
         llm.complete("two")
 
 
+def test_second_key_takes_over_when_first_hits_quota():
+    first, second = FakeClient(["a"]), FakeClient(["b"])
+    llm = LLM("primary", cache=Cache(":memory:"), client=[first, second])
+    llm.daily_limit = 1
+    for key in llm._keys:
+        key.throttle.interval = 0
+    assert llm.complete("one").text == "a"
+    assert llm.complete("two").text == "b"
+    assert len(first.calls) == len(second.calls) == 1
+    assert llm.requests_today() == 2
+    with pytest.raises(QuotaExceeded, match="all 2 keys"):
+        llm.complete("three")
+
+
 def test_complete_json_reasks_on_bad_json():
     llm = make_llm(["not json at all", '{"label": "bug_report"}'])
     data, resp = llm.complete_json("classify")
     assert data == {"label": "bug_report"}
-    assert llm._client.calls[0]["response_format"] == {"type": "json_object"}
+    assert llm._keys[0].client.calls[0]["response_format"] == {"type": "json_object"}
 
 
 def test_complete_json_gives_up():
@@ -98,3 +113,11 @@ def test_map_preserves_order_and_isolates_errors():
 )
 def test_parse_json_tolerates_wrapping(text, expected):
     assert parse_json(text) == expected
+
+
+def test_quota_counted_per_provider_timezone():
+    cache = Cache(":memory:")
+    cache.record_request("p", "Pacific/Kiritimati")  # UTC+14
+    cache.record_request("p", "Pacific/Pago_Pago")  # UTC-11: always a different date
+    assert cache.requests_today("p", "Pacific/Kiritimati") == 1
+    assert cache.requests_today("p", "Pacific/Pago_Pago") == 1

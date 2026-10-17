@@ -8,11 +8,13 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      UV_NO_SYNC: "1"  # keep `uv run` from installing the large ml group
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
       - run: uv python install 3.12
-      - run: uv sync
+      - run: uv sync --no-group ml
       - run: uv run ruff check .
       - run: uv run ruff format --check .
       - run: uv run pytest -q

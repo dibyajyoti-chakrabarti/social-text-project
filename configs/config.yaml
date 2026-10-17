@@ -10,13 +10,15 @@ paths:
 
 # LLM providers. All expose an OpenAI-compatible chat completions API.
 # `rpm` = client-side requests-per-minute throttle.
-# `daily_limit` = requests per day we allow ourselves (tracked locally; null = unlimited).
+# `daily_limit` = requests per day we allow ourselves (tracked locally; null = unlimited),
+# counted per key and calendar day in `quota_tz`, the timezone where the provider's quota resets.
 providers:
   gemini:
     base_url: https://generativelanguage.googleapis.com/v1beta/openai/
-    api_key_env: GEMINI_KEY
+    api_key_env: [GEMINI_KEY, GEMINI_KEY_2]  # separate projects; used in order
     rpm: 10
     daily_limit: 1000
+    quota_tz: America/Los_Angeles  # Gemini free-tier quotas reset at midnight Pacific
   groq:
     base_url: https://api.groq.com/openai/v1
     api_key_env: GROQ_KEY
@@ -65,3 +67,15 @@ data:
     comment_min_post_comments: 3
     comment_max_posts: 3000
     comment_min_score: 2
+
+# Intent detection (Phase 3). Choices below were made on the gold dev split only.
+detect:
+  silver:
+    profile: primary      # LLM that produces the silver labels
+    prompt: v2
+    batch_size: 20
+    seed: 42
+    per_source:           # gold items are excluded before sampling
+      play: 8000
+      reddit_post: 3000
+      reddit_comment: 1000

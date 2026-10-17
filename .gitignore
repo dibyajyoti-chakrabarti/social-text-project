@@ -14,6 +14,7 @@ __pycache__/
 data/raw/
 data/interim/
 data/cache/
+data/processed/
 models/
 
 # OS / editor
@@ -25,3 +26,5 @@ models/
 *.swp
 *.swo
 *~
+checkpoints/
+models/

@@ -69,3 +69,26 @@ def save(fig: plt.Figure, out: Path) -> Path:
     fig.savefig(out, bbox_inches="tight")
     plt.close(fig)
     return out
+
+
+def confusion_heatmap(ax: plt.Axes, cm, title: str = "") -> None:
+    """Row-normalised confusion matrix (rows = gold), annotated with raw counts."""
+    from matplotlib.colors import LinearSegmentedColormap
+
+    norm = cm.div(cm.sum(axis=1).replace(0, 1), axis=0)
+    cmap = LinearSegmentedColormap.from_list("seq_blue", [SURFACE, *SEQ_BLUE])
+    ax.imshow(norm.values, cmap=cmap, vmin=0, vmax=1)
+    ax.grid(False)
+    short = [c.replace("_", " ").replace("feature request", "feat. req.") for c in cm.columns]
+    ax.set_xticks(range(len(short)), short, rotation=40, ha="right")
+    ax.set_yticks(range(len(short)), short)
+    ax.set_xlabel("predicted")
+    ax.set_ylabel("gold")
+    for i in range(cm.shape[0]):
+        for j in range(cm.shape[1]):
+            v = cm.iat[i, j]
+            if v:
+                color = SURFACE if norm.iat[i, j] > 0.55 else INK
+                ax.text(j, i, str(v), ha="center", va="center", fontsize=8, color=color)
+    if title:
+        ax.set_title(title)

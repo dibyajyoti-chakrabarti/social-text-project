@@ -86,6 +86,15 @@ def _throttle_for(provider: str, rpm: float) -> _Throttle:
         return _throttles[provider]
 
 
+@dataclass
+class _Key:
+    """One API key of a provider. Each key has its own daily quota and rate limit."""
+
+    usage_name: str  # name its requests are counted under in the usage table
+    client: Any
+    throttle: _Throttle
+
+
 def default_cache() -> Cache:
     global _default_cache
     if _default_cache is None:
@@ -119,7 +128,7 @@ class LLM:
         self,
         profile: str = "primary",
         cache: Cache | None = None,
-        client: Any | None = None,
+        client: Any | list[Any] | None = None,
     ):
         cfg = load_config()
         prof = cfg["models"][profile]
@@ -129,21 +138,34 @@ class LLM:
         self.params: dict[str, Any] = prof.get("params", {})
         pcfg = cfg["providers"][self.provider]
         self.daily_limit: int | None = pcfg.get("daily_limit")
+        self.quota_tz: str = pcfg.get("quota_tz", "UTC")
         self.temperature: float = cfg["llm"]["temperature"]
         self.max_retries: int = cfg["llm"]["max_retries"]
         self.cache = cache or default_cache()
-        self._throttle = _throttle_for(self.provider, pcfg["rpm"])
+        # `api_key_env` may list several keys (separate projects, separate quotas). They
+        # are used in order: the next one takes over when the previous hits its daily
+        # limit. The key is not part of the cache key, since it cannot change the output.
+        envs = pcfg["api_key_env"]
+        envs = [envs] if isinstance(envs, str) else list(envs)
         if client is None:
-            api_key = os.environ.get(pcfg["api_key_env"])
-            if not api_key:
-                raise RuntimeError(f"Missing env var {pcfg['api_key_env']} for {self.provider}")
-            client = openai.OpenAI(
-                base_url=pcfg["base_url"],
-                api_key=api_key,
-                timeout=cfg["llm"]["timeout_s"],
-                max_retries=0,  # we handle retries ourselves to count quota correctly
-            )
-        self._client = client
+            clients = {
+                i: openai.OpenAI(
+                    base_url=pcfg["base_url"],
+                    api_key=os.environ[env],
+                    timeout=cfg["llm"]["timeout_s"],
+                    max_retries=0,  # we handle retries ourselves to count quota correctly
+                )
+                for i, env in enumerate(envs)
+                if os.environ.get(env)
+            }
+            if not clients:
+                raise RuntimeError(f"Missing env var {' or '.join(envs)} for {self.provider}")
+        else:
+            clients = dict(enumerate(client if isinstance(client, list) else [client]))
+        self._keys: list[_Key] = []
+        for i, c in clients.items():
+            name = self.provider if i == 0 else f"{self.provider}#{i + 1}"
+            self._keys.append(_Key(name, c, _throttle_for(name, pcfg["rpm"])))
 
     def __repr__(self) -> str:
         return f"LLM(profile={self.profile!r}, provider={self.provider!r}, model={self.model!r})"
@@ -257,13 +279,20 @@ class LLM:
             messages = [{"role": "system", "content": system}, *messages]
         return messages
 
-    def _check_quota(self) -> None:
-        if self.daily_limit is not None:
-            used = self.cache.requests_today(self.provider)
-            if used >= self.daily_limit:
-                raise QuotaExceeded(
-                    f"{self.provider}: daily limit of {self.daily_limit} requests reached"
-                )
+    def requests_today(self) -> int:
+        """Requests made today across all of this provider's keys."""
+        return sum(self.cache.requests_today(k.usage_name, self.quota_tz) for k in self._keys)
+
+    def _pick_key(self) -> _Key:
+        """The first key with quota left today."""
+        for key in self._keys:
+            used = self.cache.requests_today(key.usage_name, self.quota_tz)
+            if self.daily_limit is None or used < self.daily_limit:
+                return key
+        raise QuotaExceeded(
+            f"{self.provider}: daily limit of {self.daily_limit} requests reached"
+            + (f" on all {len(self._keys)} keys" if len(self._keys) > 1 else "")
+        )
 
     def _call_with_retries(
         self, messages: Messages, json_mode: bool, max_tokens: int | None
@@ -280,19 +309,23 @@ class LLM:
             kwargs["max_tokens"] = max_tokens
 
         for attempt in range(self.max_retries + 1):
-            self._check_quota()
-            self._throttle.wait()
-            self.cache.record_request(self.provider)
+            key = self._pick_key()
+            key.throttle.wait()
+            self.cache.record_request(key.usage_name, self.quota_tz)
             start = time.monotonic()
             try:
-                resp = self._client.chat.completions.create(**kwargs)
+                resp = key.client.chat.completions.create(**kwargs)
             except RETRYABLE as e:
                 if attempt == self.max_retries:
                     raise
                 time.sleep(self._backoff(attempt, e))
                 continue
             latency = time.monotonic() - start
-            text = resp.choices[0].message.content or ""
+            # A blocked or empty reply can come back without a message; treat it as empty
+            # text so JSON callers re-ask instead of crashing.
+            choice = resp.choices[0] if resp.choices else None
+            message = getattr(choice, "message", None)
+            text = getattr(message, "content", None) or ""
             return text, resp.usage, latency
         raise AssertionError("unreachable")
 
