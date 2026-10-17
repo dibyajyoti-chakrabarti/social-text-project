@@ -70,7 +70,7 @@ def main() -> None:
                 "model": llm.model,
                 "n": len(dev),
                 "calls": res.n_calls,
-                "failed_calls": res.n_failed,
+                "failed_items": res.n_failed,
                 "tokens_per_item": (res.prompt_tokens + res.completion_tokens) / len(dev),
             }
         )

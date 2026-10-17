@@ -115,12 +115,44 @@ def _validator(n: int):
 
 @dataclass
 class BatchResult:
-    labels: list[str | None]  # None where the batch failed
+    labels: list[str | None]  # None where every attempt failed
     prompt_tokens: int
     completion_tokens: int
     latency_s: float  # summed model latency per call (the cache stores the original latency)
     n_calls: int
-    n_failed: int
+    n_failed: int  # items left unlabelled
+
+
+RETRY_BATCH_SIZE = 5  # items of a failed batch are retried in batches this small
+
+
+def _run(
+    llm: LLM,
+    texts: Sequence[str],
+    groups: list[list[int]],
+    examples: pd.DataFrame | None,
+    prompt: str,
+    workers: int,
+    desc: str | None,
+) -> list[Any]:
+    """One result (or exception) per group of item indices."""
+    results: list[Any] = [None] * len(groups)
+    # Each prompt has a different item count, so validators differ; run one map per size.
+    by_size: dict[int, list[int]] = {}
+    for j, g in enumerate(groups):
+        by_size.setdefault(len(g), []).append(j)
+    for size, idxs in by_size.items():
+        out = llm.map(
+            [build_prompt([texts[i] for i in groups[j]], examples) for j in idxs],
+            system=PROMPTS[prompt],
+            json_mode=True,
+            validate=_validator(size),
+            workers=workers,
+            desc=desc,
+        )
+        for j, r in zip(idxs, out, strict=True):
+            results[j] = r
+    return results
 
 
 def classify(
@@ -133,43 +165,33 @@ def classify(
     workers: int = 4,
     desc: str | None = None,
 ) -> BatchResult:
+    """Label every text. Items of a failed batch (e.g. one blocked by a provider safety
+    filter) are retried in smaller batches, so one bad item cannot sink its neighbours."""
     texts = list(texts)
-    batches = [texts[i : i + batch_size] for i in range(0, len(texts), batch_size)]
-    prompts = [build_prompt(b, examples) for b in batches]
-    # Each prompt has a different item count, so validators differ; run one map per size.
-    by_size: dict[int, list[int]] = {}
-    for j, b in enumerate(batches):
-        by_size.setdefault(len(b), []).append(j)
-    results: list[Any] = [None] * len(batches)
-    for size, idxs in by_size.items():
-        out = llm.map(
-            [prompts[j] for j in idxs],
-            system=PROMPTS[prompt],
-            json_mode=True,
-            validate=_validator(size),
-            workers=workers,
-            desc=desc,
-        )
-        for j, r in zip(idxs, out, strict=True):
-            results[j] = r
-
-    labels: list[str | None] = []
-    pt = ct = 0
+    labels: list[str | None] = [None] * len(texts)
+    pt = ct = calls = 0
     lat = 0.0
-    failed = 0
-    for b, r in zip(batches, results, strict=True):
-        if isinstance(r, QuotaExceeded):
-            raise r
-        if isinstance(r, Exception):
-            failed += 1
-            labels += [None] * len(b)
-            continue
-        data, resp = r
-        labels += [data["labels"][str(i + 1)] for i in range(len(b))]
-        pt += resp.prompt_tokens or 0
-        ct += resp.completion_tokens or 0
-        lat += resp.latency_s
-    return BatchResult(labels, pt, ct, lat, len(batches), failed)
+    pending = list(range(len(texts)))
+    for size in sorted({batch_size, min(batch_size, RETRY_BATCH_SIZE)}, reverse=True):
+        if not pending:
+            break
+        groups = [pending[i : i + size] for i in range(0, len(pending), size)]
+        results = _run(llm, texts, groups, examples, prompt, workers, desc)
+        calls += len(groups)
+        pending = []
+        for group, r in zip(groups, results, strict=True):
+            if isinstance(r, QuotaExceeded):
+                raise r
+            if isinstance(r, Exception):
+                pending += group
+                continue
+            data, resp = r
+            for k, i in enumerate(group):
+                labels[i] = data["labels"][str(k + 1)]
+            pt += resp.prompt_tokens or 0
+            ct += resp.completion_tokens or 0
+            lat += resp.latency_s
+    return BatchResult(labels, pt, ct, lat, calls, len(pending))
 
 
 def pick_examples(dev: pd.DataFrame, per_class: int = 2, seed: int = 0) -> pd.DataFrame:

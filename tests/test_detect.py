@@ -86,3 +86,24 @@ def test_tfidf_lr_learns():
         "feature_request",
         "bug_report",
     ]
+
+
+class FlakyLLM(FakeLLM):
+    """Fails any batch that contains the text 'blocked'."""
+
+    def map(self, prompts, **kwargs):
+        good = super().map(prompts, **kwargs)
+        return [
+            ValueError("blocked") if "blocked" in p else g
+            for p, g in zip(prompts, good, strict=True)
+        ]
+
+
+def test_llm_classify_retries_failed_batch_in_smaller_batches():
+    texts = [f"t{i}" for i in range(10)]
+    texts[7] = "blocked"
+    res = llm_classify.classify(FlakyLLM(), texts, batch_size=10)
+    assert res.labels[7] is None
+    assert res.labels[:5] == ["praise"] * 5  # recovered by the size-5 retry
+    assert res.labels[5:7] == res.labels[8:] == [None, None]  # same retry batch as item 7
+    assert res.n_failed == 5 and res.n_calls == 3

@@ -293,7 +293,11 @@ class LLM:
                 time.sleep(self._backoff(attempt, e))
                 continue
             latency = time.monotonic() - start
-            text = resp.choices[0].message.content or ""
+            # A blocked or empty reply can come back without a message; treat it as empty
+            # text so JSON callers re-ask instead of crashing.
+            choice = resp.choices[0] if resp.choices else None
+            message = getattr(choice, "message", None)
+            text = getattr(message, "content", None) or ""
             return text, resp.usage, latency
         raise AssertionError("unreachable")
 
