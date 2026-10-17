@@ -18,7 +18,7 @@ def main() -> None:
             llm = LLM(profile)
             data, resp = llm.complete_json(PROMPT)
             status = "cached" if resp.cached else f"{resp.latency_s:.1f}s"
-            today = llm.cache.requests_today(llm.provider)
+            today = llm.cache.requests_today(llm.provider, llm.quota_tz)
             name = f"{llm.provider}/{llm.model}"
             print(f"✓ {profile:<10} {name}: {data} ({status}, {today} req today)")
         except Exception as e:  # report every profile, even if one fails

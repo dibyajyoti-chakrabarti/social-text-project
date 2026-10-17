@@ -12,9 +12,10 @@ import json
 import sqlite3
 import threading
 import time
-from datetime import date
+from datetime import datetime
 from pathlib import Path
 from typing import Any
+from zoneinfo import ZoneInfo
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS responses (
@@ -92,19 +93,24 @@ class Cache:
             )
             self._conn.commit()
 
-    def requests_today(self, provider: str) -> int:
+    @staticmethod
+    def quota_day(tz: str = "UTC") -> str:
+        """Today's date in the timezone where the provider's daily quota resets."""
+        return datetime.now(ZoneInfo(tz)).date().isoformat()
+
+    def requests_today(self, provider: str, tz: str = "UTC") -> int:
         with self._lock:
             row = self._conn.execute(
                 "SELECT requests FROM usage WHERE day = ? AND provider = ?",
-                (date.today().isoformat(), provider),
+                (self.quota_day(tz), provider),
             ).fetchone()
         return row[0] if row else 0
 
-    def record_request(self, provider: str) -> None:
+    def record_request(self, provider: str, tz: str = "UTC") -> None:
         with self._lock:
             self._conn.execute(
                 "INSERT INTO usage (day, provider, requests) VALUES (?, ?, 1) "
                 "ON CONFLICT(day, provider) DO UPDATE SET requests = requests + 1",
-                (date.today().isoformat(), provider),
+                (self.quota_day(tz), provider),
             )
             self._conn.commit()

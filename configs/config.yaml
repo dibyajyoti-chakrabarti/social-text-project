@@ -10,13 +10,15 @@ paths:
 
 # LLM providers. All expose an OpenAI-compatible chat completions API.
 # `rpm` = client-side requests-per-minute throttle.
-# `daily_limit` = requests per day we allow ourselves (tracked locally; null = unlimited).
+# `daily_limit` = requests per day we allow ourselves (tracked locally; null = unlimited),
+# counted per calendar day in `quota_tz`, the timezone where the provider's quota resets.
 providers:
   gemini:
     base_url: https://generativelanguage.googleapis.com/v1beta/openai/
     api_key_env: GEMINI_KEY
     rpm: 10
     daily_limit: 1000
+    quota_tz: America/Los_Angeles  # Gemini free-tier quotas reset at midnight Pacific
   groq:
     base_url: https://api.groq.com/openai/v1
     api_key_env: GROQ_KEY

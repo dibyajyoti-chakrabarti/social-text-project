@@ -129,6 +129,7 @@ class LLM:
         self.params: dict[str, Any] = prof.get("params", {})
         pcfg = cfg["providers"][self.provider]
         self.daily_limit: int | None = pcfg.get("daily_limit")
+        self.quota_tz: str = pcfg.get("quota_tz", "UTC")
         self.temperature: float = cfg["llm"]["temperature"]
         self.max_retries: int = cfg["llm"]["max_retries"]
         self.cache = cache or default_cache()
@@ -259,7 +260,7 @@ class LLM:
 
     def _check_quota(self) -> None:
         if self.daily_limit is not None:
-            used = self.cache.requests_today(self.provider)
+            used = self.cache.requests_today(self.provider, self.quota_tz)
             if used >= self.daily_limit:
                 raise QuotaExceeded(
                     f"{self.provider}: daily limit of {self.daily_limit} requests reached"
@@ -282,7 +283,7 @@ class LLM:
         for attempt in range(self.max_retries + 1):
             self._check_quota()
             self._throttle.wait()
-            self.cache.record_request(self.provider)
+            self.cache.record_request(self.provider, self.quota_tz)
             start = time.monotonic()
             try:
                 resp = self._client.chat.completions.create(**kwargs)

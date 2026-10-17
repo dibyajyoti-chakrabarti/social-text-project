@@ -57,7 +57,7 @@ def test_different_system_prompt_is_a_different_cache_entry():
 def test_retries_on_rate_limit_then_succeeds():
     llm = make_llm([rate_limit_error(), "ok"])
     assert llm.complete("hi").text == "ok"
-    assert llm.cache.requests_today(llm.provider) == 2  # failed attempts count too
+    assert llm.cache.requests_today(llm.provider, llm.quota_tz) == 2  # failed attempts count too
 
 
 def test_daily_quota_enforced():
@@ -98,3 +98,11 @@ def test_map_preserves_order_and_isolates_errors():
 )
 def test_parse_json_tolerates_wrapping(text, expected):
     assert parse_json(text) == expected
+
+
+def test_quota_counted_per_provider_timezone():
+    cache = Cache(":memory:")
+    cache.record_request("p", "Pacific/Kiritimati")  # UTC+14
+    cache.record_request("p", "Pacific/Pago_Pago")  # UTC-11: always a different date
+    assert cache.requests_today("p", "Pacific/Kiritimati") == 1
+    assert cache.requests_today("p", "Pacific/Pago_Pago") == 1
