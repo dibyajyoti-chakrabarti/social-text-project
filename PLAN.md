@@ -327,13 +327,20 @@ Each phase = one PR merged into `main`. Days are approximate.
 - **Result:** 400 items labelled in one ~3 h session. Feature requests are rare: 35 (8.8%; 11 dev / 24 test), 34 with a feature phrase. Complaints dominate (36%); questions are mostly Reddit posts, `other` mostly Reddit comments. Intra-annotator agreement on 27 pilot items labelled before a discarded first pass: 81.5%, κ = 0.76 (most changes were bug ↔ complaint, which was clarified between passes). With only 24 test positives, FR-class F1 has wide CIs; macro-F1 over all six classes is the primary metric and FR metrics are reported with bootstrap CIs.
 
 ### Phase 3: Detection & distillation experiments *(Day 3–5)*
-- [ ] Rule-based classifier (tuned on dev only)
-- [ ] LLM zero-shot + few-shot (prompt iterated on dev only)
-- [ ] LLM silver-labels full corpus
-- [ ] TF-IDF+LR and SetFit trained on gold-dev and on silver
-- [ ] Evaluation on test: metrics, bootstrap CIs, confusion matrices, cost/latency, κ
-- [ ] Error analysis: categorised failure examples (sarcasm, implicit, bug-vs-request, multi-intent)
+- [x] Rule-based classifier (tuned on dev only)
+- [x] LLM zero-shot + few-shot (prompt iterated on dev only)
+- [x] LLM silver-labels a 12k sample (play 8k, Reddit posts 3k, comments 1k; gold excluded). The rest of the corpus is classified by the distilled model.
+- [x] TF-IDF+LR and SetFit trained on gold-dev and on silver
+- [x] Evaluation on test: metrics, bootstrap CIs, confusion matrices, cost/latency, κ
+- [x] Error analysis: confusion pairs, shared teacher/student mistakes, examples (`make errors`)
 - **Done when:** results table + figures in `reports/`; best model chosen for the pipeline.
+- **Result** (`reports/tables/detect_test.md`, n=300; dev in `detect_dev.md`):
+  - Gemini 3.5 Flash-Lite zero-shot (prompt v2, 20 items per call): macro-F1 0.69 [0.63, 0.74], κ 0.64, ~93 tokens/item. Groq gpt-oss-20b is level (0.69, κ 0.65); few-shot adds nothing overall (FR-F1 0.51 → 0.59, within CI).
+  - Prompt v2, which adds two annotator conventions found on dev, beats v1 (0.66 → 0.69, κ 0.59 → 0.64).
+  - **Distillation works:** SetFit trained on 11,995 Gemini silver labels matches its teacher (0.69 [0.64, 0.74], κ 0.64, FR-F1 0.58) at ~4 ms/item offline and no API cost. Trained on the 100 gold-dev items instead it reaches only 0.60; TF-IDF+LR goes 0.27 → 0.59 with silver. More silver beyond ~9k did not help on dev.
+  - Rules overfit dev (0.63 → 0.48 on test).
+  - Main error: the complaint ↔ feature-request / bug boundary (complaint→FR 15, complaint→bug 13 of SetFit's 87 errors); 59% of SetFit's errors are the same wrong label as the teacher's, i.e. likely ambiguous items or annotator conventions.
+  - **Deployed:** SetFit (silver), chosen on dev.
 
 ### Phase 4: Extraction *(Day 5–6)*
 - [ ] Rule-based extractor
