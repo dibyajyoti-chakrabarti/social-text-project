@@ -267,7 +267,7 @@ social-text-project/
 ├── README.md
 ├── pyproject.toml
 ├── Makefile                    # make setup | scrape | pipeline | dashboard | test
-├── .env.example                # OPENROUTER_API_KEY, GEMINI_KEY, GROQ_KEY
+├── .env.example                # OPENROUTER_API_KEY, GEMINI_KEY_1.., GROQ_KEY
 ├── configs/
 │   └── config.yaml             # models, thresholds, weights, paths
 ├── annotations/
@@ -406,7 +406,7 @@ Polish, optional extensions (App Store data, second LLM, learning curve, intra-a
 
 | When | What |
 |---|---|
-| Phase 0 | ✅ API keys in `.env`: `OPENROUTER_API_KEY`, `GEMINI_KEY`, `GROQ_KEY` (all free tier) |
+| Phase 0 | ✅ API keys in `.env`: `OPENROUTER_API_KEY`, `GEMINI_KEY_1`…`_6`, `GROQ_KEY` (all free tier) |
 | Phase 2 | ~2–3 hrs of gold labelling |
 | Phase 4–5 | ~1 hr of manual judgement (extraction + clusters) |
 | Phase 6 | Feedback on dashboard UX |

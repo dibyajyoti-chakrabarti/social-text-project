@@ -171,8 +171,8 @@ class LLM:
         self.max_retries: int = cfg["llm"]["max_retries"]
         self.cache = cache or default_cache()
         # `api_key_env` may list several keys (separate projects, separate quotas). They
-        # are used in order: the next one takes over when the previous hits its daily
-        # limit. The key is not part of the cache key, since it cannot change the output.
+        # are used in turn, skipping any that hit their daily limit. The key is not part
+        # of the cache key, since it cannot change the output.
         envs = pcfg["api_key_env"]
         envs = [envs] if isinstance(envs, str) else list(envs)
         if client is None:
@@ -194,6 +194,8 @@ class LLM:
         for i, c in clients.items():
             name = self.provider if i == 0 else f"{self.provider}#{i + 1}"
             self._keys.append(_Key(name, c, _throttle_for(name, pcfg["rpm"])))
+        self._rr = 0  # round-robin position over the keys
+        self._rr_lock = threading.Lock()
 
     def __repr__(self) -> str:
         return f"LLM(profile={self.profile!r}, provider={self.provider!r}, model={self.model!r})"
@@ -312,8 +314,13 @@ class LLM:
         return sum(self.cache.requests_today(k.usage_name, self.quota_tz) for k in self._keys)
 
     def _pick_key(self) -> _Key:
-        """The first key with quota left today."""
-        for key in self._keys:
+        """The next key, round-robin, that has quota left today. Each key has its own rate
+        limit, so rotating lets concurrent workers use several keys at once."""
+        with self._rr_lock:
+            start = self._rr
+            self._rr += 1
+        for j in range(len(self._keys)):
+            key = self._keys[(start + j) % len(self._keys)]
             used = self.cache.requests_today(key.usage_name, self.quota_tz)
             if self.daily_limit is None or used < self.daily_limit:
                 return key

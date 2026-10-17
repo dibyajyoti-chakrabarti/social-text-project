@@ -69,6 +69,17 @@ def test_daily_quota_enforced():
         llm.complete("two")
 
 
+def test_keys_rotate_and_skip_spent_ones():
+    a, b, c = FakeClient(["a1", "a2"]), FakeClient(["b1"]), FakeClient(["c1", "c2"])
+    llm = LLM("primary", cache=Cache(":memory:"), client=[a, b, c])
+    llm.daily_limit = 1
+    for key in llm._keys:
+        key.throttle.interval = 0
+    llm.cache.exhaust(llm._keys[1].usage_name, 1, llm.quota_tz)
+    assert [llm.complete(f"q{i}").text for i in range(2)] == ["a1", "c1"]
+    assert len(b.calls) == 0
+
+
 def test_second_key_takes_over_when_first_hits_quota():
     first, second = FakeClient(["a"]), FakeClient(["b"])
     llm = LLM("primary", cache=Cache(":memory:"), client=[first, second])
