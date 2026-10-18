@@ -25,6 +25,14 @@ make dashboard           # http://localhost:8501, runs offline (needs the data b
 
 Six pages: Overview, Request Explorer, Trends, Insights, Model Lab, Live Analyser. The Live Analyser classifies pasted text with the local SetFit model; its LLM extraction toggle is off by default.
 
+## Report
+
+```bash
+make report              # figures + reports/report.md and reports/demo_script.md from their templates
+```
+
+Write prose in `reports/report_template.md` / `reports/demo_template.md`; every number is a `{{ … }}` field filled from `reports/tables`, so never edit the generated files.
+
 ## Annotation
 
 ```bash
