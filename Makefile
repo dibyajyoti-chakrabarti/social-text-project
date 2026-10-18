@@ -1,4 +1,4 @@
-.PHONY: setup test lint format smoke scrape corpus eda data sample label gold silver detect errors classify extract extract-eval cluster purity
+.PHONY: setup test lint format smoke scrape corpus eda data sample label gold silver detect errors classify extract extract-eval cluster purity dashboard
 
 setup:
 	uv sync
@@ -61,3 +61,7 @@ cluster:
 
 purity:
 	uv run streamlit run apps/purity.py
+
+# Offline demo: Hugging Face models must already be in the local cache (they are after setup runs).
+dashboard:
+	HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 uv run streamlit run apps/dashboard/app.py
