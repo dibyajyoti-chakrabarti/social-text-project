@@ -76,4 +76,4 @@ testpaths = ["tests"]
 [tool.ruff.lint.isort]
 known-first-party = ["frminer"]
 # Dashboard modules imported from apps/dashboard (Streamlit puts the script dir on sys.path).
-known-local-folder = ["controls", "loaders", "theme", "widgets"]
+known-local-folder = ["controls", "loaders", "theme"]

@@ -17,6 +17,14 @@ make smoke               # one live call per configured LLM profile
 
 LLM responses are cached in `data/cache/llm.sqlite`, so re-running any stage costs no quota.
 
+## Dashboard
+
+```bash
+make dashboard           # http://localhost:8501, runs offline (needs the data bundle, see PLAN.md §0)
+```
+
+Six pages: Overview, Request Explorer, Trends, Insights, Model Lab, Live Analyser. The Live Analyser classifies pasted text with the local SetFit model; its LLM extraction toggle is off by default.
+
 ## Annotation
 
 ```bash
