@@ -17,6 +17,7 @@ import loaders  # noqa: E402
 loaders.require_data()
 
 pages = [
-    st.Page("pages/overview.py", title="Overview", icon="📊", default=True),
+    st.Page("views/overview.py", title="Overview", icon="📊", default=True),
+    st.Page("views/explorer.py", title="Request Explorer", icon="🔎"),
 ]
 st.navigation(pages).run()

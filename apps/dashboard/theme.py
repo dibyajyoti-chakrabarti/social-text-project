@@ -32,12 +32,15 @@ pio.templates["frminer"] = go.layout.Template(
 )
 pio.templates.default = "frminer"
 
+CHART_CONFIG = {"displayModeBar": False}
+
 # 2px surface gap between adjacent / stacked fills.
 BAR_GAP_LINE = dict(color=SURFACE, width=2)
 
 __all__ = [
     "AXIS",
     "BAR_GAP_LINE",
+    "CHART_CONFIG",
     "GRID",
     "INK",
     "INK_2",

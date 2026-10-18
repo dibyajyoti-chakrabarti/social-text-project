@@ -9,7 +9,7 @@ from frminer.rank import score
 
 import controls
 import loaders
-from theme import BAR_GAP_LINE, SOURCE_COLORS, SOURCE_LABELS, SOURCES
+from theme import BAR_GAP_LINE, CHART_CONFIG, SOURCE_COLORS, SOURCE_LABELS, SOURCES
 
 WEIGHT_HELP = {
     "volume": "log of the number of items asking for the theme",
@@ -113,7 +113,7 @@ fig.update_layout(
     xaxis_title="items",
     yaxis=dict(gridcolor="rgba(0,0,0,0)", automargin=True),
 )
-st.plotly_chart(fig, width="stretch", config={"displayModeBar": False})
+st.plotly_chart(fig, width="stretch", config=CHART_CONFIG)
 
 # Table view of the same ranking.
 stats["low_rating_share"] = stats["low_rating_share"] * 100
