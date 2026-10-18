@@ -86,6 +86,25 @@ def detect_test() -> pd.DataFrame:
     return pd.read_csv(TABLES / "detect_test.csv")
 
 
+@st.cache_data(show_spinner=False)
+def md_tables(name: str) -> list[pd.DataFrame]:
+    """Every pipe table in reports/tables/<name>, in order, as string-typed frames."""
+    tables, block = [], []
+    for line in [*(TABLES / name).read_text().splitlines(), ""]:
+        if line.startswith("|"):
+            block.append([c.strip() for c in line.strip().strip("|").split("|")])
+        elif block:
+            header, rows = block[0], [r for r in block[1:] if not set("".join(r)) <= set(":-")]
+            tables.append(pd.DataFrame(rows, columns=header))
+            block = []
+    return tables
+
+
+@st.cache_data(show_spinner=False)
+def md_text(name: str) -> str:
+    return (TABLES / name).read_text()
+
+
 def deployed_f1() -> float:
     return float(detect_test().set_index("system").loc["SetFit (silver)", "macro_f1"])
 

@@ -21,5 +21,6 @@ pages = [
     st.Page("views/explorer.py", title="Request Explorer", icon="🔎"),
     st.Page("views/trends.py", title="Trends", icon="📈"),
     st.Page("views/insights.py", title="Insights", icon="💡"),
+    st.Page("views/model_lab.py", title="Model Lab", icon="🧪"),
 ]
 st.navigation(pages).run()
