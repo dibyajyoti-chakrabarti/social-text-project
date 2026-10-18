@@ -35,9 +35,10 @@ Point at the KPI row: {{ n(corpus['english']) }} items analysed over a year from
 ## 2:30 · What is changing (45 s) · *Trends*
 
 - "No theme is significantly emerging in the last quarter: {{ trends['emerging'] }} emerging, {{ trends['declining'] }} declining."
-- Point at the labelled declines, e.g. "{{ trends['declining_table']['name'].iloc[1] }}"
-  ({{ trends['declining_table']['prev_items'].iloc[1] }} → {{ trends['declining_table']['recent_items'].iloc[1] }} items):
-  a request that faded sharply. ✍️ *Check the likely cause (e.g. a Spotify change) before saying why.*
+- Point at "Compact Home Screen Widgets" ({{ trends['declining_table'].set_index('name').loc['Compact Home Screen Widgets', 'prev_items'] }} → {{ trends['declining_table'].set_index('name').loc['Compact Home Screen Widgets', 'recent_items'] }} items):
+  "This one spiked in June, when an app update replaced the small Android widget with a larger one. People
+  asked for the old one back, then the requests faded, but they never stopped." Open it in the Request Explorer
+  to show the June spike if time allows.
 
 ## 3:15 · Insights for the product team (45 s) · *Insights → Already exists?*
 
@@ -61,6 +62,9 @@ Point at the KPI row: {{ n(corpus['english']) }} items analysed over a year from
 - Click the *Feature request* example → **Analyse**: class probabilities from the local model, extracted features,
   and the nearest themes with cosine similarity.
 - Type your own sentence, e.g. *"please let me hide podcasts from my home screen"*.
+- With the toggle off, the rules extract a stray *"app"* from "Love the app" next to the real request. Say so
+  rather than hide it: it is exactly why the rules are graded correct for only
+  {{ pct(ext.loc[('gold all', 'rules'), 'judge_correct']) }} of gold requests.
 - "Everything you've seen ran offline. The LLM toggle switches extraction to Gemini, which is right
   {{ pct(ext.loc[('gold all', 'llm'), 'judge_correct']) }} of the time on our gold set versus
   {{ pct(ext.loc[('gold all', 'rules'), 'judge_correct']) }} for the rules, at the cost of an API call."

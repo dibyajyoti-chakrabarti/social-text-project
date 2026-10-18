@@ -4,7 +4,7 @@
 
 Advanced Social Text project · ~10 days · Agentic development (Claude Code)
 
-> **Status (2026-10-17):** Phases 0–6 merged; Phase 7 report skeleton and demo script generated, **narrative still to write (👤)**. **Next owner: start at [§0 Handoff](#0-handoff-status-and-next-steps).**
+> **Status (2026-10-18):** Phases 0–6 merged; Phase 7 report narrative drafted (authors line, team review and demo rehearsal still 👤). **Next owner: start at [§0 Handoff](#0-handoff-status-and-next-steps).**
 
 ---
 
@@ -21,7 +21,7 @@ Advanced Social Text project · ~10 days · Agentic development (Claude Code)
 | 4 Extraction | ✅ | LLM extractor 63% correct on gold (rules 34%); 19,669 feature mentions |
 | 5 Clustering / ranking / insights | ✅ | 144 themes; purity 0.69 (human, 20 themes) / 0.80 (LLM judge); judge–human κ 0.59 |
 | 6 Dashboard | ✅ | `make dashboard`: 6 Streamlit pages, offline; LLM extraction is an opt-in toggle |
-| 7 Report & demo | 🟡 | `make report` renders `reports/report.md` + `demo_script.md` from templates; narrative TODO |
+| 7 Report & demo | 🟡 | `make report` renders `reports/report.md` + `demo_script.md` from templates; narrative drafted, needs team review + rehearsal |
 
 Every number above comes from a table in `reports/tables/` written by a script.
 
@@ -37,7 +37,7 @@ Every number above comes from a table in `reports/tables/` written by a script.
 1. ✅ **Cluster purity check (👤 ~20 min, done 2026-10-18).** `make purity` opens a small app: for each of 20 sampled themes, tick the phrases that do **not** belong and rate the name. Answers go to `annotations/purity_labels.csv`. Then run `uv run python scripts/evaluate_clusters.py`; it adds human purity and judge-vs-human agreement (κ) to `reports/tables/cluster_eval.md`. Commit both files and tick the box in Phase 5.
 2. ✅ **Review the feature catalogue (optional, ~5 min, done 2026-10-18; only "Repeat one song" is still unverified).** `annotations/existing_features.yaml` was written from general knowledge of Spotify; entries marked `verify: true` (tier or rollout uncertain) should be checked against Spotify's support pages. Then `uv run python scripts/rank_and_insights.py` to refresh the "already exists" insight.
 3. ✅ **Phase 6: dashboard** (done 2026-10-18; see §8 and the Phase 6 checklist). `make dashboard` (apps/dashboard/) reads only the files below; the Live Analyser loads SetFit and MiniLM on its first analysis, never at page load.
-4. 🟡 **Phase 7: report & demo** (§12 outline). Write the ✍️ TODO blocks in `reports/report_template.md` (and adjust `reports/demo_template.md`), then `make report`. Never edit `report.md` / `demo_script.md` directly: numbers are `{{ … }}` fields filled from `reports/tables`.
+4. 🟡 **Phase 7: report & demo** (§12 outline). Narrative, discussion and references drafted in `reports/report_template.md` (2026-10-18); 👤 fill in the authors line, review the prose, rehearse `reports/demo_script.md`. After any edit run `make report`. Never edit `report.md` / `demo_script.md` directly: numbers are `{{ … }}` fields filled from `reports/tables`.
 
 ### Pipeline (all stages are scripts; re-run any one independently)
 
@@ -79,8 +79,8 @@ Dev experiments: `scripts/detect_dev.py` (all detection settings on gold-dev →
 - Prompt v2 encodes two annotator conventions inferred from dev.
 - Extraction and purity are judged by an LLM (Groq gpt-oss-20b, a different family from the Gemini extractor/namer); the human purity check calibrates it: on 200 phrases the judge agrees with the human 83% of the time (κ 0.59) but is more lenient (23% vs 32% intruders), so LLM-judged purity overstates human purity (0.77 vs 0.69 on the same 20 themes).
 - Clustering over-splits some requests by wording; the LLM merge is deliberately conservative (8 of 25 proposed merges confirmed), so a few duplicate themes remain (e.g. two "on-demand playback" themes).
-- No theme is significantly emerging in the last quarter; declines (old widget, logo, AI features, forced shuffle) are significant.
-- "Already exists" statuses are LLM judgments against a hand-written catalogue, and they are not very stable: correcting three catalogue entries (2026-10-18) flipped the status of 4 themes as intended (on-demand playback: premium_only → partly, since Free got Pick & Play in Sep 2025) but also of about 19 unrelated themes, mostly small ones.
+- No theme is significantly emerging in the last quarter; only the old widget and the old logo decline significantly, both fading after a spike. Trends leave 5★ Play reviews out (they only exist from 2026-08-31); before this fix (2026-10-18) every theme looked smaller in the recent window and four more themes falsely appeared to decline.
+- "Already exists" statuses are LLM judgments against a hand-written catalogue, and they are not very stable: correcting three catalogue entries (2026-10-18) flipped the status of 4 themes as intended (on-demand playback: premium_only → partly, since Free got Pick & Play in Sep 2025) but also of about 19 unrelated themes, mostly small ones. A second run with the same catalogue and prompt on another machine (cache miss) gave 17 / 23 / 17 (exists / premium_only / partly) instead of 13 / 24 / 20, so most of that churn is run-to-run variance. The committed tables come from the second run; **share the updated `data/cache/llm.sqlite`** so everyone replays the same answers.
 - Gemini free tier: keys beyond the first cap at 500 requests/day; the client rotates keys and skips spent ones automatically.
 
 ---
@@ -449,8 +449,8 @@ Each phase = one PR merged into `main`. Days are approximate.
   - LLM-judged purity: phrase clusters 0.80 [0.72, 0.86], BERTopic 0.87 [0.81, 0.92]; BERTopic topics are broader and leave a third of items out (`cluster_eval.md`).
   - Human purity (20 phrase-cluster themes × 10 phrases): 0.69 [0.61, 0.76], only 1 theme fully pure; the judge on the same 200 phrases says 0.77 (agreement 0.83, κ 0.59). Theme name fits: yes 60%, partly 40% (`cluster_eval.md`).
   - Top themes by priority: fewer/shorter ads (2,709 items), unlimited skips (1,082), on-demand song selection, true random shuffle, ad-free podcasts, AI-music filter, cheaper Premium (`top_themes.md`).
-  - Trends (last 13 weeks vs previous 13): no significant emerging theme; declining: old widget (319 → 68), old logo, disabling AI features, disabling forced shuffle (`trends.md`).
-  - Existing features (`insights.md`): 13 themes ask for something that already exists (lyrics, hide song, crossfade, equalizer…: discoverability), 24 for Premium-only features on the free tier (ads, skips, downloads, repeat, lossless: paywall), 20 for more than a limited version offers (incl. on-demand playback, limited on Free since Sep 2025).
+  - Trends (last 13 weeks vs previous 13, 5★ Play reviews left out): no significant emerging theme; declining: old widget (319 → 64; a spike after the June 2026 widget redesign that fades) and old logo (`trends.md`).
+  - Existing features (`insights.md`): 17 themes ask for something that already exists for the users asking (lyrics, hide song, listening history, crossfade…: discoverability), 23 for Premium-only features on the free tier (ads, skips, downloads, repeat, lossless: paywall), 17 for more than a limited version offers (incl. on-demand playback, limited on Free since Sep 2025). Statuses vary between LLM runs (see §0 limitations).
 
 ### Phase 6: Dashboard *(Day 7–8)*
 - [x] Six pages per §8 (`apps/dashboard/views/`: overview, explorer, trends, insights, model_lab, live)
@@ -463,7 +463,8 @@ Each phase = one PR merged into `main`. Days are approximate.
 - [x] All figures/tables generated by script into `reports/` (`scripts/report_figures.py` adds cost-vs-accuracy, distillation and purity figures)
 - [x] Report draft skeleton with results filled in (`scripts/build_report.py`: `reports/report_template.md` → `reports/report.md`); **👤 you write the narrative / discussion**
 - [x] Demo script (5–7 min walkthrough): `reports/demo_script.md`, rendered from `reports/demo_template.md`
-- [ ] 👤 Narrative, discussion, references; demo rehearsal
+- [x] Narrative, discussion, references drafted; dashboard screenshots (`scripts/dashboard_screenshots.py`)
+- [ ] 👤 Authors line, team review of the prose; demo rehearsal
 - **Done when:** report complete; demo rehearsed end-to-end.
 
 ### Buffer *(Day 10)*

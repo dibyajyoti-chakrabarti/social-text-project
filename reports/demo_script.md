@@ -36,16 +36,17 @@ Point at the KPI row: 117,875 items analysed over a year from Google Play and r/
 
 ## 2:30 · What is changing (45 s) · *Trends*
 
-- "No theme is significantly emerging in the last quarter: 0 emerging, 6 declining."
-- Point at the labelled declines, e.g. "Compact Home Screen Widgets"
-  (319 → 68 items):
-  a request that faded sharply. ✍️ *Check the likely cause (e.g. a Spotify change) before saying why.*
+- "No theme is significantly emerging in the last quarter: 0 emerging, 2 declining."
+- Point at "Compact Home Screen Widgets" (319 → 64 items):
+  "This one spiked in June, when an app update replaced the small Android widget with a larger one. People
+  asked for the old one back, then the requests faded, but they never stopped." Open it in the Request Explorer
+  to show the June spike if time allows.
 
 ## 3:15 · Insights for the product team (45 s) · *Insights → Already exists?*
 
-- 13 themes ask for features Spotify **already has**, e.g.
+- 17 themes ask for features Spotify **already has**, e.g.
   "Synced Lyrics Display" → *Lyrics*: a discoverability problem, not a missing feature.
-- 24 themes ask for Premium features on the free tier: a paywall signal.
+- 23 themes ask for Premium features on the free tier: a paywall signal.
 - Optional: *Ratings* tab, where requests to switch AI features off sit in the angriest reviews.
 
 ## 4:00 · Does it work? (75 s) · *Model Lab*
@@ -63,6 +64,9 @@ Point at the KPI row: 117,875 items analysed over a year from Google Play and r/
 - Click the *Feature request* example → **Analyse**: class probabilities from the local model, extracted features,
   and the nearest themes with cosine similarity.
 - Type your own sentence, e.g. *"please let me hide podcasts from my home screen"*.
+- With the toggle off, the rules extract a stray *"app"* from "Love the app" next to the real request. Say so
+  rather than hide it: it is exactly why the rules are graded correct for only
+  34% of gold requests.
 - "Everything you've seen ran offline. The LLM toggle switches extraction to Gemini, which is right
   63% of the time on our gold set versus
   34% for the rules, at the cost of an API call."
