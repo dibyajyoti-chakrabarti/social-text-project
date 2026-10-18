@@ -4,7 +4,7 @@
 
 Advanced Social Text project · ~10 days · Agentic development (Claude Code)
 
-> **Status (2026-10-17):** Phases 0–5 merged (incl. the human cluster purity check). **Next owner: start at [§0 Handoff](#0-handoff-status-and-next-steps).**
+> **Status (2026-10-17):** Phases 0–6 merged (incl. the human cluster purity check and the dashboard). **Next owner: start at [§0 Handoff](#0-handoff-status-and-next-steps).**
 
 ---
 
@@ -20,7 +20,7 @@ Advanced Social Text project · ~10 days · Agentic development (Claude Code)
 | 3 Detection | ✅ | SetFit on 12k Gemini silver labels = Gemini itself (test macro-F1 0.69); deployed |
 | 4 Extraction | ✅ | LLM extractor 63% correct on gold (rules 34%); 19,669 feature mentions |
 | 5 Clustering / ranking / insights | ✅ | 144 themes; purity 0.69 (human, 20 themes) / 0.80 (LLM judge); judge–human κ 0.59 |
-| 6 Dashboard | ⬜ | |
+| 6 Dashboard | ✅ | `make dashboard`: 6 Streamlit pages, offline; LLM extraction is an opt-in toggle |
 | 7 Report & demo | ⬜ | |
 
 Every number above comes from a table in `reports/tables/` written by a script.
@@ -36,7 +36,7 @@ Every number above comes from a table in `reports/tables/` written by a script.
 
 1. ✅ **Cluster purity check (👤 ~20 min, done 2026-10-18).** `make purity` opens a small app: for each of 20 sampled themes, tick the phrases that do **not** belong and rate the name. Answers go to `annotations/purity_labels.csv`. Then run `uv run python scripts/evaluate_clusters.py`; it adds human purity and judge-vs-human agreement (κ) to `reports/tables/cluster_eval.md`. Commit both files and tick the box in Phase 5.
 2. ✅ **Review the feature catalogue (optional, ~5 min, done 2026-10-18; only "Repeat one song" is still unverified).** `annotations/existing_features.yaml` was written from general knowledge of Spotify; entries marked `verify: true` (tier or rollout uncertain) should be checked against Spotify's support pages. Then `uv run python scripts/rank_and_insights.py` to refresh the "already exists" insight.
-3. **Phase 6: dashboard** (see §8 and the Phase 6 checklist). Everything it needs is precomputed in `data/processed/` (file list below); the dashboard must not call heavy models at load time.
+3. ✅ **Phase 6: dashboard** (done 2026-10-18; see §8 and the Phase 6 checklist). `make dashboard` (apps/dashboard/) reads only the files below; the Live Analyser loads SetFit and MiniLM on its first analysis, never at page load.
 4. **Phase 7: report & demo** (§12 outline). Tables and figures are in `reports/`.
 
 ### Pipeline (all stages are scripts; re-run any one independently)
@@ -53,6 +53,7 @@ Every number above comes from a table in `reports/tables/` written by a script.
 | `make extract` | extract_corpus | `extractions.parquet`, `requests.parquet` |
 | `make cluster` | cluster_requests | `themes.parquet`, `phrase_themes.parquet`, `request_themes.parquet`, `bertopic_topics.parquet`, `annotations/purity_sample.csv`, `cluster_grid.md`, `cluster_compare.md` |
 | `make purity` | apps/purity.py | `annotations/purity_labels.csv` |
+| `make dashboard` | apps/dashboard/app.py | — (reads the files below; `HF_HUB_OFFLINE=1`) |
 | — | evaluate_clusters | `reports/tables/cluster_eval.md` |
 | — | rank_and_insights | `theme_stats.parquet`, `theme_timeseries.parquet`, `insights/{platform,ratings,competitors,existing}.parquet`, `top_themes.md`, `trends.md`, `insights.md`, figures |
 
@@ -66,6 +67,7 @@ Dev experiments: `scripts/detect_dev.py` (all detection settings on gold-dev →
 - `themes.parquet`: theme names, descriptions, top phrases.
 - `insights/*.parquet`: platform comparison, rating profile, competitor × theme, existing-feature status.
 - `classified.parquet`: SetFit label + confidence for all 117,875 items; `extractions.parquet`: per-item LLM and rule features.
+- `data/interim/corpus.parquet`: item text (Request Explorer quotes), source, date and rating.
 - Model Lab tables: `reports/tables/detect_test.md`, `detect_test_per_class.md`, `detect_errors.md`, `extract_eval.md`, `cluster_eval.md`, `cluster_compare.md`; figures in `reports/figures/`.
 - Live Analyser: `frminer.detect.ml.load_setfit(models/setfit_silver)` + `ml.predict_proba` for the class; `frminer.extract.llm_extract.extract` (optional LLM) or `frminer.extract.rules.extract` for features; nearest theme by embedding the phrase with `cluster.embed_model` and comparing to theme centroids built from `phrase_themes.parquet`.
 
@@ -450,9 +452,10 @@ Each phase = one PR merged into `main`. Days are approximate.
   - Existing features (`insights.md`): 13 themes ask for something that already exists (lyrics, hide song, crossfade, equalizer…: discoverability), 24 for Premium-only features on the free tier (ads, skips, downloads, repeat, lossless: paywall), 20 for more than a limited version offers (incl. on-demand playback, limited on Free since Sep 2025).
 
 ### Phase 6: Dashboard *(Day 7–8)*
-- [ ] Six pages per §8
-- [ ] Consistent styling, filters, caching (`st.cache_data`)
-- [ ] Live Analyser with local model and optional LLM
+- [x] Six pages per §8 (`apps/dashboard/views/`: overview, explorer, trends, insights, model_lab, live)
+- [x] Consistent styling (Plotly template from `frminer.viz`), source/month filters shared across pages, caching (`st.cache_data`, `st.cache_resource` for models)
+- [x] Live Analyser with local model and optional LLM (off by default; 1 Gemini request per new text when on)
+- [x] `tests/test_dashboard.py` renders every page (skipped without the data bundle, i.e. in CI)
 - **Done when:** `make dashboard` runs the full demo offline (LLM toggle off).
 
 ### Phase 7: Report & demo *(Day 9)*
