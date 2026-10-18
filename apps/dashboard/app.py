@@ -19,5 +19,6 @@ loaders.require_data()
 pages = [
     st.Page("views/overview.py", title="Overview", icon="📊", default=True),
     st.Page("views/explorer.py", title="Request Explorer", icon="🔎"),
+    st.Page("views/trends.py", title="Trends", icon="📈"),
 ]
 st.navigation(pages).run()
