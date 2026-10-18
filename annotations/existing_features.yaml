@@ -8,9 +8,8 @@
   description: Stop playback of music or podcasts after a chosen time or at the end of a track or episode.
   availability: all
 - name: Lyrics
-  description: Real-time synced lyrics shown under the Now Playing screen.
+  description: Real-time synced lyrics shown under the Now Playing screen (on Free after a dismissable ad).
   availability: all
-  verify: true
 - name: Hide song
   description: Hide a song from a playlist, album or radio so it is skipped automatically.
   availability: all
@@ -33,16 +32,14 @@
   description: Skip as many tracks as you like (free mobile listeners have a limited number of skips per hour).
   availability: premium
 - name: Pick and play any song
-  description: Choose and play a specific track on demand.
-  availability: premium
-  verify: true
+  description: Choose, search or open a shared track and play it on demand. Since Sep 2025 Free users can too, but only for a limited daily amount of on-demand time on mobile; unlimited on Premium.
+  availability: all
 - name: Ad-free listening
   description: Listen without audio or video ads.
   availability: premium
 - name: Lossless audio
   description: Lossless (up to 24-bit/44.1 kHz FLAC) streaming quality.
   availability: premium
-  verify: true
 - name: Audio quality setting
   description: Choose streaming and download quality (low to very high) and a data saver mode.
   availability: all
@@ -65,7 +62,6 @@
 - name: Add to queue
   description: Queue specific songs to play next and reorder the queue.
   availability: premium
-  verify: true
 - name: Listening history
   description: Recently played tracks, artists and playlists.
   availability: all
@@ -73,9 +69,8 @@
   description: Listen without the activity affecting recommendations or being visible to followers.
   availability: all
 - name: Playlist folders
-  description: Group playlists into folders in Your Library.
+  description: Group playlists into folders in Your Library (on mobile since mid-2026; desktop before).
   availability: all
-  verify: true
 - name: Collaborative playlists
   description: Let friends add, remove and reorder songs in a shared playlist.
   availability: all
@@ -133,7 +128,6 @@
 - name: Mix (DJ-style transitions)
   description: Smooth, DJ-style transitions between tracks in a playlist.
   availability: premium
-  verify: true
 - name: Song radio
   description: An endless station of similar songs started from any track, artist or playlist.
   availability: all
