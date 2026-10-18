@@ -5,7 +5,8 @@ priority = w_volume·z(log items) + w_engagement·z(engagement)
 
 Engagement is each item's percentile rank of thumbs-up / upvotes within its own source
 (so Play and Reddit are comparable), averaged per theme. Growth is the log2 ratio of the
-theme's share of all corpus items in the recent window vs the window before it.
+theme's share of all corpus items in the recent window vs the window before it (5★ Play
+reviews left out, see `trend_items`).
 """
 
 from __future__ import annotations
@@ -22,6 +23,16 @@ def item_table(themed: pd.DataFrame) -> pd.DataFrame:
     eng = themed.drop_duplicates("id")[["id", "source", "engagement"]].copy()
     eng["engagement_pct"] = eng.groupby("source")["engagement"].rank(pct=True)
     return items.merge(eng[["id", "engagement_pct"]], on="id", how="left")
+
+
+def trend_items(df: pd.DataFrame) -> pd.DataFrame:
+    """Rows that count towards growth, trends and monthly shares: all but 5★ Play reviews.
+
+    Google Play only returns 5★ reviews for the last weeks of the window (pagination limit),
+    so counting them would inflate recent volume and make every theme look like it shrinks.
+    """
+    five_star_play = (df["source"] == "play") & df["rating"].eq(5).fillna(False).astype(bool)
+    return df[~five_star_play]
 
 
 def windows(end: pd.Timestamp, weeks: int) -> tuple[pd.Timestamp, pd.Timestamp, pd.Timestamp]:
@@ -47,7 +58,7 @@ def theme_stats(
     rows = []
     for theme, g in items.groupby("theme_id"):
         play = g[(g["source"] == "play") & g["rating"].notna()]
-        prev, recent = window_counts(g["created_at"], bounds)
+        prev, recent = window_counts(trend_items(g)["created_at"], bounds)
         growth = (
             np.log2((recent / tot_recent + EPS) / (prev / tot_prev + EPS))
             if prev + recent >= min_support

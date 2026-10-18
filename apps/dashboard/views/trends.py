@@ -35,7 +35,8 @@ st.markdown(
     f"Each theme's **share of all items** in the last {weeks} weeks vs the {weeks} weeks before. "
     f"A theme is *emerging* or *declining* when the share changes at least {tcfg['min_ratio']}× "
     f"with ≥ {tcfg['min_recent']} recent items and a two-proportion test is significant "
-    f"(Benjamini–Hochberg q < {tcfg['alpha']})."
+    f"(Benjamini–Hochberg q < {tcfg['alpha']}). 5★ Play reviews are left out of trends: "
+    "Google Play only returns them for the last weeks of the year."
 )
 k = st.columns(3)
 k[0].metric("Themes with enough data", f"{stats['growth'].notna().sum()} of {len(stats)}")
