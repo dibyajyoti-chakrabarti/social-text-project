@@ -29,7 +29,10 @@ def main() -> None:
     proc = path("processed")
     themes = pd.read_parquet(proc / "themes.parquet")
     themed = pd.read_parquet(proc / "request_themes.parquet")
-    corpus_created = pd.read_parquet(path("interim") / "corpus.parquet")["created_at"]
+    corpus = pd.read_parquet(
+        path("interim") / "corpus.parquet", columns=["source", "rating", "created_at"]
+    )
+    corpus_created = score.trend_items(corpus)["created_at"]  # trends ignore 5★ Play reviews
 
     # Ranking and trends.
     stats = score.theme_stats(
@@ -45,7 +48,7 @@ def main() -> None:
     stats = stats.sort_values("priority", ascending=False, ignore_index=True)
     stats["rank"] = np.arange(1, len(stats) + 1)
     items = score.item_table(themed)
-    series = trends.monthly(items, corpus_created)
+    series = trends.monthly(score.trend_items(items), corpus_created)
     stats.to_parquet(proc / "theme_stats.parquet", index=False)
     series.to_parquet(proc / "theme_timeseries.parquet", index=False)
 
@@ -108,7 +111,8 @@ def write_reports(stats, series, plat, rat, comp, ex, themes, rcfg, tot_prev, to
             f"{w['dissatisfaction']}·z(share ≤2★) + {w['growth']}·z(growth). Engagement: "
             "mean within-source percentile of thumbs-up/upvotes. Growth: log2 change in "
             f"the theme's share of corpus items, last {rcfg['window_weeks']} weeks vs the "
-            f"{rcfg['window_weeks']} before (blank below {rcfg['min_support']} items).\n\n"
+            f"{rcfg['window_weeks']} before, 5★ Play reviews left out (blank below "
+            f"{rcfg['min_support']} items).\n\n"
         )
         f.write(stats.head(30)[cols].round(3).to_markdown(index=False) + "\n")
         by_vol = stats.sort_values("items", ascending=False).head(15)
@@ -123,7 +127,9 @@ def write_reports(stats, series, plat, rat, comp, ex, themes, rcfg, tot_prev, to
             f"{rcfg['window_weeks']} weeks before ({tot_prev}). Two-proportion z-test on "
             f"the theme's share of corpus items, Benjamini–Hochberg q < "
             f"{rcfg['trend']['alpha']}, ratio ≥ {rcfg['trend']['min_ratio']} (or ≤ its "
-            f"inverse), ≥ {rcfg['trend']['min_recent']} items in the larger window.\n\n"
+            f"inverse), ≥ {rcfg['trend']['min_recent']} items in the larger window. "
+            "5★ Play reviews are left out of all counts, because Google Play only returns them "
+            "for the last weeks of the year.\n\n"
         )
         for trend in ("emerging", "declining"):
             sub = stats[stats["trend"] == trend].sort_values("ratio", ascending=trend != "emerging")

@@ -15,7 +15,8 @@ WEIGHT_HELP = {
     "volume": "log of the number of items asking for the theme",
     "engagement": "mean thumbs-up / upvote percentile (within each source)",
     "dissatisfaction": "share of the theme's Play reviews rated ≤ 2★",
-    "growth": "change in share of all items, last 13 weeks vs the 13 before",
+    "growth": "change in share of all items (5★ Play reviews left out), "
+    "last 13 weeks vs the 13 before",
 }
 
 st.title("Feature Request Miner")

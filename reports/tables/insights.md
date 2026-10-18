@@ -139,24 +139,24 @@ Play-leaning:
 
 ## Requests for features that already exist
 
-new: 87 themes, premium_only: 24 themes, partly: 20 themes, exists: 13 themes (of 144).
+new: 87 themes, premium_only: 23 themes, partly: 17 themes, exists: 17 themes (of 144).
 
 ### exists
 
-| name                             | feature                       | availability   |   items |
-|:---------------------------------|:------------------------------|:---------------|--------:|
-| Synced Lyrics Display            | Lyrics                        | all            |     425 |
-| Disable Forced Shuffle           | Turn off Smart Shuffle        | premium        |     396 |
-| Search and History Management    | Listening history             | all            |      83 |
-| Playlist Content Management      | Hide song                     | all            |      81 |
-| Hidden Songs Management          | Hide song                     | all            |      77 |
-| Volume Control and Normalization | Volume normalization          | all            |      67 |
-| Crossfade and Gapless Playback   | Crossfade                     | all            |      66 |
-| Family Plan Management           | Family, Duo and Student plans | all            |      49 |
-| Improved Playback Controls       | Home screen widget            | all            |      44 |
-| Advanced Audio Equalizer         | Equalizer                     | all            |      39 |
-| Playlist Folders on Mobile       | Playlist folders              | all            |      38 |
-| Radio And Station Discovery      | Song radio                    | all            |      33 |
+| name                             | feature                | availability   |   items |
+|:---------------------------------|:-----------------------|:---------------|--------:|
+| Synced Lyrics Display            | Lyrics                 | all            |     425 |
+| Disable Forced Shuffle           | Turn off Smart Shuffle | premium        |     396 |
+| Ad-Free Premium Experience       | Ad-free listening      | premium        |     143 |
+| Ad-Free Podcasts                 | Ad-free listening      | premium        |     136 |
+| Monthly Listening Statistics     | Listening history      | all            |      89 |
+| Search and History Management    | Listening history      | all            |      83 |
+| Playlist Content Management      | Hide song              | all            |      81 |
+| Hidden Songs Management          | Hide song              | all            |      77 |
+| Content Blocking Controls        | Don't play this artist | all            |      74 |
+| Volume Control and Normalization | Volume normalization   | all            |      67 |
+| Crossfade and Gapless Playback   | Crossfade              | all            |      66 |
+| Disable Song Recommendations     | Turn off Smart Shuffle | premium        |      58 |
 
 ### premium_only
 
@@ -168,12 +168,12 @@ new: 87 themes, premium_only: 24 themes, partly: 20 themes, exists: 13 themes (o
 | Offline Downloads for Free Tier | Offline downloads | premium        |     229 |
 | Song Repeat Feature             | Repeat one song   | premium        |     211 |
 | Hi-Fi Audio Quality             | Lossless audio    | premium        |     163 |
-| Removal of Playback Limits      | Unlimited skips   | premium        |     155 |
 | Lossless Audio Streaming        | Lossless audio    | premium        |     134 |
 | Free Music Downloads            | Offline downloads | premium        |     131 |
 | Offline Music Playback          | Offline downloads | premium        |     130 |
 | Ad-Free Free Tier               | Ad-free listening | premium        |     105 |
 | Offline Listening For Free      | Offline downloads | premium        |     104 |
+| Ad-Free Listening Options       | Ad-free listening | premium        |      96 |
 
 ### partly
 
@@ -189,6 +189,6 @@ new: 87 themes, premium_only: 24 themes, partly: 20 themes, exists: 13 themes (o
 | Enhanced Liked Songs Management | Liked Songs filters and sorting | all            |     152 |
 | AI DJ Controls                  | AI DJ                           | premium        |     116 |
 | Custom Playlist Sorting         | Liked Songs filters and sorting | all            |      96 |
-| Student Discount Expansion      | Family, Duo and Student plans   | all            |      82 |
-| True Playlist Shuffle           | Turn off Smart Shuffle          | premium        |      80 |
+| Listening History Management    | Listening history               | all            |      66 |
+| Genre Filtering and Display     | Liked Songs filters and sorting | all            |      54 |
 

@@ -57,7 +57,7 @@ k[3].metric(
     row["trend"],
     None if pd.isna(growth) else f"{growth:+.2f} log₂ share",
     delta_color="normal" if row["trend"] != "stable" else "off",
-    help="Theme's share of all items, last 13 weeks vs the 13 before; "
+    help="Theme's share of all items (5★ Play reviews left out), last 13 weeks vs the 13 before; "
     "'declining'/'emerging' only when significant (BH-corrected).",
 )
 
@@ -101,7 +101,7 @@ fig.update_layout(
     margin=dict(t=10),
 )
 with left:
-    st.markdown("**Share of all items per month** (all sources)")
+    st.markdown("**Share of all items per month** (all sources; 5★ Play reviews left out)")
     st.plotly_chart(fig, width="stretch", config=CHART_CONFIG)
     st.caption("First and last months are partial. Shaded: selected months.")
 

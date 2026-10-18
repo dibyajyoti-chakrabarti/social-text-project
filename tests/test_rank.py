@@ -34,6 +34,23 @@ def test_theme_stats_volume_ratings_growth():
     assert s1["growth"] > 0  # all of theme 1 is in the recent window
 
 
+def test_five_star_play_reviews_do_not_count_for_growth():
+    themed = themed_frame()
+    late = pd.Timestamp("2026-01-01", tz="UTC") + pd.Timedelta(weeks=20)
+    extra = pd.DataFrame(
+        [(f"f{i}", "play", late, 5, 0, 0, None) for i in range(10)], columns=themed.columns
+    ).astype({"rating": "Int64"})
+    kept = score.trend_items(pd.concat([themed, extra], ignore_index=True))
+    assert not kept["id"].str.startswith("f").any()
+    assert kept["rating"].isna().sum() == themed["rating"].isna().sum()  # Reddit rows stay
+    base = score.theme_stats(themed, corpus_created(), weeks=10, min_support=5)
+    more = score.theme_stats(
+        pd.concat([themed, extra], ignore_index=True), corpus_created(), weeks=10, min_support=5
+    )
+    assert more.loc[0, "recent_items"] == base.loc[0, "recent_items"]
+    assert more.loc[0, "items"] == base.loc[0, "items"] + 10  # still counted as volume
+
+
 def test_priority_and_zscore():
     stats = pd.DataFrame(
         {"items": [100, 10], "engagement": [0.5, 0.5], "low_rating_share": [np.nan, 0.2]}
