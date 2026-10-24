@@ -56,6 +56,7 @@ Every number above comes from a table in `reports/tables/` written by a script.
 | `make dashboard` | apps/dashboard/app.py | — (reads the files below; `HF_HUB_OFFLINE=1`) |
 | — | evaluate_clusters | `reports/tables/cluster_eval.md` |
 | `make report` | report_figures, build_report | `reports/figures/report_*.png`, `reports/report.md`, `reports/demo_script.md` |
+| `make kaggle` | export_kaggle | `data/kaggle/` (corpus + gold labels; uploaded privately as `dibyajyoti122/spotify-feature-requests`) |
 | — | rank_and_insights | `theme_stats.parquet`, `theme_timeseries.parquet`, `insights/{platform,ratings,competitors,existing}.parquet`, `top_themes.md`, `trends.md`, `insights.md`, figures |
 
 Dev experiments: `scripts/detect_dev.py` (all detection settings on gold-dev → `detect_dev.md`).
@@ -147,7 +148,7 @@ Models are pinned (no auto-routers) and there is no silent fallback between prof
 ### 3.2 Preprocessing
 
 - Drop empty, non-English (`lingua`) and very short (< 4 words) items. Code-mixed text (e.g. romanised Hindi) is excluded; ~1% of informal English is falsely rejected (documented limitation).
-- Deduplicate exact and near-duplicates.
+- Deduplicate exact duplicates (same ID, or same text ignoring case and punctuation; most engaged copy kept).
 - Keep emojis and casing in the raw text (they carry signal); create a normalised copy for classical models.
 - Reddit: split long posts into sentences only for extraction, not for classification.
 - **Anonymisation:** no usernames or user IDs are stored. Only text plus aggregate metadata.
@@ -197,7 +198,7 @@ Single-label classification, six classes:
                └─────────┬──────────┘
                          ▼
                ┌────────────────────┐
-               │ 2. Detect (6-way)  │  rules | TF-IDF+LR | SetFit | LLM
+               │ 2. Detect (6-way)  │  rules | TF-IDF+LR/SVM/NB | SetFit | LLM
                └─────────┬──────────┘
                          ▼  feature_request items only
                ┌────────────────────┐
@@ -410,6 +411,7 @@ Each phase = one PR merged into `main`. Days are approximate.
 - [x] LLM zero-shot + few-shot (prompt iterated on dev only)
 - [x] LLM silver-labels a 12k sample (play 8k, Reddit posts 3k, comments 1k; gold excluded). The rest of the corpus is classified by the distilled model.
 - [x] TF-IDF+LR and SetFit trained on gold-dev and on silver
+- [x] TF-IDF+SVM (C 0.03) and TF-IDF+NB (alpha 0.03), tuned on dev: silver test macro-F1 0.60 / 0.54 vs LR 0.59, so the classifier on TF-IDF barely matters. The rerun also retried the 5 LLM-2 items that had failed: LLM-2 now 0.677 on all 300 (was 0.689 on 295)
 - [x] Evaluation on test: metrics, bootstrap CIs, confusion matrices, cost/latency, κ
 - [x] Error analysis: confusion pairs, shared teacher/student mistakes, examples (`make errors`)
 - **Done when:** results table + figures in `reports/`; best model chosen for the pipeline.

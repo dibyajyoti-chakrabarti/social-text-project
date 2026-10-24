@@ -1,4 +1,4 @@
-.PHONY: setup test lint format smoke scrape corpus eda data sample label gold silver detect errors classify extract extract-eval cluster purity dashboard report
+.PHONY: setup test lint format smoke scrape corpus eda data sample label gold silver detect errors classify extract extract-eval cluster purity dashboard report kaggle
 
 setup:
 	uv sync
@@ -70,3 +70,7 @@ dashboard:
 report:
 	uv run python scripts/report_figures.py
 	uv run python scripts/build_report.py
+
+# Corpus + gold labels as a Kaggle dataset in data/kaggle/ (upload with `kaggle datasets create -p data/kaggle`).
+kaggle:
+	uv run python scripts/export_kaggle.py

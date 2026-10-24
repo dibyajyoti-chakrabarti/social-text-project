@@ -3,7 +3,9 @@
 uv run python scripts/evaluate_detection.py [--no-setfit]
 
 Every system is configured from dev results only; this script is the single place where
-test labels are read. Outputs:
+test labels are read. With --no-setfit the SetFit models are not retrained: their
+predictions and timings are reused from the previous run (test_preds.parquet,
+detect_test.csv) and rescored. Outputs:
   reports/tables/detect_test.md       metrics with 95% bootstrap CIs, cost and latency
   reports/tables/detect_test.csv
   reports/tables/detect_test_per_class.md
@@ -39,6 +41,13 @@ def main() -> None:
     examples = llm_classify.pick_examples(dev)
     preds = pd.DataFrame({"id": test["id"], "source": test["source"], "gold": test["label"]})
     info: dict[str, dict] = {}
+    tables = path("reports") / "tables"
+    reuse_setfit = "--no-setfit" in sys.argv
+    if reuse_setfit:
+        prev_preds = preds[["id"]].merge(
+            pd.read_parquet(path("processed") / "test_preds.parquet"), on="id", how="left"
+        )
+        prev_info = pd.read_csv(tables / "detect_test.csv", index_col="system")
 
     def timed(name: str, fn, **extra) -> None:
         start = time.perf_counter()
@@ -62,8 +71,12 @@ def main() -> None:
         }
 
     for train_name, data in {"gold-dev": dev, "silver": silver}.items():
-        trainers = {"TF-IDF+LR": lambda d: ml.train_tfidf_lr(d["text"], d["label"])}
-        if "--no-setfit" not in sys.argv:
+        trainers = {
+            "TF-IDF+LR": lambda d: ml.train_tfidf_lr(d["text"], d["label"]),
+            "TF-IDF+SVM": lambda d: ml.train_tfidf_svm(d["text"], d["label"]),
+            "TF-IDF+NB": lambda d: ml.train_tfidf_nb(d["text"], d["label"]),
+        }
+        if not reuse_setfit:
             trainers["SetFit"] = lambda d, n=train_name: ml.train_setfit(
                 d["text"], d["label"], max_steps=SETFIT_STEPS[n]
             )
@@ -77,6 +90,10 @@ def main() -> None:
                 train=f"{len(data)} {train_name}",
                 train_s=train_s,
             )
+        if reuse_setfit:
+            name = f"SetFit ({train_name})"
+            preds[name] = prev_preds[name].values
+            info[name] = prev_info.loc[name, ["train", "s_per_item", "train_s"]].to_dict()
 
     systems = [c for c in preds.columns if c not in ("id", "source", "gold")]
     rows, classes = [], []
@@ -91,7 +108,6 @@ def main() -> None:
         classes.append(per_class(scored["gold"], scored[s])["f1"].rename(s))
     table = pd.DataFrame(rows).set_index("system")
 
-    tables = path("reports") / "tables"
     table.to_csv(tables / "detect_test.csv")
     preds.to_parquet(path("processed") / "test_preds.parquet", index=False)
     show = [

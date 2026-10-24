@@ -1,4 +1,5 @@
-"""Tiers 2–3: TF-IDF + logistic regression, and SetFit (few-shot sentence-transformer).
+"""Tiers 2–3: TF-IDF + a linear classifier (logistic regression, linear SVM or complement
+naive Bayes), and SetFit (few-shot sentence-transformer).
 
 Both train on either the 100 gold-dev items or the LLM silver labels (RQ2).
 torch / setfit are imported lazily so the rest of the package works without the
@@ -13,7 +14,9 @@ from pathlib import Path
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
+from sklearn.naive_bayes import ComplementNB
 from sklearn.pipeline import FeatureUnion, Pipeline
+from sklearn.svm import LinearSVC
 
 from frminer.config import path
 
@@ -21,8 +24,9 @@ SETFIT_BASE = "sentence-transformers/all-mpnet-base-v2"
 SETFIT_MAX_TOKENS = 256  # fits the 8 GB laptop GPU; covers ~97% of gold items untruncated
 
 
-def tfidf_lr(min_df: int = 2, C: float = 4.0) -> Pipeline:
-    features = FeatureUnion(
+def tfidf_features(min_df: int = 2) -> FeatureUnion:
+    """Word 1–2-grams + character 2–5-grams, shared by every TF-IDF model."""
+    return FeatureUnion(
         [
             ("word", TfidfVectorizer(ngram_range=(1, 2), min_df=min_df, sublinear_tf=True)),
             (
@@ -33,13 +37,39 @@ def tfidf_lr(min_df: int = 2, C: float = 4.0) -> Pipeline:
             ),
         ]
     )
+
+
+def tfidf_lr(min_df: int = 2, C: float = 4.0) -> Pipeline:
     clf = LogisticRegression(C=C, max_iter=3000, class_weight="balanced")
-    return Pipeline([("features", features), ("clf", clf)])
+    return Pipeline([("features", tfidf_features(min_df)), ("clf", clf)])
+
+
+def tfidf_svm(min_df: int = 2, C: float = 0.03) -> Pipeline:
+    """C chosen on gold dev (scripts/detect_dev.py, SVM_C grid)."""
+    clf = LinearSVC(C=C, class_weight="balanced")
+    return Pipeline([("features", tfidf_features(min_df)), ("clf", clf)])
+
+
+def tfidf_nb(min_df: int = 2, alpha: float = 0.03) -> Pipeline:
+    """Complement NB (copes with imbalanced classes); alpha chosen on gold dev (NB_ALPHA grid)."""
+    return Pipeline([("features", tfidf_features(min_df)), ("clf", ComplementNB(alpha=alpha))])
+
+
+def _train_tfidf(make, texts: Sequence[str], labels: Sequence[str], **kwargs) -> Pipeline:
+    min_df = kwargs.pop("min_df", 1 if len(texts) < 1000 else 2)
+    return make(min_df=min_df, **kwargs).fit(list(texts), list(labels))
 
 
 def train_tfidf_lr(texts: Sequence[str], labels: Sequence[str], **kwargs) -> Pipeline:
-    min_df = kwargs.pop("min_df", 1 if len(texts) < 1000 else 2)
-    return tfidf_lr(min_df=min_df, **kwargs).fit(list(texts), list(labels))
+    return _train_tfidf(tfidf_lr, texts, labels, **kwargs)
+
+
+def train_tfidf_svm(texts: Sequence[str], labels: Sequence[str], **kwargs) -> Pipeline:
+    return _train_tfidf(tfidf_svm, texts, labels, **kwargs)
+
+
+def train_tfidf_nb(texts: Sequence[str], labels: Sequence[str], **kwargs) -> Pipeline:
+    return _train_tfidf(tfidf_nb, texts, labels, **kwargs)
 
 
 def train_setfit(
@@ -100,6 +130,6 @@ def predict_proba(model, texts: Sequence[str], batch_size: int = 64) -> tuple[np
 def predict(model, texts: Sequence[str], batch_size: int = 64) -> np.ndarray:
     """Predict with either a sklearn pipeline or a SetFit model."""
     texts = list(texts)
-    if hasattr(model, "predict_proba") and not hasattr(model, "model_body"):
+    if not hasattr(model, "model_body"):  # sklearn pipeline (LinearSVC has no predict_proba)
         return model.predict(texts)
     return np.asarray(model.predict(texts, batch_size=batch_size, show_progress_bar=False))

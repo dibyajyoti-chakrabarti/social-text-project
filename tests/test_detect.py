@@ -3,7 +3,7 @@ import pytest
 
 from frminer.detect import llm_classify, rules
 from frminer.detect.evaluate import bootstrap_metrics, confusion, point_metrics
-from frminer.detect.ml import predict, train_tfidf_lr
+from frminer.detect.ml import predict, train_tfidf_lr, train_tfidf_nb, train_tfidf_svm
 
 
 @pytest.mark.parametrize(
@@ -78,10 +78,11 @@ def test_pick_examples_balanced():
     assert ex["label"].value_counts().to_dict() == {"praise": 2, "other": 2}
 
 
-def test_tfidf_lr_learns():
+@pytest.mark.parametrize("train", [train_tfidf_lr, train_tfidf_svm, train_tfidf_nb])
+def test_tfidf_models_learn(train):
     texts = ["please add lyrics", "add a sleep timer pls", "app crashes", "crashes on start"] * 5
     labels = ["feature_request", "feature_request", "bug_report", "bug_report"] * 5
-    model = train_tfidf_lr(texts, labels)
+    model = train(texts, labels)
     assert list(predict(model, ["please add dark mode", "it crashes"])) == [
         "feature_request",
         "bug_report",
