@@ -3,8 +3,9 @@
 uv run python scripts/detect_dev.py [config ...]
 
 Runs the rule classifier, several LLM configurations and the silver-trained local
-models (`tfidf_silver`, `setfit_silver`) on dev, so that prompt, batch size, few-shot
-and deployed-model choices are made without touching the test split. Silver excludes
+models (`tfidf_silver`, `setfit_silver`, and the `svm_silver_*` / `nb_silver_*` grids)
+on dev, so that prompt, batch size, few-shot, hyperparameter and deployed-model choices
+are made without touching the test split. Silver excludes
 every gold item, so dev is held out for the silver-trained models. LLM calls are
 cached, so re-running is free. Few-shot configs are scored on the dev items that are
 not used as examples.
@@ -31,6 +32,10 @@ LLM_CONFIGS = {
     "llm2_v2_zero_b20": ("secondary", "v2", 20, False),
     "llm2_v2_few_b20": ("secondary", "v2", 20, True),
 }
+
+# Hyperparameter grids for the extra TF-IDF baselines; the winners go into ml.tfidf_svm/_nb.
+SVM_C = [0.01, 0.03, 0.1, 0.5, 1.0]
+NB_ALPHA = [0.01, 0.03, 0.1, 0.3, 1.0]
 
 
 def main() -> None:
@@ -79,6 +84,14 @@ def main() -> None:
         "tfidf_silver": lambda d: ml.train_tfidf_lr(d["text"], d["label"]),
         "setfit_silver": lambda d: ml.train_setfit(d["text"], d["label"], max_steps=2000),
     }
+    for C in SVM_C:
+        silver_models[f"svm_silver_C{C}"] = lambda d, C=C: ml.train_tfidf_svm(
+            d["text"], d["label"], C=C
+        )
+    for alpha in NB_ALPHA:
+        silver_models[f"nb_silver_a{alpha}"] = lambda d, a=alpha: ml.train_tfidf_nb(
+            d["text"], d["label"], alpha=a
+        )
     for name, train in silver_models.items():
         if name not in wanted:
             continue

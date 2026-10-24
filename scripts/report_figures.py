@@ -47,6 +47,10 @@ def ci(s: pd.Series) -> tuple[pd.Series, pd.Series]:
     return parts[0], parts[1]
 
 
+# The silver TF-IDF models sit almost on top of each other; put one label beside its point.
+LABEL_OFFSET = {"TF-IDF+LR (silver)": (7, -3)}
+
+
 def cost_accuracy(det: pd.DataFrame, out: Path) -> None:
     d = det[det["s_per_item"] > 0]
     fig, ax = viz.plt.subplots(figsize=(6.4, 4.0))
@@ -69,7 +73,7 @@ def cost_accuracy(det: pd.DataFrame, out: Path) -> None:
             r["system"],
             (r["s_per_item"], r["macro_f1"]),
             textcoords="offset points",
-            xytext=(5, 5),
+            xytext=LABEL_OFFSET.get(r["system"], (5, 5)),
             fontsize=8,
             color=viz.INK_2,
         )

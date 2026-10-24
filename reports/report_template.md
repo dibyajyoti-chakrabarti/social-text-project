@@ -59,7 +59,7 @@ listens.
 - A reproducible end-to-end pipeline, from scraping to a ranked list of request themes, applied to one year of
   Spotify feedback from two platforms. Every stage is a script, and every number in this report is read from a
   table those scripts write.
-- A comparison of rules, two LLM families, TF-IDF + logistic regression and SetFit for six-way feedback
+- A comparison of rules, two LLM families, TF-IDF with three linear classifiers and SetFit for six-way feedback
   classification on a held-out gold test set, including latency, and a distillation experiment showing that a
   local model trained on LLM labels matches its LLM teacher.
 - An evaluation of feature extraction and clustering in which the LLM judge is calibrated against a human check,
@@ -173,8 +173,9 @@ temperature 0 and are cached in a local SQLite database, so every stage can be r
 All design choices (rules, prompts, hyperparameters and the model to deploy) were made on gold-dev.
 
 - **Detection (RQ1).** Regex rules; Gemini ({{ teacher['model'] }}) zero- and few-shot with two prompt versions;
-  a second LLM family (Groq {{ det.loc['LLM-2 zero-shot', 'model'] }}); TF-IDF + logistic regression and SetFit
-  (all-mpnet-base-v2) trained on either the {{ gold['by_split'].loc['total', 'dev'] }} gold-dev items or
+  a second LLM family (Groq {{ det.loc['LLM-2 zero-shot', 'model'] }}); TF-IDF features (word 1 to 2-grams and
+  character 2 to 5-grams) with logistic regression, a linear SVM or complement naive Bayes, and SetFit
+  (all-mpnet-base-v2), each trained on either the {{ gold['by_split'].loc['total', 'dev'] }} gold-dev items or
   {{ n(det.loc['SetFit (silver)', 'train'].split()[0]) }} Gemini silver labels. The LLMs classify 20 items per
   call and return JSON. The silver sample is drawn from the whole corpus with gold items excluded.
 - **Distillation (RQ2).** The SetFit model trained on silver labels is deployed on the full corpus.
@@ -221,6 +222,14 @@ at {{ f3(dep['s_per_item']) }} s per item instead of {{ f3(teacher['s_per_item']
 Rules reach {{ f3(det.loc['Rules', 'macro_f1']) }}. Feature-request F1 of the deployed model is
 {{ f2(dep['fr_f1']) }} {{ dep['fr_f1_ci'] }}; with only {{ gold['by_split'].loc['feature_request', 'test'] }}
 feature requests in the test split, class-level CIs are wide.
+
+On TF-IDF features the choice of classifier matters little. Trained on silver labels, logistic regression, the
+linear SVM and complement naive Bayes reach {{ f3(det.loc['TF-IDF+LR (silver)', 'macro_f1']) }},
+{{ f3(det.loc['TF-IDF+SVM (silver)', 'macro_f1']) }} and {{ f3(det.loc['TF-IDF+NB (silver)', 'macro_f1']) }}, within each
+other's confidence intervals and all below SetFit's {{ f3(dep['macro_f1']) }}. The gap to SetFit therefore comes from
+its pre-trained sentence encoder, not from the classifier on top. The SVM's C and naive Bayes' smoothing were
+tuned on gold-dev (best: {{ f3(dev.loc['svm_silver_C0.03', 'macro_f1']) }} and
+{{ f3(dev.loc['nb_silver_a0.03', 'macro_f1']) }}).
 
 Three further points stand out. First, the rules overfit: they scored {{ f3(dev.loc['rules', 'macro_f1']) }} on the dev
 items they were written against but {{ f3(det.loc['Rules', 'macro_f1']) }} on test. Second, the LLM settings are

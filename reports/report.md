@@ -61,7 +61,7 @@ listens.
 - A reproducible end-to-end pipeline, from scraping to a ranked list of request themes, applied to one year of
   Spotify feedback from two platforms. Every stage is a script, and every number in this report is read from a
   table those scripts write.
-- A comparison of rules, two LLM families, TF-IDF + logistic regression and SetFit for six-way feedback
+- A comparison of rules, two LLM families, TF-IDF with three linear classifiers and SetFit for six-way feedback
   classification on a held-out gold test set, including latency, and a distillation experiment showing that a
   local model trained on LLM labels matches its LLM teacher.
 - An evaluation of feature extraction and clustering in which the LLM judge is calibrated against a human check,
@@ -187,8 +187,9 @@ temperature 0 and are cached in a local SQLite database, so every stage can be r
 All design choices (rules, prompts, hyperparameters and the model to deploy) were made on gold-dev.
 
 - **Detection (RQ1).** Regex rules; Gemini (gemini-3.5-flash-lite) zero- and few-shot with two prompt versions;
-  a second LLM family (Groq openai/gpt-oss-20b); TF-IDF + logistic regression and SetFit
-  (all-mpnet-base-v2) trained on either the 100 gold-dev items or
+  a second LLM family (Groq openai/gpt-oss-20b); TF-IDF features (word 1 to 2-grams and
+  character 2 to 5-grams) with logistic regression, a linear SVM or complement naive Bayes, and SetFit
+  (all-mpnet-base-v2), each trained on either the 100 gold-dev items or
   11,995 Gemini silver labels. The LLMs classify 20 items per
   call and return JSON. The silver sample is drawn from the whole corpus with gold items excluded.
 - **Distillation (RQ2).** The SetFit model trained on silver labels is deployed on the full corpus.
@@ -229,14 +230,18 @@ All systems on the gold test split (n = 300), 95% bootstrap CIs:
 
 | system                    | train           |   macro_f1 | macro_f1_ci   |   accuracy |   kappa |   fr_f1 | fr_f1_ci     |   s_per_item |
 |:--------------------------|:----------------|-----------:|:--------------|-----------:|--------:|--------:|:-------------|-------------:|
-| Rules                     | none            |      0.476 | [0.41, 0.53]  |      0.513 |   0.394 |   0.323 | [0.17, 0.47] |     9.68e-05 |
+| Rules                     | none            |      0.476 | [0.41, 0.53]  |      0.513 |   0.394 |   0.323 | [0.17, 0.47] |     9.34e-05 |
 | LLM zero-shot (prompt v1) | none            |      0.66  | [0.60, 0.71]  |      0.663 |   0.588 |   0.473 | [0.34, 0.59] |     0.094    |
 | LLM zero-shot             | none            |      0.693 | [0.63, 0.74]  |      0.713 |   0.638 |   0.507 | [0.35, 0.64] |     0.064    |
 | LLM few-shot              | 12 dev examples |      0.688 | [0.63, 0.74]  |      0.713 |   0.638 |   0.588 | [0.43, 0.72] |     0.1      |
-| LLM-2 zero-shot           | none            |      0.689 | [0.63, 0.74]  |      0.732 |   0.651 |   0.571 | [0.38, 0.72] |     0.122    |
-| TF-IDF+LR (gold-dev)      | 100 gold-dev    |      0.272 | [0.22, 0.32]  |      0.433 |   0.215 |   0.125 | [0.00, 0.29] |     0.000337 |
+| LLM-2 zero-shot           | none            |      0.677 | [0.61, 0.73]  |      0.72  |   0.636 |   0.577 | [0.40, 0.73] |     0.105    |
+| TF-IDF+LR (gold-dev)      | 100 gold-dev    |      0.272 | [0.22, 0.32]  |      0.433 |   0.215 |   0.125 | [0.00, 0.29] |     0.000205 |
+| TF-IDF+SVM (gold-dev)     | 100 gold-dev    |      0.234 | [0.19, 0.28]  |      0.437 |   0.172 |   0     | [0.00, 0.00] |     0.000125 |
+| TF-IDF+NB (gold-dev)      | 100 gold-dev    |      0.301 | [0.25, 0.35]  |      0.41  |   0.225 |   0.255 | [0.09, 0.41] |     0.000126 |
 | SetFit (gold-dev)         | 100 gold-dev    |      0.601 | [0.54, 0.66]  |      0.667 |   0.569 |   0.364 | [0.17, 0.54] |     0.004    |
-| TF-IDF+LR (silver)        | 11995 silver    |      0.593 | [0.53, 0.65]  |      0.623 |   0.53  |   0.432 | [0.28, 0.57] |     0.000224 |
+| TF-IDF+LR (silver)        | 11995 silver    |      0.593 | [0.53, 0.65]  |      0.623 |   0.53  |   0.432 | [0.28, 0.57] |     0.000223 |
+| TF-IDF+SVM (silver)       | 11995 silver    |      0.6   | [0.54, 0.65]  |      0.627 |   0.532 |   0.517 | [0.35, 0.67] |     0.000152 |
+| TF-IDF+NB (silver)        | 11995 silver    |      0.544 | [0.48, 0.60]  |      0.617 |   0.505 |   0.511 | [0.32, 0.67] |     0.000155 |
 | SetFit (silver)           | 11995 silver    |      0.692 | [0.64, 0.74]  |      0.71  |   0.636 |   0.58  | [0.43, 0.71] |     0.004    |
 
 The best LLM setting reaches macro-F1 0.693; the deployed SetFit (silver) model
@@ -245,6 +250,14 @@ at 0.004 s per item instead of 0.064.
 Rules reach 0.476. Feature-request F1 of the deployed model is
 0.58 [0.43, 0.71]; with only 24
 feature requests in the test split, class-level CIs are wide.
+
+On TF-IDF features the choice of classifier matters little. Trained on silver labels, logistic regression, the
+linear SVM and complement naive Bayes reach 0.593,
+0.600 and 0.544, within each
+other's confidence intervals and all below SetFit's 0.692. The gap to SetFit therefore comes from
+its pre-trained sentence encoder, not from the classifier on top. The SVM's C and naive Bayes' smoothing were
+tuned on gold-dev (best: 0.664 and
+0.632).
 
 Three further points stand out. First, the rules overfit: they scored 0.628 on the dev
 items they were written against but 0.476 on test. Second, the LLM settings are
@@ -259,14 +272,14 @@ there is still room between the models and the human ceiling.
 
 Per-class F1:
 
-| class           |   Rules |   LLM zero-shot (prompt v1) |   LLM zero-shot |   LLM few-shot |   LLM-2 zero-shot |   TF-IDF+LR (gold-dev) |   SetFit (gold-dev) |   TF-IDF+LR (silver) |   SetFit (silver) |
-|:----------------|--------:|----------------------------:|----------------:|---------------:|------------------:|-----------------------:|--------------------:|---------------------:|------------------:|
-| feature_request |    0.32 |                        0.47 |            0.51 |           0.59 |              0.57 |                   0.12 |                0.36 |                 0.43 |              0.58 |
-| bug_report      |    0.41 |                        0.64 |            0.65 |           0.59 |              0.57 |                   0.29 |                0.61 |                 0.54 |              0.6  |
-| complaint       |    0.61 |                        0.68 |            0.75 |           0.77 |              0.78 |                   0.55 |                0.73 |                 0.66 |              0.74 |
-| praise          |    0.61 |                        0.83 |            0.81 |           0.82 |              0.84 |                   0.15 |                0.76 |                 0.83 |              0.82 |
-| question        |    0.63 |                        0.71 |            0.77 |           0.75 |              0.82 |                   0.52 |                0.72 |                 0.67 |              0.78 |
-| other           |    0.28 |                        0.63 |            0.67 |           0.61 |              0.55 |                   0    |                0.42 |                 0.42 |              0.65 |
+| class           |   Rules |   LLM zero-shot (prompt v1) |   LLM zero-shot |   LLM few-shot |   LLM-2 zero-shot |   TF-IDF+LR (gold-dev) |   TF-IDF+SVM (gold-dev) |   TF-IDF+NB (gold-dev) |   SetFit (gold-dev) |   TF-IDF+LR (silver) |   TF-IDF+SVM (silver) |   TF-IDF+NB (silver) |   SetFit (silver) |
+|:----------------|--------:|----------------------------:|----------------:|---------------:|------------------:|-----------------------:|------------------------:|-----------------------:|--------------------:|---------------------:|----------------------:|---------------------:|------------------:|
+| feature_request |    0.32 |                        0.47 |            0.51 |           0.59 |              0.58 |                   0.12 |                    0    |                   0.25 |                0.36 |                 0.43 |                  0.52 |                 0.51 |              0.58 |
+| bug_report      |    0.41 |                        0.64 |            0.65 |           0.59 |              0.56 |                   0.29 |                    0.18 |                   0.34 |                0.61 |                 0.54 |                  0.53 |                 0.51 |              0.6  |
+| complaint       |    0.61 |                        0.68 |            0.75 |           0.77 |              0.76 |                   0.55 |                    0.57 |                   0.55 |                0.73 |                 0.66 |                  0.64 |                 0.7  |              0.74 |
+| praise          |    0.61 |                        0.83 |            0.81 |           0.82 |              0.85 |                   0.15 |                    0.18 |                   0.21 |                0.76 |                 0.83 |                  0.78 |                 0.69 |              0.82 |
+| question        |    0.63 |                        0.71 |            0.77 |           0.75 |              0.8  |                   0.52 |                    0.48 |                   0.46 |                0.72 |                 0.67 |                  0.67 |                 0.65 |              0.78 |
+| other           |    0.28 |                        0.63 |            0.67 |           0.61 |              0.51 |                   0    |                    0    |                   0    |                0.42 |                 0.42 |                  0.46 |                 0.21 |              0.65 |
 
 Praise is the easiest class for the LLMs and the silver-trained models. *feature_request* is the hardest or
 second-hardest class for each of them, with *other* and *bug_report* close behind: these classes are rare and
