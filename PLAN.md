@@ -4,7 +4,7 @@
 
 Advanced Social Text project · ~10 days · Agentic development (Claude Code)
 
-> **Status (2026-10-18):** Phases 0–6 merged; Phase 7 report narrative drafted (authors line, team review and demo rehearsal still 👤). **Next owner: start at [§0 Handoff](#0-handoff-status-and-next-steps).**
+> **Status (2026-10-25):** Phases 0–6 merged; Phase 7 report narrative drafted (authors filled in; team review and demo rehearsal still 👤). **Next owner: start at [§0 Handoff](#0-handoff-status-and-next-steps).**
 
 ---
 
@@ -37,7 +37,7 @@ Every number above comes from a table in `reports/tables/` written by a script.
 1. ✅ **Cluster purity check (👤 ~20 min, done 2026-10-18).** `make purity` opens a small app: for each of 20 sampled themes, tick the phrases that do **not** belong and rate the name. Answers go to `annotations/purity_labels.csv`. Then run `uv run python scripts/evaluate_clusters.py`; it adds human purity and judge-vs-human agreement (κ) to `reports/tables/cluster_eval.md`. Commit both files and tick the box in Phase 5.
 2. ✅ **Review the feature catalogue (optional, ~5 min, done 2026-10-18; only "Repeat one song" is still unverified).** `annotations/existing_features.yaml` was written from general knowledge of Spotify; entries marked `verify: true` (tier or rollout uncertain) should be checked against Spotify's support pages. Then `uv run python scripts/rank_and_insights.py` to refresh the "already exists" insight.
 3. ✅ **Phase 6: dashboard** (done 2026-10-18; see §8 and the Phase 6 checklist). `make dashboard` (apps/dashboard/) reads only the files below; the Live Analyser loads SetFit and MiniLM on its first analysis, never at page load.
-4. 🟡 **Phase 7: report & demo** (§12 outline). Narrative, discussion and references drafted in `reports/report_template.md` (2026-10-18); 👤 fill in the authors line, review the prose, rehearse `reports/demo_script.md`. After any edit run `make report`. Never edit `report.md` / `demo_script.md` directly: numbers are `{{ … }}` fields filled from `reports/tables`.
+4. 🟡 **Phase 7: report & demo** (§12 outline). Narrative, discussion and references drafted in `reports/report_template.md` (2026-10-18); ✅ authors line filled in (2026-10-25); 👤 review the prose, rehearse `reports/demo_script.md`. After any edit run `make report`. Never edit `report.md` / `demo_script.md` directly: numbers are `{{ … }}` fields filled from `reports/tables`.
 
 ### Pipeline (all stages are scripts; re-run any one independently)
 
@@ -464,7 +464,8 @@ Each phase = one PR merged into `main`. Days are approximate.
 - [x] Report draft skeleton with results filled in (`scripts/build_report.py`: `reports/report_template.md` → `reports/report.md`); **👤 you write the narrative / discussion**
 - [x] Demo script (5–7 min walkthrough): `reports/demo_script.md`, rendered from `reports/demo_template.md`
 - [x] Narrative, discussion, references drafted; dashboard screenshots (`scripts/dashboard_screenshots.py`)
-- [ ] 👤 Authors line, team review of the prose; demo rehearsal
+- [x] Authors line (2026-10-25)
+- [ ] 👤 Team review of the prose; demo rehearsal
 - **Done when:** report complete; demo rehearsed end-to-end.
 
 ### Buffer *(Day 10)*

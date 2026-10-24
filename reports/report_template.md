@@ -6,7 +6,7 @@ so the report always matches the code. Write prose here and never type a result 
 
 # Feature Request Miner: Extracting Customer Feature Requests from Unstructured Product Feedback
 
-Advanced Social Text project · *authors* · October 2026
+Advanced Social Text project · Dibyajyoti Chakrabarti (23BBS0122), Durvesh Patil (23BBS0135), Bharghav Chandra (23BBS0121) · October 2026
 
 ## Abstract
 
