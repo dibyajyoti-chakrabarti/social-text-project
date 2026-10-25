@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import re
+
 import plotly.graph_objects as go
 import plotly.io as pio
 
@@ -13,6 +15,27 @@ SOURCE_LABELS = {
     "reddit_comment": "Reddit comments",
 }
 SOURCES = list(SOURCE_LABELS)
+
+# Existing-feature status (insights/existing.parquet): short title, one-line meaning.
+STATUS_TEXT = {
+    "exists": (
+        "Already exists",
+        "Users ask for something everyone already has: a discoverability problem.",
+    ),
+    "premium_only": (
+        "Premium only",
+        "It exists, but only in Premium, and free users ask for it: a paywall.",
+    ),
+    "partly": ("Partly exists", "A limited version exists and users ask for more than it offers."),
+    "new": ("Not in the catalogue", "No matching existing feature: a genuinely new request."),
+}
+MD_SPECIAL = re.compile(r"([\\`*_{}\[\]()#+\-.!|>~$<])")
+
+
+def md_escape(text: str) -> str:
+    """Show user text literally (no markdown, no $…$ maths)."""
+    return MD_SPECIAL.sub(r"\\\1", text)
+
 
 pio.templates["frminer"] = go.layout.Template(
     layout=dict(
@@ -50,5 +73,7 @@ __all__ = [
     "SOURCES",
     "SOURCE_COLORS",
     "SOURCE_LABELS",
+    "STATUS_TEXT",
     "SURFACE",
+    "md_escape",
 ]

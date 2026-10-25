@@ -109,6 +109,13 @@ def deployed_f1() -> float:
     return float(detect_test().set_index("system").loc["SetFit (silver)", "macro_f1"])
 
 
+def extractor_accuracy() -> dict[str, float]:
+    """Share of gold feature requests the judge graded correct, per extraction method."""
+    ext = md_tables("extract_eval.md")[0]
+    ext = ext[ext["setting"] == "gold all"].set_index("method")
+    return ext["judge_correct"].astype(float).to_dict()
+
+
 def filter_window(
     df: pd.DataFrame, sources: list[str], start: pd.Timestamp, end: pd.Timestamp
 ) -> pd.DataFrame:

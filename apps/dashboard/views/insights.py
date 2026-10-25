@@ -7,7 +7,16 @@ import plotly.graph_objects as go
 import streamlit as st
 
 import loaders
-from theme import BAR_GAP_LINE, CHART_CONFIG, MUTED, SEQ_BLUE, SERIES, SOURCE_COLORS, SURFACE
+from theme import (
+    BAR_GAP_LINE,
+    CHART_CONFIG,
+    MUTED,
+    SEQ_BLUE,
+    SERIES,
+    SOURCE_COLORS,
+    STATUS_TEXT,
+    SURFACE,
+)
 
 N = 12
 MIN_ITEMS = loaders.config()["insights"]["min_items"]
@@ -19,19 +28,6 @@ STAR_COLORS = {
     "r4": SEQ_BLUE[1],
     "r5": SEQ_BLUE[4],
 }
-STATUS_TEXT = {
-    "exists": (
-        "Already exists",
-        "Users ask for something everyone already has: a discoverability problem.",
-    ),
-    "premium_only": (
-        "Premium only",
-        "It exists, but only in Premium, and free users ask for it: a paywall.",
-    ),
-    "partly": ("Partly exists", "A limited version exists and users ask for more than it offers."),
-    "new": ("Not in the catalogue", "No matching existing feature: a genuinely new request."),
-}
-
 st.title("Insights")
 platform_tab, ratings_tab, competitors_tab, existing_tab = st.tabs(
     ["Platform", "Ratings", "Competitors", "Already exists?"]

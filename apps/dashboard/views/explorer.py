@@ -2,26 +2,16 @@
 
 from __future__ import annotations
 
-import re
-
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
 import controls
 import loaders
-from theme import BAR_GAP_LINE, CHART_CONFIG, SERIES, SOURCE_COLORS, SOURCE_LABELS
+from theme import BAR_GAP_LINE, CHART_CONFIG, SERIES, SOURCE_COLORS, SOURCE_LABELS, md_escape
 
 N_QUOTES = 6
 QUOTE_WORDS = (8, 80)  # prefer focused quotes over long rambles
-MD_SPECIAL = re.compile(r"([\\`*_{}\[\]()#+\-.!|>~$<])")
-
-
-def md_escape(text: str) -> str:
-    """Show user text literally (no markdown, no $…$ maths)."""
-    return MD_SPECIAL.sub(r"\\\1", text)
-
-
 st.title("Request Explorer")
 
 stats = loaders.theme_stats().sort_values("rank")

@@ -20,7 +20,7 @@ Advanced Social Text project · ~10 days · Agentic development (Claude Code)
 | 3 Detection | ✅ | SetFit on 12k Gemini silver labels = Gemini itself (test macro-F1 0.69); deployed |
 | 4 Extraction | ✅ | LLM extractor 63% correct on gold (rules 34%); 19,669 feature mentions |
 | 5 Clustering / ranking / insights | ✅ | 144 themes; purity 0.69 (human, 20 themes) / 0.80 (LLM judge); judge–human κ 0.59 |
-| 6 Dashboard | ✅ | `make dashboard`: 6 Streamlit pages, offline; LLM extraction is an opt-in toggle |
+| 6 Dashboard | ✅ | `make dashboard`: 7 Streamlit pages, offline; LLM extraction is an opt-in toggle |
 | 7 Report & demo | 🟡 | `make report` renders `reports/report.md` + `demo_script.md` from templates; narrative drafted, needs team review + rehearsal |
 
 Every number above comes from a table in `reports/tables/` written by a script.
@@ -71,7 +71,7 @@ Dev experiments: `scripts/detect_dev.py` (all detection settings on gold-dev →
 - `classified.parquet`: SetFit label + confidence for all 117,875 items; `extractions.parquet`: per-item LLM and rule features.
 - `data/interim/corpus.parquet`: item text (Request Explorer quotes), source, date and rating.
 - Model Lab tables: `reports/tables/detect_test.md`, `detect_test_per_class.md`, `detect_errors.md`, `extract_eval.md`, `cluster_eval.md`, `cluster_compare.md`; figures in `reports/figures/`.
-- Live Analyser: `frminer.detect.ml.load_setfit(models/setfit_silver)` + `ml.predict_proba` for the class; `frminer.extract.llm_extract.extract` (optional LLM) or `frminer.extract.rules.extract` for features; nearest theme by embedding the phrase with `cluster.embed_model` and comparing to theme centroids built from `phrase_themes.parquet`.
+- Live Analyser and Pipeline Trace (`apps/dashboard/inference.py`): `frminer.detect.ml.load_setfit(models/setfit_silver)` + `ml.predict_proba` for the class; `frminer.extract.llm_extract.extract` (optional LLM) or `frminer.extract.rules.extract` for features; theme: a phrase already in `phrase_themes.parquet` keeps its stored theme, a new one joins the nearest centroid (plain mean of member phrase embeddings, as in `cluster_requests.py`) at cosine ≥ `cluster.outlier_threshold`. For corpus phrases that nearest-centroid rule agrees with clustering 91% of the time.
 
 ### Known limitations to carry into the report
 
@@ -315,6 +315,7 @@ priority = w1·z(log volume) + w2·z(engagement) + w3·z(share of ≤2-star revi
 | **4. Insights** | Platform comparison, rating impact, competitor comparison, "already exists" (discoverability) list |
 | **5. Model Lab** | Evaluation results: F1 table, confusion matrices, cost vs accuracy scatter, distillation results, error examples |
 | **6. Live Analyser** | Paste any text → class + confidence (local SetFit), extracted features and nearest theme (LLM optional) |
+| **7. Pipeline Trace** | Chat box: type a comment → a step-by-step trace of every stage (clean, detect, extract, normalise, theme, rank) and the theme it ends up in |
 
 There's also a **labelling app** (`apps/labeller.py`), a small Streamlit tool for fast gold annotation (keyboard-friendly, saves after every label, resumable).
 
@@ -458,6 +459,7 @@ Each phase = one PR merged into `main`. Days are approximate.
 - [x] Six pages per §8 (`apps/dashboard/views/`: overview, explorer, trends, insights, model_lab, live)
 - [x] Consistent styling (Plotly template from `frminer.viz`), source/month filters shared across pages, caching (`st.cache_data`, `st.cache_resource` for models)
 - [x] Live Analyser with local model and optional LLM (off by default; 1 Gemini request per new text when on)
+- [x] Pipeline Trace (`views/trace.py`, 2026-10-25): chat-style walkthrough of one comment through every stage; shares models and theme matching with the Live Analyser (`apps/dashboard/inference.py`)
 - [x] `tests/test_dashboard.py` renders every page (skipped without the data bundle, i.e. in CI)
 - **Done when:** `make dashboard` runs the full demo offline (LLM toggle off).
 
