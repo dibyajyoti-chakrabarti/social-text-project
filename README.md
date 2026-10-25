@@ -23,7 +23,7 @@ LLM responses are cached in `data/cache/llm.sqlite`, so re-running any stage cos
 make dashboard           # http://localhost:8501, runs offline (needs the data bundle, see PLAN.md §0)
 ```
 
-Six pages: Overview, Request Explorer, Trends, Insights, Model Lab, Live Analyser. The Live Analyser classifies pasted text with the local SetFit model; its LLM extraction toggle is off by default.
+Seven pages: Overview, Request Explorer, Trends, Insights, Model Lab, Live Analyser, Pipeline Trace. The Live Analyser classifies pasted text with the local SetFit model. The Pipeline Trace is a chat box: type a comment about Spotify and follow it through each stage (clean, detect, extract, normalise, theme, rank) to the theme it ends up in. On both pages the LLM extraction toggle is off by default.
 
 ## Report
 

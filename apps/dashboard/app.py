@@ -3,7 +3,7 @@
 make dashboard      (uv run streamlit run apps/dashboard/app.py, offline)
 
 Reads only precomputed pipeline outputs (data/processed, the corpus text and reports/);
-the Live Analyser page loads the local SetFit model on first use.
+the Live Analyser and Pipeline Trace pages load the local SetFit model on first use.
 """
 
 from __future__ import annotations
@@ -23,5 +23,6 @@ pages = [
     st.Page("views/insights.py", title="Insights", icon="💡"),
     st.Page("views/model_lab.py", title="Model Lab", icon="🧪"),
     st.Page("views/live.py", title="Live Analyser", icon="⚡"),
+    st.Page("views/trace.py", title="Pipeline Trace", icon="🧭"),
 ]
 st.navigation(pages).run()

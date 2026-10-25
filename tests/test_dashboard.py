@@ -1,7 +1,7 @@
 """Smoke test: every dashboard page renders without an exception.
 
 Needs the data bundle (data/processed, data/interim/corpus.parquet), so it is skipped in CI.
-The Live Analyser is only opened, not run, so no model is loaded.
+The Live Analyser and Pipeline Trace are only opened, not run, so no model is loaded.
 """
 
 from pathlib import Path
@@ -21,6 +21,7 @@ PAGES = [
     "views/insights.py",
     "views/model_lab.py",
     "views/live.py",
+    "views/trace.py",
 ]
 
 pytestmark = pytest.mark.skipif(
